@@ -7,16 +7,10 @@
     padding: 0;
 }
 
-.container {
-    position: relative;
-    width: 100%;
-}
-
 .navigation-bar {
     background-color: var(--background-color);
     height: 70px;
     padding: 20px 30px 0;
-    width: 100%;
     transition: all 0.3s ease-in-out;
 }
 
@@ -41,7 +35,7 @@
     font-weight: 400;
 }
 
-.navigation-item a {
+.navigation-item-anchor {
     text-decoration: none;
     color: var(--white);
 }
@@ -57,9 +51,7 @@
     display: none;
 }
 
-
-
-.navigation-close {
+.navigation-close, .navigation-open {
     padding: 0;
     background: none;
     border: none;
@@ -67,21 +59,6 @@
     animation: 3s ease-in-out;
     position: relative;
     display: block;
-}
-
-.navigation-open {
-    padding: 0;
-    background: none;
-    border: none;
-    cursor: pointer;
-    animation: 3s ease-in-out;
-    position: relative;
-    display: block;
-}
-
-.navigation-close svg {
-    display: block;
-    transition: 0.3s ease-in-out;
 }
 
 .navigation-logo-container {
@@ -99,14 +76,14 @@
     padding: 0 3px 4px 0;
 }
 
-svg.hidden {
-    transform: rotate(180deg) scale(0);
-}
-
 .hidden {
     display: none;
 }
 
+.navigation-active {
+    text-decoration: underline;
+    text-underline-offset: 8px;
+}
 
 @media screen and (min-width: 1160px) {
     .navigation-bar {
