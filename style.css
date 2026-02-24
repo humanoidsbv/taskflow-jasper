@@ -37,15 +37,20 @@
     justify-content: center;
     align-items: center;
     height: 50px;
-    color: var(--white);
     font-size: 20px;
     font-weight: 400;
+}
+
+.navigation-item a {
+    text-decoration: none;
+    color: var(--white);
 }
 
 .navigation-item:active, .navigation-item:hover {
     text-decoration: underline;
     cursor: pointer;
     text-underline-offset: 8px;
+    color: var(--white);
 }
 
 .navigation-profile {
@@ -102,7 +107,8 @@ svg.hidden {
     display: none;
 }
 
-@media screen and (min-width: 1024px) {
+
+@media screen and (min-width: 1160px) {
     .navigation-bar {
         width: 100%;
         max-height: 70px;
@@ -122,11 +128,14 @@ svg.hidden {
         display: flex;
         flex-direction: row;
         margin: 0;
+        gap: 0;
     }
     
     .navigation-item {
         padding: 4px 30px;
+        font-size: 16px;
         height: auto;
+        text-align: center;
     }
 
     .navigation-buttons {
@@ -135,7 +144,7 @@ svg.hidden {
 
     .navigation-profile {
         margin-left: auto;
-        margin-top: -5px; /* dit is kaulo lelijk */
+        margin-top: -5px;
         display: flex;
         flex-direction: row;
         align-items: center;
