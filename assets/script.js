@@ -4,9 +4,9 @@ function navigationBarOpen() {
     const navCloseButtonHam = document.querySelector(".navigation-open");
     const navCloseButtonX = document.querySelector(".navigation-close");
     
-    navCloseButtonHam.classList.toggle("hidden");
-    navCloseButtonX.classList.toggle("hidden");
-    navItems.classList.toggle("hidden");
+    navCloseButtonHam.classList.toggle("hidden-mobile");
+    navCloseButtonX.classList.toggle("hidden-mobile");
+    navItems.classList.toggle("hidden-mobile");
     navBar.classList.toggle("full");
 }
 
@@ -16,8 +16,8 @@ function navigationBarClose() {
     const navCloseButtonHam = document.querySelector(".navigation-open");
     const navCloseButtonX = document.querySelector(".navigation-close");
 
-    navCloseButtonHam.classList.toggle("hidden");
-    navCloseButtonX.classList.toggle("hidden");
-    navItems.classList.toggle("hidden");
+    navCloseButtonHam.classList.toggle("hidden-mobile");
+    navCloseButtonX.classList.toggle("hidden-mobile");
+    navItems.classList.toggle("hidden-mobile");
     navBar.classList.toggle("full");
 }

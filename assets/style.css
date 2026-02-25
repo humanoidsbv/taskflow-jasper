@@ -1,6 +1,9 @@
-* {
+:root {
     --background-color: #097981;
     --white: #FFF;
+}
+
+* {
     box-sizing: border-box;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 0;
@@ -72,7 +75,7 @@
     padding: 0 3px 4px 0;
 }
 
-.hidden {
+.hidden-mobile {
     display: none;
 }
 
@@ -83,7 +86,6 @@
 
 @media screen and (min-width: 1160px) {
     .navigation-bar {
-        width: 100%;
         max-height: 70px;
         display: flex;
         align-items: flex-start;
@@ -153,7 +155,7 @@
         cursor: pointer;
     }
     
-    .hidden {
+    .hidden-mobile {
         display: flex;
     }
 }
