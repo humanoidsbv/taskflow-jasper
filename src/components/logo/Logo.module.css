@@ -1,0 +1,9 @@
+.logo {
+  height: 30px;
+  width: 134px;
+}
+
+.link {
+  display: flex;
+  /* display: flex to remove unwanted bottom 4px */
+}

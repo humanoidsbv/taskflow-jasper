@@ -1,4 +1,27 @@
 .link {
-  font-size: 20px;
+  color: var(--white);
+}
+
+.link:active,
+.link:hover,
+.item-active {
+  text-decoration: underline;
+  cursor: pointer;
+  text-underline-offset: 8px;
+  color: var(--white);
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 50px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+@media screen and (min-width: 1160px) {
+  .item {
+    font-size: 16px;
+  }
 }

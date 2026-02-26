@@ -1,0 +1,43 @@
+.container {
+  display: none;
+}
+
+@media screen and (min-width: 1160px) {
+  .container {
+    margin-left: auto;
+    margin-top: -5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .profile {
+    background-color: var(--white);
+    border-radius: 20px;
+    height: 40px;
+    padding-left: 15px;
+    display: flex;
+    padding: 2px 2px 2px 15px;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .logo {
+    display: block;
+    height: auto;
+    width: 80px;
+  }
+
+  .photo {
+    display: block;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+  }
+
+  .chevron {
+    cursor: pointer;
+  }
+}
