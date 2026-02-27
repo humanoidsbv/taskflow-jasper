@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   height: 72px;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid var(--gray-3);
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -18,8 +18,15 @@
   gap: 20px;
 }
 
+.title {
+}
+
 .divider {
   display: none;
+}
+
+.text {
+  color: white;
 }
 
 @media screen and (min-width: 1160px) {

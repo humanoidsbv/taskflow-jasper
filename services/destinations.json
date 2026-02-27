@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "href": "/calendar",
+    "name": "Calendar",
+    "variant": "event"
+  },
+  {
+    "id": "2",
+    "href": "/team-members",
+    "name": "Team members",
+    "variant": "member"
+  },
+  {
+    "id": "3",
+    "href": "/projects",
+    "name": "Projects",
+    "variant": "default"
+  },
+  {
+    "id": "4",
+    "href": "/clients",
+    "name": "Clients",
+    "variant": "default"
+  },
+  {
+    "id": "5",
+    "href": "/documents",
+    "name": "Documents",
+    "variant": "default"
+  }
+]

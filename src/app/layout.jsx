@@ -2,6 +2,9 @@ import { Header } from "../components/header/Header";
 import localFont from "next/font/local";
 
 import "./globals.css";
+import { Subheader } from "@/components/subheader/Subheader";
+
+// const maisonNeueOld = localFont({ src: fonts.MaisonNeue });
 
 const maisonNeue = localFont({
   src: [
@@ -52,7 +55,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={maisonNeue.className}>
       <body>
-        <Header></Header>
+        <Header />
+        <Subheader />
         {children}
       </body>
     </html>

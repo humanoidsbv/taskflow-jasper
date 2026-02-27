@@ -1,9 +1,9 @@
 import styles from "./Button.module.css";
 
-export const Button = ({ onClick }) => {
+export const Button = ({ children, onClick }) => {
   return (
     <button onClick={onClick} className={styles.button}>
-      New Event
+      {children}
     </button>
   );
 };
