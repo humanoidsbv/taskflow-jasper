@@ -8,14 +8,14 @@ import { NavigationItem } from "../navigation-item/NavigationItem";
 import styles from "./Navigation.module.css";
 
 export const Navigation = ({ setMenuIsOpen }) => {
-  const pathName = usePathname();
+  const pathname = usePathname();
 
   return (
     <nav>
       <ul className={styles.list}>
         {destinations.map((destination) => (
           <NavigationItem
-            isCurrentPage={destination.href === pathName}
+            isCurrentPage={destination.href === pathname}
             key={destination.id}
             link={destination.href}
             setMenuIsOpen={setMenuIsOpen}
