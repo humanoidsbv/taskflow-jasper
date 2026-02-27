@@ -1,0 +1,41 @@
+.container {
+  display: none;
+}
+
+@media screen and (min-width: 1160px) {
+  .container {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-left: auto;
+    margin-top: -5px;
+  }
+
+  .profile {
+    align-items: center;
+    background-color: var(--white);
+    border-radius: 20px;
+    display: flex;
+    gap: 16px;
+    height: 40px;
+    padding: 2px 2px 2px 16px;
+  }
+
+  .logo {
+    display: block;
+    height: auto;
+    width: 80px;
+  }
+
+  .photo {
+    border-radius: 50%;
+    display: block;
+    height: 36px;
+    width: 36px;
+  }
+
+  .chevron {
+    cursor: pointer;
+  }
+}

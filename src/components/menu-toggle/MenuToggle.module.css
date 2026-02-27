@@ -1,0 +1,15 @@
+.button {
+  animation: 3s ease-in-out;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: block;
+  padding: 0;
+  position: relative;
+}
+
+@media screen and (min-width: 1160px) {
+  .button {
+    display: none;
+  }
+}

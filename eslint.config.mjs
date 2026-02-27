@@ -1,8 +1,14 @@
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
+import unusedImports from "eslint-plugin-unused-imports";
 
 const eslintConfig = defineConfig([
   ...nextVitals,
+  {
+    plugins: {
+      "unused-imports": unusedImports,
+    },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
@@ -11,10 +17,21 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+
   {
     rules: {
-      // "warn" shows a yellow underline; "error" breaks the build
       "no-console": ["warn", { allow: ["warn", "error"] }],
+      "no-unused-vars": "off", // or "@typescript-eslint/no-unused-vars": "off",
+      "unused-imports/no-unused-imports": "error",
+      "unused-imports/no-unused-vars": [
+        "warn",
+        {
+          vars: "all",
+          varsIgnorePattern: "^_",
+          args: "after-used",
+          argsIgnorePattern: "^_",
+        },
+      ],
     },
   },
 ]);
