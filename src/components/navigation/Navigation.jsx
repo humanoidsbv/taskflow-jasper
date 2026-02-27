@@ -7,7 +7,7 @@ import { NavigationItem } from "../navigation-item/NavigationItem";
 
 import styles from "./Navigation.module.css";
 
-export const Navigation = ({ setMenuIsOpen }) => {
+export const Navigation = ({ onClick }) => {
   const pathname = usePathname();
 
   return (
@@ -18,7 +18,7 @@ export const Navigation = ({ setMenuIsOpen }) => {
             isCurrentPage={destination.href === pathname}
             key={destination.id}
             link={destination.href}
-            setMenuIsOpen={setMenuIsOpen}
+            onClick={onClick}
           >
             {destination.name}
           </NavigationItem>

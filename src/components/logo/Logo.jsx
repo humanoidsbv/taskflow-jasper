@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export const Logo = ({ onClick }) => {
   return (
-    <Link href="/" className={styles.link} onClick={() => onClick(false)}>
+    <Link href="/" className={styles.link} onClick={onClick}>
       <Image alt="Taskflow logo" className={styles.logo} src={logo} />
     </Link>
   );
