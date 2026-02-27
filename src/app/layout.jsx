@@ -1,5 +1,6 @@
-import { Header } from "../components/header/Header";
 import localFont from "next/font/local";
+
+import { Header } from "../components/header/Header";
 
 import "./globals.css";
 import { Subheader } from "@/components/subheader/Subheader";
@@ -53,7 +54,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={maisonNeue.className}>
+    <html className={maisonNeue.className} lang="en">
       <body>
         <Header />
         <Subheader />

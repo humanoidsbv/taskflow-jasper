@@ -1,7 +1,9 @@
 "use client";
 
-import "./Navigation.module.css";
+import { usePathname } from "next/navigation";
+
 import { NavigationItem } from "../navigation-item/NavigationItem";
+
 import styles from "./Navigation.module.css";
 import destinations from "@/services/destinations.json" with { type: "json" };
 
@@ -15,10 +17,10 @@ export const Navigation = ({ setMenuIsOpen }) => {
       <ul className={styles.list}>
         {destinations.map((destination) => (
           <NavigationItem
-            link={destination.href}
-            key={destination.id}
-            setMenuIsOpen={setMenuIsOpen}
             isCurrentPage={destination.href === pathName}
+            key={destination.id}
+            link={destination.href}
+            setMenuIsOpen={setMenuIsOpen}
           >
             {destination.name}
           </NavigationItem>

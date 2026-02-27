@@ -8,6 +8,8 @@
   --gray-3: #e6eaee;
   --break-point-mobile: 1024px;
   --header-height: 72px;
+  --primary: #097981;
+  --white: #fff;
 }
 
 html,
@@ -17,19 +19,19 @@ body {
 }
 
 body {
-  color: var(--foreground);
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
   background: var(--background);
+  color: var(--foreground);
   font-family: MaisonNeue, Arial, Helvetica, sans-serif;
   font-weight: 500;
   padding-top: var(--header-height);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
   box-sizing: border-box;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 a {
