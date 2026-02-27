@@ -118,19 +118,3 @@ a.secondary {
     line-height: 40px;
   }
 }
-
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
-  }
-
-  .page {
-    --background: #000;
-    --button-primary-hover: #ccc;
-    --button-secondary-border: #1a1a1a;
-    --button-secondary-hover: #1a1a1a;
-    --foreground: #000;
-    --text-primary: #ededed;
-    --text-secondary: #999;
-  }
-}

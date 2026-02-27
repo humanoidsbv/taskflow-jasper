@@ -1,0 +1,11 @@
+{
+    "event": {
+        "buttonText": "New event"
+    },
+    "member": {
+        "buttonText": "Add member"
+    },
+    "default": {
+        "buttonText": "Default"
+    }
+}

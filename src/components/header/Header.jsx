@@ -19,10 +19,10 @@ export const Header = () => {
       className={`${styles.header} ${isMenuOpen ? styles["header-full"] : ""}`}
     >
       <div className={styles["logo-container"]}>
-        <Logo onClick={setIsMenuOpen} />
+        <Logo onClick={() => setIsMenuOpen(false)} />
         <MenuToggle isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
       </div>
-      <Navigation setMenuIsOpen={setIsMenuOpen} />
+      <Navigation onClick={() => setIsMenuOpen(false)} />
       <UserProfile />
     </div>
   );

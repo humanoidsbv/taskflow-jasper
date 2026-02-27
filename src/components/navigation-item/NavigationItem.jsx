@@ -6,7 +6,7 @@ export const NavigationItem = ({
   children,
   isCurrentPage,
   link,
-  setMenuIsOpen,
+  onClick,
 }) => {
   return (
     <li
@@ -15,7 +15,7 @@ export const NavigationItem = ({
       <Link
         className={styles.link}
         href={link ? link : "/"}
-        onClick={() => setMenuIsOpen(false)}
+        onClick={onClick}
       >
         {children}
       </Link>
