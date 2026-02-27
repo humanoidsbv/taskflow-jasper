@@ -3,10 +3,6 @@ import styles from "./Logo.module.css";
 import logo from "@/public/logos/taskflow-logo.svg";
 import Link from "next/link";
 
-import logo from "@/public/logos/taskflow-logo.svg";
-
-import styles from "./Logo.module.css";
-
 export const Logo = ({ onClick }) => {
   return (
     <Link href="/" className={styles.link} onClick={() => onClick(false)}>

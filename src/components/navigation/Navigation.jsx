@@ -2,12 +2,10 @@
 
 import { usePathname } from "next/navigation";
 
+import destinations from "@/services/destinations.json" with { type: "json" };
 import { NavigationItem } from "../navigation-item/NavigationItem";
 
 import styles from "./Navigation.module.css";
-import destinations from "@/services/destinations.json" with { type: "json" };
-
-import { usePathname } from "next/navigation";
 
 export const Navigation = ({ setMenuIsOpen }) => {
   const pathName = usePathname();
