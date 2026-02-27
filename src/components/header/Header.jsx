@@ -6,6 +6,7 @@ import { Logo } from "../logo/Logo";
 import { MenuToggle } from "../menu-toggle/MenuToggle";
 import { Navigation } from "../navigation/Navigation";
 import { UserProfile } from "../userprofile/UserProfile";
+
 import styles from "./Header.module.css";
 
 export const Header = () => {

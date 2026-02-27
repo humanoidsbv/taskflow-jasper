@@ -1,20 +1,21 @@
 import Link from "next/link";
+
 import styles from "./NavigationItem.module.css";
 
 export const NavigationItem = ({
   children,
+  isCurrentPage,
   link,
   setMenuIsOpen,
-  isCurrentPage,
 }) => {
   return (
     <li
       className={`${styles.item} ${isCurrentPage ? styles["item-active"] : ""}`}
     >
       <Link
-        onClick={() => setMenuIsOpen(false)}
-        href={link ? link : "/"}
         className={styles.link}
+        href={link ? link : "/"}
+        onClick={() => setMenuIsOpen(false)}
       >
         {children}
       </Link>
