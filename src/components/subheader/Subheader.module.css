@@ -1,24 +1,31 @@
 .subheader {
-  position: relative;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 72px;
+  align-items: center;
   border-bottom: 1px solid var(--gray-3);
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
-  align-items: center;
-  padding: 0 20px;
+  gap: 16px;
+  justify-content: space-between;
+  left: 0;
+  padding: 20px;
+  position: relative;
+  right: 0;
+  top: 0;
 }
 
 .titles {
-  display: flex;
   align-items: center;
-  gap: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
-.title {
+.subtitle {
+  color: var(--gray-2);
+  font-family: "MaisonNeue";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
 .divider {
@@ -26,19 +33,29 @@
 }
 
 .text {
-  color: white;
+  color: var(--white);
+  font-family: "MaisonNeue";
+  font-size: 14px;
+  font-weight: 700;
 }
 
 @media screen and (min-width: 1160px) {
   .subheader {
     flex-direction: row;
+    height: 72px;
     padding: 0 32px;
   }
 
   .divider {
+    background-color: var(--gray-2);
     display: block;
     height: 14px;
     width: 1px;
-    background-color: var(--gray-2);
+  }
+
+  .titles {
+    gap: 20px;
+    justify-content: flex-start;
+    width: auto;
   }
 }
