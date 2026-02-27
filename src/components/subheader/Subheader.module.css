@@ -1,0 +1,37 @@
+.subheader {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  border-bottom: 1px solid gray;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.titles {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.divider {
+  display: none;
+}
+
+@media screen and (min-width: 1160px) {
+  .subheader {
+    flex-direction: row;
+    padding: 0 32px;
+  }
+
+  .divider {
+    display: block;
+    height: 14px;
+    width: 1px;
+    background-color: var(--gray-2);
+  }
+}

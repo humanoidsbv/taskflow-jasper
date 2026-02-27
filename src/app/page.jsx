@@ -1,3 +1,5 @@
+import styles from "./page.module.css";
+
 export default function Home() {
-  return <h1>hoe is jouw dag?</h1>;
+  return <div className={styles.page}>hoe is jouw dag?</div>;
 }
