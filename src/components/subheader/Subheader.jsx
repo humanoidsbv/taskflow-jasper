@@ -6,30 +6,19 @@ import Image from "next/image";
 import { Button } from "../button/Button";
 import buttonIcon from "@/public/icons/plus-icon.svg";
 import destinations from "@/services/destinations.json" with { type: "json" };
+import translations from "@/services/translations.json" with { type: "json" };
 
 import styles from "./Subheader.module.css";
 
 export const Subheader = () => {
   const pathname = usePathname();
-  if (pathname === "/") return;
-  const currentDestination = destinations.filter(
+  if (pathname === "/") return null;
+  const currentDestination = destinations.find(
     (entry) => entry.href === pathname,
-  )[0];
-  const variant = currentDestination.variant;
-
-  let buttonText = "";
-
-  switch (variant) {
-    case "event":
-      buttonText = "New event";
-      break;
-    case "member":
-      buttonText = "Add member";
-      break;
-    default:
-      buttonText = "Default";
-      break;
-  }
+  );
+  const { variant } = currentDestination;
+  const currentTranslation = translations[variant];
+  const { buttonText } = currentTranslation;
 
   return (
     <div className={styles.subheader}>
