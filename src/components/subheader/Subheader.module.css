@@ -39,7 +39,7 @@
   font-weight: 700;
 }
 
-@media screen and (min-width: 1160px) {
+@media (min-width: 1160px) {
   .subheader {
     flex-direction: row;
     height: 72px;

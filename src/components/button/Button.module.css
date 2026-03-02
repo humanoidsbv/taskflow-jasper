@@ -13,7 +13,7 @@
   width: 100%;
 }
 
-@media screen and (min-width: 1160px) {
+@media (min-width: 1160px) {
   .button {
     width: auto;
     padding: 0 20px 0 8px;
