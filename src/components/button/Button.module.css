@@ -1,21 +1,21 @@
 .button {
-  outline: none;
-  border: none;
+  align-items: center;
+  background-color: var(--purple);
   border-bottom: 1px solid var(--gray-3);
   border-radius: 4px;
+  border: none;
   display: flex;
-  background-color: var(--purple);
   gap: 4px;
-  align-items: center;
-  justify-content: center;
   height: 40px;
+  justify-content: center;
+  outline: none;
   padding: 0 20px;
   width: 100%;
 }
 
 @media (min-width: 1160px) {
   .button {
-    width: auto;
     padding: 0 20px 0 8px;
+    width: auto;
   }
 }

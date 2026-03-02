@@ -1,5 +1,4 @@
 :root {
-  --background: #ffffff;
   --primary: #097981;
   --purple: #9358b7;
   --white: #fff;
@@ -9,7 +8,6 @@
   --break-point-mobile: 1024px;
   --header-height: 72px;
   --primary: #097981;
-  --white: #fff;
 }
 
 html,
@@ -21,9 +19,8 @@ body {
 body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  background: var(--background);
+  background: var(--white);
   color: var(--foreground);
-  font-family: MaisonNeue, Arial, Helvetica, sans-serif;
   font-weight: 500;
   padding-top: var(--header-height);
 }
@@ -40,15 +37,8 @@ a {
 }
 
 h5 {
-  font-family: "MaisonNeue";
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
 }
-
-/* @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-} */

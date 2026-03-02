@@ -21,7 +21,6 @@
 
 .subtitle {
   color: var(--gray-2);
-  font-family: "MaisonNeue";
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -34,7 +33,6 @@
 
 .text {
   color: var(--white);
-  font-family: "MaisonNeue";
   font-size: 14px;
   font-weight: 700;
 }
