@@ -7,22 +7,16 @@ import photo from "@/public/profile-photo.jpg";
 
 import styles from "./UserProfile.module.css";
 
-export const UserProfile = () => {
-  return (
-    <div className={styles.container}>
-      <Link className={styles.profile} href="/">
-        <Image alt="Humanoids logo" className={styles.logo} src={logo} />
-        <Image
-          alt="Profile picture of a Humanoid"
-          className={styles.photo}
-          src={photo}
-        />
-      </Link>
+export const UserProfile = () => (
+  <div className={styles.container}>
+    <Link className={styles.profile} href="/">
+      <Image alt="Humanoids logo" className={styles.logo} src={logo} />
       <Image
-        alt="Toggle the profile"
-        className={styles.chevron}
-        src={chevron}
+        alt="Profile picture of a Humanoid"
+        className={styles.photo}
+        src={photo}
       />
-    </div>
-  );
-};
+    </Link>
+    <Image alt="Toggle the profile" className={styles.chevron} src={chevron} />
+  </div>
+);
