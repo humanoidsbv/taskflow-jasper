@@ -2,25 +2,29 @@
 
 import { usePathname } from "next/navigation";
 
-import destinations from "@/services/destinations.json" with { type: "json" };
 import { NavigationItem } from "../navigation-item/NavigationItem";
+import { routes } from "@/services/destinations";
 
 import styles from "./Navigation.module.css";
 
-export const Navigation = ({ onClick }) => {
+interface NavigationProps {
+  onClick: () => void;
+}
+
+export const Navigation = ({ onClick }: NavigationProps) => {
   const pathname = usePathname();
 
   return (
     <nav>
       <ul className={styles.list}>
-        {destinations.map((destination) => (
+        {routes.map((route) => (
           <NavigationItem
-            isCurrentPage={destination.href === pathname}
-            key={destination.id}
-            link={destination.href}
+            isCurrentPage={route.href === pathname}
+            key={route.id}
+            link={route.href}
             onClick={onClick}
           >
-            {destination.name}
+            {route.name}
           </NavigationItem>
         ))}
       </ul>
