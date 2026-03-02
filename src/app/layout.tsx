@@ -5,7 +5,6 @@ import { ReactNode } from "react";
 import { Header } from "../components/header/Header";
 
 import "./globals.css";
-import { Subheader } from "@/components/subheader/Subheader";
 
 const maisonNeue = localFont({
   src: [
@@ -61,7 +60,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html className={maisonNeue.className} lang="en">
       <body>
         <Header />
-        <Subheader />
         {children}
       </body>
     </html>

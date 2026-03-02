@@ -1,36 +1,28 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import Image from "next/image";
 
 import { Button } from "../button/Button";
 import buttonIcon from "@/public/icons/plus-icon.svg";
-import { routes } from "@/services/destinations";
-import { translations } from "@/services/translations";
 
 import styles from "./Subheader.module.css";
 
-export const Subheader = () => {
-  const pathname = usePathname();
-  const currentDestination = routes.find((entry) => entry.href === pathname) || routes[0];
-  if (!currentDestination) return null;
+interface SubheaderProps {
+  itemCount: number;
+  pageTitle: string;
+}
 
-  const { variant } = currentDestination;
-  const currentTranslation = translations[variant as keyof typeof translations] as { buttonText: string; buttonAltText: string };
-  const { buttonText, buttonAltText } = currentTranslation;
-
+export const Subheader = ({ itemCount, pageTitle }: SubheaderProps) => {
   return (
     <div className={styles.subheader}>
       <div className={styles.titles}>
-        <h5>{currentDestination.name}</h5>
+        <h5>{pageTitle}</h5>
         <div className={styles.divider}></div>
-        <p className={styles.subtitle}>
-          destination subtitle
-        </p>
+        <p className={styles.subtitle}>{itemCount} items</p>
       </div>
-      <Button>
-        <Image alt={buttonAltText} src={buttonIcon} />
-        <span className={styles.text}>{buttonText}</span>
+      <Button hasIconPadding>
+        <Image alt="Add a new event" src={buttonIcon} />
+        Add new event
       </Button>
     </div>
   );

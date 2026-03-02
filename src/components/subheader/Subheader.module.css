@@ -31,12 +31,6 @@
   display: none;
 }
 
-.text {
-  color: var(--white);
-  font-size: 14px;
-  font-weight: 700;
-}
-
 @media (min-width: 1160px) {
   .subheader {
     flex-direction: row;

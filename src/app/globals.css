@@ -1,13 +1,23 @@
 :root {
-  --primary: #097981;
-  --purple: #9358b7;
-  --white: #fff;
+  --break-point-mobile: 1024px;
   --gray-1: #4b5464;
   --gray-2: #7f8ba4;
   --gray-3: #e6eaee;
-  --break-point-mobile: 1024px;
+  --gray-4: #f5f7f9;
   --header-height: 72px;
   --primary: #097981;
+  --primary: #097981;
+  --purple-gradient: linear-gradient(
+    92deg,
+    #4f88ef 0%,
+    #906ef0 21.35%,
+    #b378d7 39.58%,
+    #9384d1 57.81%,
+    #6086ce 77.08%,
+    #0eb696 100%
+  );
+  --purple: #9358b7;
+  --white: #fff;
 }
 
 html,
@@ -23,6 +33,10 @@ body {
   color: var(--foreground);
   font-weight: 500;
   padding-top: var(--header-height);
+}
+
+button {
+  font-family: inherit;
 }
 
 * {

@@ -1,5 +1,10 @@
-import styles from "./page.module.css";
+import { Subheader } from "@/components/subheader/Subheader";
 
 export default function CalendarPage() {
-  return <div className={styles.page}>hoe is jouw dag?</div>;
+  return (
+    <>
+      <Subheader itemCount={12} pageTitle="Calendar" />
+      <div>Het is heerlijk weer buiten!</div>
+    </>
+  );
 }
