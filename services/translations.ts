@@ -1,4 +1,4 @@
-{
+export const translations = {
   "event": {
     "buttonText": "New event",
     "buttonAltText": "Add a new event"
@@ -11,4 +11,4 @@
     "buttonText": "Default",
     "buttonAltText": "Default button component"
   }
-}
+};

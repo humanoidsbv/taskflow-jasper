@@ -1,4 +1,6 @@
+import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { ReactNode } from "react";
 
 import { Header } from "../components/header/Header";
 
@@ -45,12 +47,16 @@ const maisonNeue = localFont({
   ],
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   description: "Developed by Humanoids",
   title: "Taskflow",
 };
 
-export default function RootLayout({ children }) {
+interface RootLayoutProps {
+  children: ReactNode;
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html className={maisonNeue.className} lang="en">
       <body>

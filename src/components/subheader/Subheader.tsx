@@ -5,21 +5,19 @@ import Image from "next/image";
 
 import { Button } from "../button/Button";
 import buttonIcon from "@/public/icons/plus-icon.svg";
-import destinations from "@/services/destinations.json" with { type: "json" };
-import translations from "@/services/translations.json" with { type: "json" };
+import { routes } from "@/services/destinations";
+import { translations } from "@/services/translations";
 
 import styles from "./Subheader.module.css";
 
 export const Subheader = () => {
   const pathname = usePathname();
-  if (pathname === "/") return null;
-  const currentDestination = destinations.find(
-    (entry) => entry.href === pathname,
-  );
+  const currentDestination = routes.find((entry) => entry.href === pathname) || routes[0];
+  if (!currentDestination) return null;
+
   const { variant } = currentDestination;
-  const currentTranslation = translations[variant];
-  const { buttonText } = currentTranslation;
-  const { buttonAltText } = currentTranslation;
+  const currentTranslation = translations[variant as keyof typeof translations] as { buttonText: string; buttonAltText: string };
+  const { buttonText, buttonAltText } = currentTranslation;
 
   return (
     <div className={styles.subheader}>
@@ -27,7 +25,7 @@ export const Subheader = () => {
         <h5>{currentDestination.name}</h5>
         <div className={styles.divider}></div>
         <p className={styles.subtitle}>
-          destination subtitle{currentDestination.subtitle}
+          destination subtitle
         </p>
       </div>
       <Button>

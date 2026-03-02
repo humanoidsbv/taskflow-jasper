@@ -7,7 +7,12 @@ import hamburgerIcon from "@/public/icons/hamburger-icon.svg";
 
 import styles from "./MenuToggle.module.css";
 
-export const MenuToggle = ({ isMenuOpen, toggleMenu }) => (
+interface MenuToggleProps {
+  isMenuOpen: Boolean;
+  toggleMenu: (isMenuOpen: boolean) => void;
+}
+
+export const MenuToggle = ({ isMenuOpen, toggleMenu }: MenuToggleProps) => (
   <button className={styles.button} onClick={() => toggleMenu(!isMenuOpen)}>
     <Image
       alt="Toggle the navigation menu"
