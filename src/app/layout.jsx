@@ -46,8 +46,8 @@ const maisonNeue = localFont({
 });
 
 export const metadata = {
-  description: "Developed by Jasper and co.",
-  title: "Humanoids Crash Course",
+  description: "Developed by Humanoids",
+  title: "Taskflow",
 };
 
 export default function RootLayout({ children }) {
