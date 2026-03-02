@@ -1,0 +1,39 @@
+{
+  "MaisonNeue": [
+    {
+      "path": "../../public/fonts/maisonneue-light.ttf",
+      "weight": "300",
+      "style": "normal"
+    },
+    {
+      "path": "../../public/fonts/maisonneue-book.ttf",
+      "weight": "400",
+      "style": "normal"
+    },
+    {
+      "path": "../../public/fonts/maisonneue-bookitalic.ttf",
+      "weight": "400",
+      "style": "italic"
+    },
+    {
+      "path": "../../public/fonts/maisonneue-medium.ttf",
+      "weight": "500",
+      "style": "normal"
+    },
+    {
+      "path": "../../public/fonts/maisonneue-demi.ttf",
+      "weight": "600",
+      "style": "normal"
+    },
+    {
+      "path": "../../public/fonts/maisonneue-bold.ttf",
+      "weight": "700",
+      "style": "normal"
+    },
+    {
+      "path": "../../public/fonts/maisonneue-bolditalic.ttf",
+      "weight": "700",
+      "style": "italic"
+    }
+  ]
+}

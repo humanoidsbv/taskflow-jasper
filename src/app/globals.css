@@ -1,9 +1,13 @@
 :root {
-  --background: #ffffff;
+  --primary: #097981;
+  --purple: #9358b7;
+  --white: #fff;
+  --gray-1: #4b5464;
+  --gray-2: #7f8ba4;
+  --gray-3: #e6eaee;
   --break-point-mobile: 1024px;
   --header-height: 72px;
   --primary: #097981;
-  --white: #fff;
 }
 
 html,
@@ -15,9 +19,8 @@ body {
 body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  background: var(--background);
+  background: var(--white);
   color: var(--foreground);
-  font-family: MaisonNeue, Arial, Helvetica, sans-serif;
   font-weight: 500;
   padding-top: var(--header-height);
 }
@@ -31,4 +34,11 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+h5 {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }

@@ -8,7 +8,7 @@
   position: relative;
 }
 
-@media screen and (min-width: 1160px) {
+@media (min-width: 1160px) {
   .button {
     display: none;
   }
