@@ -19,6 +19,7 @@ export const Subheader = () => {
   const { variant } = currentDestination;
   const currentTranslation = translations[variant];
   const { buttonText } = currentTranslation;
+  const { buttonAltText } = currentTranslation;
 
   return (
     <div className={styles.subheader}>
@@ -30,10 +31,7 @@ export const Subheader = () => {
         </p>
       </div>
       <Button>
-        <Image
-          src={buttonIcon}
-          alt={`${currentDestination.variant === "member" ? "Add member" : "Add new events"} `}
-        />
+        <Image alt={buttonAltText} src={buttonIcon} />
         <span className={styles.text}>{buttonText}</span>
       </Button>
     </div>
