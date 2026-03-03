@@ -1,13 +1,16 @@
 export const translations = {
-  event: {
+  "/calendar": {
+    title: "Calendar",
     buttonText: "New event",
     buttonAltText: "Add a new event",
   },
-  member: {
+  "/team-members": {
+    title: "Team Members",
     buttonText: "Add member",
     buttonAltText: "Add a new member",
   },
   default: {
+    title: "Default Title",
     buttonText: "Default",
     buttonAltText: "Default button component",
   },

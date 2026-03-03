@@ -7,16 +7,12 @@
   display: flex;
   font-size: 14px;
   font-weight: 700;
-  gap: 4px;
+  gap: 8px;
   height: 40px;
   justify-content: center;
   outline: none;
   padding: 0 20px;
   width: 100%;
-}
-
-.hasIconPadding {
-  padding: 0 20px 0 8px;
 }
 
 .primary {

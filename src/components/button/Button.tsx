@@ -1,24 +1,32 @@
+import Link from "next/link";
+
 import { ReactNode } from "react";
 
 import styles from "./Button.module.css";
 
 interface ButtonProps {
   children: ReactNode;
-  onClick?: () => void;
+  href?: string | { query: { [key: string]: boolean } };
   variant?: "primary" | "secondary" | "special";
-  hasIconPadding?: boolean;
+  type?: "button" | "submit" | "reset";
+  className?: string;
 }
 
 export const Button = ({
   children,
-  hasIconPadding,
-  onClick,
+  type,
+  href,
   variant = "primary",
-}: ButtonProps) => (
-  <button
-    onClick={onClick}
-    className={`${styles.button} ${styles[variant]} ${hasIconPadding ? styles.hasIconPadding : ""}`.trim()}
-  >
-    {children}
-  </button>
-);
+  className,
+}: ButtonProps) => {
+  const classNameList = `${styles.button} ${styles[variant]} ${className}`;
+  return href ? (
+    <Link className={classNameList} href={href}>
+      {children}
+    </Link>
+  ) : (
+    <button className={classNameList} type={type}>
+      {children}
+    </button>
+  );
+};
