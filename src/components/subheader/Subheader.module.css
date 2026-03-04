@@ -4,8 +4,12 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 20px;
+}
+
+.subheader > button:first-of-type, .subheader > a:first-of-type {
+  margin-left:auto;
 }
 
 .titles {

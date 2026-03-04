@@ -3,25 +3,16 @@ import Image from "next/image";
 import { Button } from "../button/Button";
 import { translations } from "@/services/translations";
 import buttonIcon from "@/public/icons/plus-icon.svg";
-
+import { ReactNode } from "react";
 import styles from "./Subheader.module.css";
 
 interface SubheaderProps {
+  children?: ReactNode;
   subtitle: string;
-  queryKey: string;
-  translationKey: keyof typeof translations;
+  title: string;
 }
 
-export const Subheader = ({
-  subtitle,
-  queryKey,
-  translationKey,
-}: SubheaderProps) => {
-  const { buttonText, title } = translations[translationKey];
-  const buttonHref = {
-    query: { [queryKey]: true },
-  };
-
+export const Subheader = ({ children, subtitle, title }: SubheaderProps) => {
   return (
     <div className={styles.subheader}>
       <div className={styles.titles}>
@@ -29,10 +20,7 @@ export const Subheader = ({
         <div className={styles.divider}></div>
         <p className={styles.subtitle}>{subtitle}</p>
       </div>
-      <Button href={buttonHref}>
-        <Image alt="Plus icon" src={buttonIcon} />
-        <span className={styles.text}>{buttonText}</span>
-      </Button>
+      {children}
     </div>
   );
 };
