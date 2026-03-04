@@ -6,18 +6,18 @@ import styles from "./Button.module.css";
 
 interface ButtonProps {
   children: ReactNode;
-  href?: string | { query: { [key: string]: boolean } };
-  variant?: "primary" | "secondary" | "special";
-  type?: "button" | "submit" | "reset";
   className?: string;
+  href?: string | { query: { [key: string]: boolean } };
+  type?: "button" | "submit" | "reset";
+  variant?: "primary" | "secondary" | "special";
 }
 
 export const Button = ({
   children,
-  type,
-  href,
-  variant = "primary",
   className,
+  href,
+  type,
+  variant = "primary",
 }: ButtonProps) => {
   const classNameList = `${styles.button} ${styles[variant]} ${className}`;
   return href ? (
