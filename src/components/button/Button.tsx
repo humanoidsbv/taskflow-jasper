@@ -8,9 +8,9 @@ interface ButtonProps {
   children: ReactNode;
   className?: string;
   href?: string | { query: { [key: string]: boolean } };
+  onClick?: () => void;
   type?: "button" | "submit" | "reset";
   variant?: "primary" | "secondary" | "tertiary";
-  onClick?: () => void;
 }
 
 export const Button = ({
