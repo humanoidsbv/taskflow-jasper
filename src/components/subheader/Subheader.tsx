@@ -7,12 +7,12 @@ import buttonIcon from "@/public/icons/plus-icon.svg";
 import styles from "./Subheader.module.css";
 
 interface SubheaderProps {
-  itemCount: number;
+  subtitle: string;
   queryKey: string;
   slug: keyof typeof translations;
 }
 
-export const Subheader = ({ itemCount, queryKey, slug }: SubheaderProps) => {
+export const Subheader = ({ subtitle, queryKey, slug }: SubheaderProps) => {
   const { buttonText, title } = slug
     ? translations[slug]
     : translations.default;
@@ -25,7 +25,7 @@ export const Subheader = ({ itemCount, queryKey, slug }: SubheaderProps) => {
       <div className={styles.titles}>
         <h5>{title}</h5>
         <div className={styles.divider}></div>
-        <p className={styles.subtitle}>{itemCount} items</p>
+        <p className={styles.subtitle}>{subtitle}</p>
       </div>
       <Button href={buttonHref}>
         <Image alt="Plus icon" src={buttonIcon} />

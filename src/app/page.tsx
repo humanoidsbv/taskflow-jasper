@@ -1,5 +1,7 @@
 import { Subheader } from "@/components/subheader/Subheader";
 
 export default async function CalendarPage() {
-  return <Subheader itemCount={12} slug="/calendar" queryKey="calendarModal" />;
+  return (
+    <Subheader queryKey="calendarModal" slug="/calendar" subtitle="12 events" />
+  );
 }

@@ -9,7 +9,7 @@ interface ButtonProps {
   className?: string;
   href?: string | { query: { [key: string]: boolean } };
   type?: "button" | "submit" | "reset";
-  variant?: "primary" | "secondary" | "special";
+  variant?: "primary" | "secondary" | "tertiary";
 }
 
 export const Button = ({
