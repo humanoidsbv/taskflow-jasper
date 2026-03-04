@@ -4,8 +4,8 @@ export default function TeamMembersPage() {
   return (
     <Subheader
       queryKey="membersModal"
-      slug="/team-members"
       subtitle="12 members"
+      translationKey="teamMembers"
     />
   );
 }

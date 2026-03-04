@@ -16,8 +16,16 @@
 }
 
 .primary {
-  background-color: var(--purple);
+  background-color: var(--purple-1);
   color: var(--white);
+}
+
+.primary:hover {
+  background-color: var(--purple-2);
+}
+
+.primary:active {
+  background-color: var(--purple-3);
 }
 
 .secondary {
@@ -26,11 +34,31 @@
   color: var(--black);
 }
 
+.secondary:hover {
+  background-color: var(--gray-5);
+}
+
+.secondary:active {
+  background-color: var(--gray-6);
+}
+
 .tertiary {
   background:
     linear-gradient(var(--white), var(--white)) padding-box,
     var(--purple-gradient) border-box;
   border: 2px solid transparent;
+}
+
+.tertiary:hover {
+  background: 
+    linear-gradient(var(--blue-1), var(--blue-1)) padding-box,
+    var(--purple-gradient) border-box;
+}
+
+.tertiary:active {
+  background: 
+    linear-gradient(var(--blue-2), var(--blue-2)) padding-box,
+    var(--purple-gradient) border-box;
 }
 
 @media (min-width: 1160px) {

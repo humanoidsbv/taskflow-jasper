@@ -1,10 +1,10 @@
 export const translations = {
-  "/calendar": {
+  calendar: {
     buttonAltText: "Add a new event",
     buttonText: "New event",
     title: "Calendar",
   },
-  "/team-members": {
+  teamMembers: {
     buttonAltText: "Add a new member",
     buttonText: "Add member",
     title: "Team members",

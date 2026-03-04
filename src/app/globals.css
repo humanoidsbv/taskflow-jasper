@@ -1,12 +1,14 @@
 :root {
-  --break-point-mobile: 1024px;
   --black: #000;
+  --blue-1: #E4F2F3;
+  --blue-2: #BBDFE1;
   --gray-1: #4b5464;
   --gray-2: #7f8ba4;
   --gray-3: #e6eaee;
   --gray-4: #f5f7f9;
+  --gray-5: #f1f2f2;
+  --gray-6: #e9e9e9;
   --header-height: 72px;
-  --primary: #097981;
   --primary: #097981;
   --purple-gradient: linear-gradient(
     92deg,
@@ -17,7 +19,9 @@
     #6086ce 77.08%,
     #0eb696 100%
   );
-  --purple: #9358b7;
+  --purple-1: #9358b7;
+  --purple-2: #3A005D;
+  --purple-3: #170025;
   --white: #fff;
 }
 
@@ -34,8 +38,8 @@ body {
   padding-top: var(--header-height);
 }
 
-button {
-  font-family: inherit;
+input, textarea, button, select {
+  font: inherit;
 }
 
 * {
