@@ -10,6 +10,7 @@ interface ButtonProps {
   href?: string | { query: { [key: string]: boolean } };
   type?: "button" | "submit" | "reset";
   variant?: "primary" | "secondary" | "tertiary";
+  onClick?: () => void;
 }
 
 export const Button = ({
@@ -18,6 +19,7 @@ export const Button = ({
   href,
   type,
   variant = "primary",
+  ...props
 }: ButtonProps) => {
   const classNameList = `${styles.button} ${styles[variant]} ${className}`;
   return href ? (
@@ -25,7 +27,7 @@ export const Button = ({
       {children}
     </Link>
   ) : (
-    <button className={classNameList} type={type}>
+    <button className={classNameList} type={type} {...props}>
       {children}
     </button>
   );
