@@ -6,16 +6,12 @@ import { translations } from "@/services/translations";
 import buttonIcon from "@/public/icons/plus-icon.svg";
 
 export default function CalendarPage() {
-  const { buttonText } = translations["calendar"];
-  const buttonHref = {
-    query: { calendarModal: true },
-  };
-  const subtitle = "12 events";
-  const title = "Calendar";
+  const { buttonText, title, buttonAltText } = translations.calendar;
+
   return (
-    <Subheader subtitle={subtitle} title={title}>
-      <Button href={buttonHref}>
-        <Image alt="Plus icon" src={buttonIcon} />
+    <Subheader subtitle="12 events" title={title}>
+      <Button href={{ query: { calendarModal: true } }}>
+        <Image alt={buttonAltText} src={buttonIcon} />
         <span>{buttonText}</span>
       </Button>
     </Subheader>

@@ -6,16 +6,12 @@ import { translations } from "@/services/translations";
 import buttonIcon from "@/public/icons/plus-icon.svg";
 
 export default function TeamMembersPage() {
-  const { buttonText, title } = translations["teamMembers"];
-  const buttonHref = {
-    query: { membersModal: true },
-  };
-  const subtitle = "12 members";
+  const { buttonText, title, buttonAltText } = translations["teamMembers"];
 
   return (
-    <Subheader subtitle={subtitle} title={title}>
-      <Button href={buttonHref}>
-        <Image alt="Plus icon" src={buttonIcon} />
+    <Subheader subtitle="12 members" title={title}>
+      <Button href={{ query: { membersModal: true } }}>
+        <Image alt={buttonAltText} src={buttonIcon} />
         <span>{buttonText}</span>
       </Button>
     </Subheader>
