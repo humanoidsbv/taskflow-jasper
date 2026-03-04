@@ -6,7 +6,7 @@ import { translations } from "@/services/translations";
 import buttonIcon from "@/public/icons/plus-icon.svg";
 
 export default function TeamMembersPage() {
-  const { buttonText, title, buttonAltText } = translations["teamMembers"];
+  const { buttonText, title, buttonAltText } = translations.teamMembers;
 
   return (
     <Subheader subtitle="12 members" title={title}>
