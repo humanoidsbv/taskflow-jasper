@@ -2,10 +2,10 @@ import Image from "next/image";
 
 import { Button } from "@/components/button/Button";
 import { Subheader } from "@/components/subheader/Subheader";
-import { translations } from "@/services/translations";
-import buttonIcon from "@/public/icons/plus-icon.svg";
 import { TimeEntries } from "@/components/time-entries/TimeEntries";
 import { timeEntries } from "@/services/timeEntries";
+import { translations } from "@/services/translations";
+import buttonIcon from "@/public/icons/plus-icon.svg";
 
 export default function CalendarPage() {
   const { buttonText, title, buttonAltText } = translations.calendar;

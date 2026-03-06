@@ -24,16 +24,12 @@ export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.filters}>
-        <Filters filters={filters} />
-      </div>
-      <div className={styles.entries}>
-        <ul>
-          {timeEntries.map((timeEntry) => (
-            <TimeEntry timeEntry={timeEntry} key={timeEntry.id} />
-          ))}
-        </ul>
-      </div>
+      <Filters filters={filters} />
+      <ul>
+        {timeEntries.map((timeEntry) => (
+          <TimeEntry timeEntry={timeEntry} key={timeEntry.id} />
+        ))}
+      </ul>
     </div>
   );
 };
