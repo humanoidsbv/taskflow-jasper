@@ -1,0 +1,14 @@
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+@media (min-width: 1160px) {
+  .filters {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+}

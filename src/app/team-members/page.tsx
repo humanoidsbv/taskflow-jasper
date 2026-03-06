@@ -10,14 +10,11 @@ export default function TeamMembersPage() {
   const { buttonText, title, buttonAltText } = translations.teamMembers;
 
   return (
-    <>
-      <Subheader subtitle="12 members" title={title}>
-        <Button href={{ query: { membersModal: true } }}>
-          <Image alt={buttonAltText} src={buttonIcon} />
-          <span>{buttonText}</span>
-        </Button>
-      </Subheader>
-      <TimeEntries />
-    </>
+    <Subheader subtitle="12 members" title={title}>
+      <Button href={{ query: { membersModal: true } }}>
+        <Image alt={buttonAltText} src={buttonIcon} />
+        <span>{buttonText}</span>
+      </Button>
+    </Subheader>
   );
 }

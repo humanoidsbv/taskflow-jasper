@@ -1,20 +1,21 @@
 import styles from "./TimeEntry.module.css";
 
+import { timeEntries } from "@/services/timeEntries";
+
 interface TimeEntryProps {
-  title: string;
-  description: string;
-  date: string;
-  time: string;
-  location: string;
-  attendees: string[];
+  timeEntry: (typeof timeEntries)[number];
 }
 
-export const TimeEntry = () => {
+export const TimeEntry = ({ timeEntry }: TimeEntryProps) => {
+  const { id, client, startTimestamp, stopTimestamp } = timeEntry;
+
   return (
     <li className={styles.timeEntry}>
       <div className={styles.timeEntryHeader}>
         <div className={styles.timeEntryTitle}>
-          <h3>Time Entry Title</h3>
+          <h3>Client: {client}</h3>
+          <p>Start: {startTimestamp}</p>
+          <p>Stop: {stopTimestamp}</p>
         </div>
       </div>
     </li>
