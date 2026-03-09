@@ -13,5 +13,10 @@
 .entries {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+}
+
+.dayContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
 }

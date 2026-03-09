@@ -2,11 +2,11 @@
 
 import { Fragment, useState } from "react";
 
+import { Button } from "../button/Button";
 import { timeEntries } from "@/fixtures/timeEntries";
 import { TimeEntry } from "../time-entry/TimeEntry";
 
 import styles from "./TimeEntries.module.css";
-import { Button } from "../button/Button";
 
 interface TimeEntriesProps {
   timeEntriesData: typeof timeEntries;
@@ -24,6 +24,7 @@ export const TimeEntries = ({ timeEntriesData }: TimeEntriesProps) => {
   }): string => {
     const entryDate = new Date(entry.startTimestamp);
     const str = entryDate.toLocaleDateString("nl-NL", {
+      timeZone: "Europe/Amsterdam",
       weekday: "long",
       month: "numeric",
       day: "numeric",
@@ -89,10 +90,12 @@ export const TimeEntries = ({ timeEntriesData }: TimeEntriesProps) => {
     const totalTime = getElapsedTimeFormat(startDate, stopDate);
 
     const startDateString = startDate.toLocaleTimeString("nl-NL", {
+      timeZone: "Europe/Amsterdam",
       hour: "2-digit",
       minute: "2-digit",
     });
     const stopDateString = stopDate.toLocaleTimeString("nl-NL", {
+      timeZone: "Europe/Amsterdam",
       hour: "2-digit",
       minute: "2-digit",
     });
@@ -123,27 +126,6 @@ export const TimeEntries = ({ timeEntriesData }: TimeEntriesProps) => {
     return acc;
   }, {});
 
-  const s = sortedArray.map((entry, i, arr) => {
-    const today = new Date(entry.startTimestamp).toLocaleDateString();
-    const hasHeader =
-      i === 0 ||
-      today !== new Date(arr[i - 1].startTimestamp).toLocaleDateString();
-
-    // totalTime.set(today, getElapsedTime(entry.startTimestamp, entry.stopTimestamp));
-
-    return (
-      <Fragment key={entry.id}>
-        {hasHeader && (
-          <>
-            <h2>{getHeaderText(entry)}</h2>
-            <span>{formatHoursToText(totalTimes[today])}</span>
-          </>
-        )}
-        <TimeEntry data={formatData(entry)} />
-      </Fragment>
-    );
-  });
-
   // Add new days Set()
   // for every unique day in timeEntries
   // add hours
@@ -151,7 +133,26 @@ export const TimeEntries = ({ timeEntriesData }: TimeEntriesProps) => {
   return (
     <div className={styles.container}>
       <Button onClick={addTimeEntry}>Add time entry</Button>
-      <ul>{s}</ul>
+      <ul>
+        {sortedArray.map((entry, i, arr) => {
+          const today = new Date(entry.startTimestamp).toLocaleDateString();
+          const hasHeader =
+            i === 0 ||
+            today !== new Date(arr[i - 1].startTimestamp).toLocaleDateString();
+
+          return (
+            <Fragment key={entry.id}>
+              {hasHeader && (
+                <div className={styles.dayContainer}>
+                  <h2>{getHeaderText(entry)}</h2>
+                  <span>{formatHoursToText(totalTimes[today])}</span>
+                </div>
+              )}
+              <TimeEntry data={formatData(entry)} />
+            </Fragment>
+          );
+        })}
+      </ul>
     </div>
   );
 };
