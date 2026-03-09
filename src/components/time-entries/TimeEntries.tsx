@@ -1,14 +1,18 @@
+"use client";
+
+import { useState } from "react";
+
 import { Filters } from "../filters/Filters";
+import { timeEntries } from "@/fixtures/timeEntries";
 import { TimeEntry } from "../time-entry/TimeEntry";
 
-import { timeEntries } from "@/services/timeEntries";
 import styles from "./TimeEntries.module.css";
 
 interface TimeEntriesProps {
-  timeEntries: typeof timeEntries;
+  timeEntriesData: typeof timeEntries;
 }
 
-export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
+export const TimeEntries = ({ timeEntriesData }: TimeEntriesProps) => {
   const filters = [
     {
       filterTitle: "All",
@@ -21,6 +25,8 @@ export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
       filterPlaceholder: "Today",
     },
   ];
+
+  const [timeEntries, setTimeEntries] = useState(timeEntriesData);
 
   return (
     <div className={styles.container}>

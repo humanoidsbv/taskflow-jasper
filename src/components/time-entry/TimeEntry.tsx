@@ -1,21 +1,21 @@
-import styles from "./TimeEntry.module.css";
+import { timeEntries } from "@/fixtures/timeEntries";
 
-import { timeEntries } from "@/services/timeEntries";
+import styles from "./TimeEntry.module.css";
 
 interface TimeEntryProps {
   timeEntry: (typeof timeEntries)[number];
 }
 
 export const TimeEntry = ({ timeEntry }: TimeEntryProps) => {
-  const { id, client, startTimestamp, stopTimestamp } = timeEntry;
+  const { client, startTimestamp, stopTimestamp } = timeEntry;
 
   return (
     <li className={styles.timeEntry}>
       <div className={styles.timeEntryHeader}>
         <div className={styles.timeEntryTitle}>
           <h3>Client: {client}</h3>
-          <p>Start: {startTimestamp}</p>
-          <p>Stop: {stopTimestamp}</p>
+          <span>Start: {startTimestamp}</span>
+          <span>Stop: {stopTimestamp}</span>
         </div>
       </div>
     </li>

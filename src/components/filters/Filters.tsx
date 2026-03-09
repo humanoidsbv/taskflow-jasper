@@ -1,5 +1,5 @@
 import { teamMembers } from "@/services/teamMembers";
-import { timeEntries } from "@/services/timeEntries";
+import { timeEntries } from "../../../fixtures/timeEntries";
 
 import styles from "./Filters.module.css";
 
