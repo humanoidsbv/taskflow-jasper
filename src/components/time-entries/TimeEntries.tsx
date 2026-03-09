@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 import { timeEntries } from "@/fixtures/timeEntries";
 import { TimeEntry } from "../time-entry/TimeEntry";
@@ -15,54 +15,143 @@ interface TimeEntriesProps {
 export const TimeEntries = ({ timeEntriesData }: TimeEntriesProps) => {
   const [timeEntries, setTimeEntries] = useState(timeEntriesData);
 
+  const getHeaderText = (entry: {
+    id: number;
+    client: string;
+    startTimestamp: string;
+    stopTimestamp: string;
+    billable: boolean;
+  }): string => {
+    const entryDate = new Date(entry.startTimestamp);
+    const str = entryDate.toLocaleDateString("nl-NL", {
+      weekday: "long",
+      month: "numeric",
+      day: "numeric",
+    });
+    const currentDate = new Date();
+    let extraText = "";
+    if (currentDate.toLocaleDateString() === entryDate.toLocaleDateString())
+      extraText = " (Today)";
+    currentDate.setTime(currentDate.getTime() - 3600 * 1000 * 24);
+    if (currentDate.toLocaleDateString() === entryDate.toLocaleDateString())
+      extraText = " (Yesterday)";
+
+    return str.at(0)?.toUpperCase() + str.slice(1) + extraText;
+  };
+
   const addTimeEntry = () => {
     setTimeEntries([
       ...timeEntries,
       {
         id: timeEntries.length + 1,
         client: "New Client",
-        startTimestamp: "2022-09-26T16:00:00.000Z",
-        stopTimestamp: "2022-09-26T18:00:00.000Z",
+        startTimestamp: "2026-03-09T16:00:00.000Z",
+        stopTimestamp: "2026-03-09T16:15:00.000Z",
         billable: true,
       },
     ]);
   };
 
+  const getElapsedHours = (startDate: Date, stopDate: Date): number => {
+    const elapsedMs = stopDate.getTime() - startDate.getTime();
+    const hours = Math.floor(elapsedMs / (1000 * 60)) / 60;
+    return hours;
+  };
+
+  const getElapsedTimeFormat = (startDate: Date, stopDate: Date): string => {
+    const elapsedMs = stopDate.getTime() - startDate.getTime();
+    const elapsedMinutes = Math.floor(elapsedMs / (1000 * 60));
+    const hours = Math.floor(elapsedMinutes / 60);
+    const minutes = elapsedMinutes % 60;
+    return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
+  };
+
+  const formatHoursToText = (elapsedHours: number): string => {
+    const elapsedMinutes = elapsedHours * 60;
+    const hours = Math.floor(elapsedMinutes / 60);
+    const minutes = elapsedMinutes % 60;
+    return `${hours.toFixed(0).toString().padStart(2, "0")}:${minutes.toFixed(0).toString().padStart(2, "0")}`;
+  };
+
+  const formatData = ({
+    client,
+    billable,
+    startTimestamp,
+    stopTimestamp,
+  }: (typeof timeEntries)[number]): {
+    client: string;
+    billable: boolean;
+    timeInterval: string;
+    totalTime: string;
+  } => {
+    const startDate = new Date(startTimestamp);
+    const stopDate = new Date(stopTimestamp);
+    const totalTime = getElapsedTimeFormat(startDate, stopDate);
+
+    const startDateString = startDate.toLocaleTimeString("nl-NL", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    const stopDateString = stopDate.toLocaleTimeString("nl-NL", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    const timeInterval = `${startDateString} - ${stopDateString}`;
+
+    return {
+      client,
+      billable,
+      timeInterval,
+      totalTime,
+    };
+  };
+
+  const sortedArray = timeEntries.sort((a, b) => {
+    return (
+      new Date(b.startTimestamp).getTime() -
+      new Date(a.startTimestamp).getTime()
+    );
+  });
+
+  const totalTimes = sortedArray.reduce<Record<string, number>>((acc, item) => {
+    const date = new Date(item.startTimestamp).toLocaleDateString();
+    const hours = getElapsedHours(
+      new Date(item.startTimestamp),
+      new Date(item.stopTimestamp),
+    );
+    acc[date] = (acc[date] || 0) + hours;
+    return acc;
+  }, {});
+
+  const s = sortedArray.map((entry, i, arr) => {
+    const today = new Date(entry.startTimestamp).toLocaleDateString();
+    const hasHeader =
+      i === 0 ||
+      today !== new Date(arr[i - 1].startTimestamp).toLocaleDateString();
+
+    // totalTime.set(today, getElapsedTime(entry.startTimestamp, entry.stopTimestamp));
+
+    return (
+      <Fragment key={entry.id}>
+        {hasHeader && (
+          <>
+            <h2>{getHeaderText(entry)}</h2>
+            <span>{formatHoursToText(totalTimes[today])}</span>
+          </>
+        )}
+        <TimeEntry data={formatData(entry)} />
+      </Fragment>
+    );
+  });
+
+  // Add new days Set()
+  // for every unique day in timeEntries
+  // add hours
+
   return (
     <div className={styles.container}>
-      <ul>
-        {timeEntries.map((timeEntry) => {
-          const startDate = new Date(timeEntry.startTimestamp);
-          const stopDate = new Date(timeEntry.stopTimestamp);
-
-          const elapsedMs = stopDate.getTime() - startDate.getTime();
-          const elapsedMinutes = Math.floor(elapsedMs / (1000 * 60));
-          const hours = Math.floor(elapsedMinutes / 60);
-          const minutes = elapsedMinutes % 60;
-          const totalTime = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
-
-          const startDateString = startDate.toLocaleTimeString("nl-NL", {
-            hour: "2-digit",
-            minute: "2-digit",
-          });
-          const stopDateString = stopDate.toLocaleTimeString("nl-NL", {
-            hour: "2-digit",
-            minute: "2-digit",
-          });
-          const timeInterval = `${startDateString} - ${stopDateString}`;
-
-          return (
-            <TimeEntry
-              client={timeEntry.client}
-              billable={timeEntry.billable}
-              timeInterval={timeInterval}
-              totalTime={totalTime}
-              key={timeEntry.id}
-            />
-          );
-        })}
-      </ul>
       <Button onClick={addTimeEntry}>Add time entry</Button>
+      <ul>{s}</ul>
     </div>
   );
 };

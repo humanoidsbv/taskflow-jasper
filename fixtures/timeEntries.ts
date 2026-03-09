@@ -14,6 +14,20 @@ export const timeEntries = [
         billable: false
     },
     {
+        id: 7,
+        client: 'Oktober',
+        startTimestamp: '2022-10-24T16:00:00.000Z',
+        stopTimestamp: '2022-10-24T18:00:00.000Z',
+        billable: false
+    },
+    {
+        id: 8,
+        client: 'November',
+        startTimestamp: '2022-11-24T16:00:00.000Z',
+        stopTimestamp: '2022-11-24T18:00:00.000Z',
+        billable: false
+    },
+    {
         id: 3,
         client: 'Jupiler',
         startTimestamp: '2022-09-25T16:00:00.000Z',
