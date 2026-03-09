@@ -1,6 +1,5 @@
-import { ReactNode } from "react";
-
-import { TimeEntry } from "../time-entry/TimeEntry";
+import { teamMembers } from "@/services/teamMembers";
+import { timeEntries } from "@/services/timeEntries";
 
 import styles from "./Filters.module.css";
 
@@ -11,10 +10,14 @@ interface FiltersProps {
     filterPlaceholder: string;
   }[];
 
-  timeEntries?: (typeof TimeEntry)[];
-  //   memberEntries?: (typeof MemberEntry)[];
+  timeEntries?: typeof timeEntries;
+  teamMembers?: typeof teamMembers;
 }
 
-export const Filters = ({ filters, timeEntries }: FiltersProps) => {
+export const Filters = ({
+  filters,
+  timeEntries,
+  teamMembers,
+}: FiltersProps) => {
   return <div className={styles.filters}></div>;
 };
