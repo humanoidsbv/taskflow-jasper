@@ -28,14 +28,15 @@ export const TimeEntries = ({ timeEntriesData }: TimeEntriesProps) => {
       weekday: "long",
       month: "numeric",
       day: "numeric",
-    });
+    }); // TODO: make this a variable
+
     const currentDate = new Date();
     let extraText = "";
     if (currentDate.toLocaleDateString() === entryDate.toLocaleDateString())
       extraText = " (Today)";
     currentDate.setTime(currentDate.getTime() - 3600 * 1000 * 24);
     if (currentDate.toLocaleDateString() === entryDate.toLocaleDateString())
-      extraText = " (Yesterday)";
+      extraText = " (Yesterday)"; // TODO: clean up code, don't use let
 
     return str.at(0)?.toUpperCase() + str.slice(1) + extraText;
   };
@@ -46,18 +47,18 @@ export const TimeEntries = ({ timeEntriesData }: TimeEntriesProps) => {
       {
         id: timeEntries.length + 1,
         client: "New Client",
-        startTimestamp: "2026-03-09T16:00:00.000Z",
-        stopTimestamp: "2026-03-09T16:15:00.000Z",
+        startTimestamp: "2026-03-10T16:00:00.000Z",
+        stopTimestamp: "2026-03-10T16:13:39.000Z",
         billable: true,
       },
     ]);
-  };
+  }; // TODO: clean this up
 
   const getElapsedHours = (startDate: Date, stopDate: Date): number => {
     const elapsedMs = stopDate.getTime() - startDate.getTime();
     const hours = Math.floor(elapsedMs / (1000 * 60)) / 60;
     return hours;
-  };
+  }; // TODO: figure out how to keep this code in one place
 
   const getElapsedTimeFormat = (startDate: Date, stopDate: Date): string => {
     const elapsedMs = stopDate.getTime() - startDate.getTime();
@@ -98,7 +99,7 @@ export const TimeEntries = ({ timeEntriesData }: TimeEntriesProps) => {
       timeZone: "Europe/Amsterdam",
       hour: "2-digit",
       minute: "2-digit",
-    });
+    }); // TODO: put this in a variable (duplicate)
     const timeInterval = `${startDateString} - ${stopDateString}`;
 
     return {
@@ -114,7 +115,7 @@ export const TimeEntries = ({ timeEntriesData }: TimeEntriesProps) => {
       new Date(b.startTimestamp).getTime() -
       new Date(a.startTimestamp).getTime()
     );
-  });
+  }); // TODO: change name to be more clear
 
   const totalTimes = sortedArray.reduce<Record<string, number>>((acc, item) => {
     const date = new Date(item.startTimestamp).toLocaleDateString();
@@ -124,15 +125,12 @@ export const TimeEntries = ({ timeEntriesData }: TimeEntriesProps) => {
     );
     acc[date] = (acc[date] || 0) + hours;
     return acc;
-  }, {});
-
-  // Add new days Set()
-  // for every unique day in timeEntries
-  // add hours
+  }, {}); // TODO: change name to be more clear
 
   return (
     <div className={styles.container}>
-      <Button onClick={addTimeEntry}>Add time entry</Button>
+      <Button onClick={addTimeEntry}>Add time entry</Button>{" "}
+      {/* TODO: remove this button */}
       <ul>
         {sortedArray.map((entry, i, arr) => {
           const today = new Date(entry.startTimestamp).toLocaleDateString();
