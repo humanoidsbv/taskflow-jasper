@@ -14,12 +14,13 @@ interface TimeEntryProps {
     billable: boolean;
     timeInterval: string;
     totalTime: string;
+    department: string;
   };
 }
 
 export const TimeEntry = ({ data }: TimeEntryProps) => {
   return (
-    <li className={styles.timeEntry}>
+    <li className={`${styles.timeEntry} ${styles[`${data.department}`]}`}>
       <div className={styles.timeEntryTitle}>
         <h3 className={styles.client}>{data.client}</h3>
         <div className={styles.billableArea}>

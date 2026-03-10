@@ -64,11 +64,13 @@ const formatData = ({
   billable,
   startTimestamp,
   stopTimestamp,
+  department,
 }: TimeEntriesType[number]): {
   client: string;
   billable: boolean;
   timeInterval: string;
   totalTime: string;
+  department: string;
 } => {
   const startDate = new Date(startTimestamp);
   const stopDate = new Date(stopTimestamp);
@@ -83,6 +85,7 @@ const formatData = ({
     billable,
     timeInterval,
     totalTime,
+    department,
   };
 };
 

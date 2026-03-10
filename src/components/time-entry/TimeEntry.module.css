@@ -7,26 +7,31 @@
   border: 1px solid var(--gray-3);
   border-radius: 4px;
   padding: 0 16px;
+  position: relative;
+  border-left: 4px solid var(--gray-1);
 }
 
-.timeEntryTitle {
-  display: flex;
-  gap: 8px;
-  align-items: center;
+.development {
+  border-left: 4px solid var(--torqoise-1);
 }
 
-.billableArea {
-  padding: 0 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 16px;
+.design {
+  border-left: 4px solid var(--purple-4);
 }
 
 .client {
   color: var(--gray-1);
   font-weight: 700;
   font-size: 18px;
+  line-height: 28px;
+}
+
+.billableArea {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
 }
 
 .billable {
@@ -35,6 +40,20 @@
 
 .nonBillable {
   color: var(--red-1);
+}
+
+.timeEntryTitle {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeInterval {
+  color: var(--gray-1);
+  font-weight: 700;
+}
+
+.totalTime {
+  color: var(--gray-2);
 }
 
 .timeContainer {
@@ -50,11 +69,14 @@
   flex-direction: column;
 }
 
-.timeInterval {
-  color: var(--gray-1);
-  font-weight: 700;
-}
+@media (min-width: 1160px) {
+  .timeEntryTitle {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
 
-.totalTime {
-  color: var(--gray-2);
+  .timeEntryTitle {
+    flex-direction: row;
+  }
 }
