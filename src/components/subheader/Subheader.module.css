@@ -11,10 +11,12 @@
   position: fixed;
   right: 0;
   top: var(--header-height);
+  z-index: 1;
 }
 
-.subheader > button:first-of-type, .subheader > a:first-of-type {
-  margin-left:auto;
+.subheader > button:first-of-type,
+.subheader > a:first-of-type {
+  margin-left: auto;
 }
 
 .titles {
