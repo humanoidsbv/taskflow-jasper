@@ -21,7 +21,7 @@ export default function CalendarPage() {
           <span>{buttonText}</span>
         </Button>
       </Subheader>
-      <TimeEntries timeEntriesData={timeEntries} />
+      <TimeEntries timeEntries={timeEntries} />
     </>
   );
 }

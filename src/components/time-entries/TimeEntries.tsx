@@ -2,111 +2,91 @@
 
 import { Fragment, useState } from "react";
 
-import { Button } from "../button/Button";
-import { timeEntries } from "@/fixtures/timeEntries";
 import { TimeEntry } from "../time-entry/TimeEntry";
+import { TimeEntriesType } from "@/types/dataTypes";
+import { getElapsedTime } from "@/utils/utils";
 
 import styles from "./TimeEntries.module.css";
 
 interface TimeEntriesProps {
-  timeEntriesData: typeof timeEntries;
+  timeEntries: TimeEntriesType;
 }
 
-export const TimeEntries = ({ timeEntriesData }: TimeEntriesProps) => {
-  const [timeEntries, setTimeEntries] = useState(timeEntriesData);
+const dateFormat = new Intl.DateTimeFormat("nl-NL", {
+  timeZone: "Europe/Amsterdam",
+  weekday: "long",
+  month: "numeric",
+  day: "numeric",
+});
 
-  const dateFormat = new Intl.DateTimeFormat("nl-NL", {
-    timeZone: "Europe/Amsterdam",
-    weekday: "long",
-    month: "numeric",
-    day: "numeric",
-  });
+const timeFormat = new Intl.DateTimeFormat("nl-NL", {
+  timeZone: "Europe/Amsterdam",
+  hour: "2-digit",
+  minute: "2-digit",
+});
 
-  const timeFormat = new Intl.DateTimeFormat("nl-NL", {
-    timeZone: "Europe/Amsterdam",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+const formatHeader = (entry: {
+  id: number;
+  client: string;
+  startTimestamp: string;
+  stopTimestamp: string;
+  billable: boolean;
+}): string => {
+  const entryDate = new Date(entry.startTimestamp);
+  const currentDate = new Date();
+  const yesterdayDate = new Date(currentDate.getTime() - 3600 * 1000 * 24);
+  const formattedEntryDate = dateFormat.format(entryDate);
 
-  const getHeaderText = (entry: {
-    id: number;
-    client: string;
-    startTimestamp: string;
-    stopTimestamp: string;
-    billable: boolean;
-  }): string => {
-    const entryDate = new Date(entry.startTimestamp);
-    const currentDate = new Date();
-    const yesterdayDate = new Date(currentDate.getTime() - 3600 * 1000 * 24);
-    const formattedEntryDate = dateFormat.format(entryDate);
+  return (
+    formattedEntryDate.at(0)?.toUpperCase() +
+    formattedEntryDate.slice(1) +
+    (currentDate.toLocaleDateString() === entryDate.toLocaleDateString()
+      ? " (Today)"
+      : yesterdayDate.toLocaleDateString() === entryDate.toLocaleDateString()
+        ? " (Yesterday)"
+        : "")
+  );
+};
 
-    return (
-      formattedEntryDate.at(0)?.toUpperCase() +
-      formattedEntryDate.slice(1) +
-      (currentDate.toLocaleDateString() === entryDate.toLocaleDateString()
-        ? " (Today)"
-        : yesterdayDate.toLocaleDateString() === entryDate.toLocaleDateString()
-          ? " (Yesterday)"
-          : "")
-    );
-  };
+const formatElapsedTime = (startDate: Date, stopDate: Date): string => {
+  const { elapsedHours, elapsedMinutes } = getElapsedTime(startDate, stopDate);
+  return `${elapsedHours.toString().padStart(2, "0")}:${elapsedMinutes.toString().padStart(2, "0")}`;
+};
 
-  const getElapsedTime = (
-    startDate: Date,
-    stopDate: Date,
-  ): {
-    elapsedHours: number;
-    elapsedMinutes: number;
-  } => {
-    const elapsedMs = stopDate.getTime() - startDate.getTime();
-    const totalMinutes = Math.floor(elapsedMs / (1000 * 60));
-    const elapsedHours = Math.floor(totalMinutes / 60);
-    const elapsedMinutes = totalMinutes % 60;
-    return { elapsedHours, elapsedMinutes };
-  };
+const formatHours = (elapsedHours: number): string => {
+  const elapsedMinutes = elapsedHours * 60;
+  const hours = Math.floor(elapsedMinutes / 60);
+  const minutes = elapsedMinutes % 60;
+  return `${hours.toFixed(0).toString().padStart(2, "0")}:${minutes.toFixed(0).toString().padStart(2, "0")}`;
+};
+const formatData = ({
+  client,
+  billable,
+  startTimestamp,
+  stopTimestamp,
+}: TimeEntriesType[number]): {
+  client: string;
+  billable: boolean;
+  timeInterval: string;
+  totalTime: string;
+} => {
+  const startDate = new Date(startTimestamp);
+  const stopDate = new Date(stopTimestamp);
+  const totalTime = formatElapsedTime(startDate, stopDate);
 
-  const getElapsedTimeFormat = (startDate: Date, stopDate: Date): string => {
-    const { elapsedHours, elapsedMinutes } = getElapsedTime(
-      startDate,
-      stopDate,
-    );
-    return `${elapsedHours.toString().padStart(2, "0")}:${elapsedMinutes.toString().padStart(2, "0")}`;
-  };
+  const startDateString = timeFormat.format(startDate);
+  const stopDateString = timeFormat.format(stopDate);
+  const timeInterval = `${startDateString} - ${stopDateString}`;
 
-  const formatHoursToText = (elapsedHours: number): string => {
-    const elapsedMinutes = elapsedHours * 60;
-    const hours = Math.floor(elapsedMinutes / 60);
-    const minutes = elapsedMinutes % 60;
-    return `${hours.toFixed(0).toString().padStart(2, "0")}:${minutes.toFixed(0).toString().padStart(2, "0")}`;
-  };
-
-  const formatData = ({
+  return {
     client,
     billable,
-    startTimestamp,
-    stopTimestamp,
-  }: (typeof timeEntries)[number]): {
-    client: string;
-    billable: boolean;
-    timeInterval: string;
-    totalTime: string;
-  } => {
-    const startDate = new Date(startTimestamp);
-    const stopDate = new Date(stopTimestamp);
-    const totalTime = getElapsedTimeFormat(startDate, stopDate);
-
-    const startDateString = timeFormat.format(startDate);
-    const stopDateString = timeFormat.format(stopDate);
-    const timeInterval = `${startDateString} - ${stopDateString}`;
-
-    return {
-      client,
-      billable,
-      timeInterval,
-      totalTime,
-    };
+    timeInterval,
+    totalTime,
   };
+};
 
+export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
   const sortedTimeEntries = timeEntries.sort((a, b) => {
     return (
       new Date(b.startTimestamp).getTime() -
@@ -140,8 +120,8 @@ export const TimeEntries = ({ timeEntriesData }: TimeEntriesProps) => {
             <Fragment key={entry.id}>
               {hasHeader && (
                 <div className={styles.dayContainer}>
-                  <h2>{getHeaderText(entry)}</h2>
-                  <span>{formatHoursToText(totalHoursByDay[today])}</span>
+                  <h2>{formatHeader(entry)}</h2>
+                  <span>{formatHours(totalHoursByDay[today])}</span>
                 </div>
               )}
               <TimeEntry data={formatData(entry)} />

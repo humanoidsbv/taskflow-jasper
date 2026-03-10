@@ -22,7 +22,9 @@
       "@/*": ["./src/*"],
       "@/public/*": ["./public/*"],
       "@/services/*": ["./services/*"],
-      "@/fixtures/*": ["./fixtures/*"]
+      "@/fixtures/*": ["./fixtures/*"],
+      "@/types/*": ["./types/*"],
+      "@/utils/*": ["./utils/*"]
     }
   },
   "include": [
