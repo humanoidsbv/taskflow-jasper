@@ -7,7 +7,7 @@ interface TeamMemberProps {
 }
 
 export const TeamMember = ({ teamMember }: TeamMemberProps) => {
-  const { id, name, title, startDate, client, otherInfo } = teamMember;
+  const { name, title, startDate, client, otherInfo } = teamMember;
 
   return (
     <li className={styles.teamMember}>
