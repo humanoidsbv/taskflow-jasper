@@ -15,6 +15,19 @@ interface TimeEntriesProps {
 export const TimeEntries = ({ timeEntriesData }: TimeEntriesProps) => {
   const [timeEntries, setTimeEntries] = useState(timeEntriesData);
 
+  const dateFormat = new Intl.DateTimeFormat("nl-NL", {
+    timeZone: "Europe/Amsterdam",
+    weekday: "long",
+    month: "numeric",
+    day: "numeric",
+  });
+
+  const timeFormat = new Intl.DateTimeFormat("nl-NL", {
+    timeZone: "Europe/Amsterdam",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
   const getHeaderText = (entry: {
     id: number;
     client: string;
@@ -23,49 +36,41 @@ export const TimeEntries = ({ timeEntriesData }: TimeEntriesProps) => {
     billable: boolean;
   }): string => {
     const entryDate = new Date(entry.startTimestamp);
-    const str = entryDate.toLocaleDateString("nl-NL", {
-      timeZone: "Europe/Amsterdam",
-      weekday: "long",
-      month: "numeric",
-      day: "numeric",
-    }); // TODO: make this a variable
-
     const currentDate = new Date();
-    let extraText = "";
-    if (currentDate.toLocaleDateString() === entryDate.toLocaleDateString())
-      extraText = " (Today)";
-    currentDate.setTime(currentDate.getTime() - 3600 * 1000 * 24);
-    if (currentDate.toLocaleDateString() === entryDate.toLocaleDateString())
-      extraText = " (Yesterday)"; // TODO: clean up code, don't use let
+    const yesterdayDate = new Date(currentDate.getTime() - 3600 * 1000 * 24);
+    const formattedEntryDate = dateFormat.format(entryDate);
 
-    return str.at(0)?.toUpperCase() + str.slice(1) + extraText;
+    return (
+      formattedEntryDate.at(0)?.toUpperCase() +
+      formattedEntryDate.slice(1) +
+      (currentDate.toLocaleDateString() === entryDate.toLocaleDateString()
+        ? " (Today)"
+        : yesterdayDate.toLocaleDateString() === entryDate.toLocaleDateString()
+          ? " (Yesterday)"
+          : "")
+    );
   };
 
-  const addTimeEntry = () => {
-    setTimeEntries([
-      ...timeEntries,
-      {
-        id: timeEntries.length + 1,
-        client: "New Client",
-        startTimestamp: "2026-03-10T16:00:00.000Z",
-        stopTimestamp: "2026-03-10T16:13:39.000Z",
-        billable: true,
-      },
-    ]);
-  }; // TODO: clean this up
-
-  const getElapsedHours = (startDate: Date, stopDate: Date): number => {
+  const getElapsedTime = (
+    startDate: Date,
+    stopDate: Date,
+  ): {
+    elapsedHours: number;
+    elapsedMinutes: number;
+  } => {
     const elapsedMs = stopDate.getTime() - startDate.getTime();
-    const hours = Math.floor(elapsedMs / (1000 * 60)) / 60;
-    return hours;
-  }; // TODO: figure out how to keep this code in one place
+    const totalMinutes = Math.floor(elapsedMs / (1000 * 60));
+    const elapsedHours = Math.floor(totalMinutes / 60);
+    const elapsedMinutes = totalMinutes % 60;
+    return { elapsedHours, elapsedMinutes };
+  };
 
   const getElapsedTimeFormat = (startDate: Date, stopDate: Date): string => {
-    const elapsedMs = stopDate.getTime() - startDate.getTime();
-    const elapsedMinutes = Math.floor(elapsedMs / (1000 * 60));
-    const hours = Math.floor(elapsedMinutes / 60);
-    const minutes = elapsedMinutes % 60;
-    return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
+    const { elapsedHours, elapsedMinutes } = getElapsedTime(
+      startDate,
+      stopDate,
+    );
+    return `${elapsedHours.toString().padStart(2, "0")}:${elapsedMinutes.toString().padStart(2, "0")}`;
   };
 
   const formatHoursToText = (elapsedHours: number): string => {
@@ -90,16 +95,8 @@ export const TimeEntries = ({ timeEntriesData }: TimeEntriesProps) => {
     const stopDate = new Date(stopTimestamp);
     const totalTime = getElapsedTimeFormat(startDate, stopDate);
 
-    const startDateString = startDate.toLocaleTimeString("nl-NL", {
-      timeZone: "Europe/Amsterdam",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-    const stopDateString = stopDate.toLocaleTimeString("nl-NL", {
-      timeZone: "Europe/Amsterdam",
-      hour: "2-digit",
-      minute: "2-digit",
-    }); // TODO: put this in a variable (duplicate)
+    const startDateString = timeFormat.format(startDate);
+    const stopDateString = timeFormat.format(stopDate);
     const timeInterval = `${startDateString} - ${stopDateString}`;
 
     return {
@@ -110,29 +107,30 @@ export const TimeEntries = ({ timeEntriesData }: TimeEntriesProps) => {
     };
   };
 
-  const sortedArray = timeEntries.sort((a, b) => {
+  const sortedTimeEntries = timeEntries.sort((a, b) => {
     return (
       new Date(b.startTimestamp).getTime() -
       new Date(a.startTimestamp).getTime()
     );
-  }); // TODO: change name to be more clear
+  });
 
-  const totalTimes = sortedArray.reduce<Record<string, number>>((acc, item) => {
-    const date = new Date(item.startTimestamp).toLocaleDateString();
-    const hours = getElapsedHours(
-      new Date(item.startTimestamp),
-      new Date(item.stopTimestamp),
-    );
-    acc[date] = (acc[date] || 0) + hours;
-    return acc;
-  }, {}); // TODO: change name to be more clear
+  const totalHoursByDay = sortedTimeEntries.reduce<Record<string, number>>(
+    (acc, item) => {
+      const date = new Date(item.startTimestamp).toLocaleDateString();
+      const { elapsedHours } = getElapsedTime(
+        new Date(item.startTimestamp),
+        new Date(item.stopTimestamp),
+      );
+      acc[date] = (acc[date] || 0) + elapsedHours;
+      return acc;
+    },
+    {},
+  );
 
   return (
     <div className={styles.container}>
-      <Button onClick={addTimeEntry}>Add time entry</Button>{" "}
-      {/* TODO: remove this button */}
       <ul>
-        {sortedArray.map((entry, i, arr) => {
+        {sortedTimeEntries.map((entry, i, arr) => {
           const today = new Date(entry.startTimestamp).toLocaleDateString();
           const hasHeader =
             i === 0 ||
@@ -143,7 +141,7 @@ export const TimeEntries = ({ timeEntriesData }: TimeEntriesProps) => {
               {hasHeader && (
                 <div className={styles.dayContainer}>
                   <h2>{getHeaderText(entry)}</h2>
-                  <span>{formatHoursToText(totalTimes[today])}</span>
+                  <span>{formatHoursToText(totalHoursByDay[today])}</span>
                 </div>
               )}
               <TimeEntry data={formatData(entry)} />

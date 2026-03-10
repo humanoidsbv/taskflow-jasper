@@ -14,20 +14,6 @@ export const timeEntries = [
         billable: false
     },
     {
-        id: 7,
-        client: 'Oktober',
-        startTimestamp: '2022-10-24T16:00:00.000Z',
-        stopTimestamp: '2022-10-24T18:00:00.000Z',
-        billable: false
-    },
-    {
-        id: 8,
-        client: 'November',
-        startTimestamp: '2022-11-24T16:00:00.000Z',
-        stopTimestamp: '2022-11-24T18:00:00.000Z',
-        billable: false
-    },
-    {
         id: 3,
         client: 'Jupiler',
         startTimestamp: '2022-09-25T16:00:00.000Z',
@@ -54,5 +40,33 @@ export const timeEntries = [
         startTimestamp: '2022-09-28T16:00:00.000Z',
         stopTimestamp: '2022-09-28T18:00:00.000Z',
         billable: false
+    },
+    {
+        id: 7,
+        client: 'L.S.V. Minerva',
+        startTimestamp: '2026-03-09T09:00:00.000Z',
+        stopTimestamp: '2026-03-09T12:00:00.000Z',
+        billable: true
+    },
+    {
+        id: 9,
+        client: 'Baveria',
+        startTimestamp: '2022-09-28T12:00:00.000Z',
+        stopTimestamp: '2022-09-28T15:00:00.000Z',
+        billable: true
+    },
+    {
+        id: 10,
+        client: 'SSR-Leiden',
+        startTimestamp: '2026-03-09T12:00:00.000Z',
+        stopTimestamp: '2026-03-09T15:00:00.000Z',
+        billable: true
+    },
+    {
+        id: 11,
+        client: 'L.D.G. Soixante-Neuf',
+        startTimestamp: '2026-03-10T12:00:00.000Z',
+        stopTimestamp: '2026-03-10T15:00:00.000Z',
+        billable: true
     },
 ];
