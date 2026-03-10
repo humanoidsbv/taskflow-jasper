@@ -9,5 +9,6 @@ export const getElapsedTime = (
   const totalMinutes = Math.floor(elapsedMs / (1000 * 60));
   const elapsedHours = Math.floor(totalMinutes / 60);
   const elapsedMinutes = totalMinutes % 60;
+
   return { elapsedHours, elapsedMinutes };
 };

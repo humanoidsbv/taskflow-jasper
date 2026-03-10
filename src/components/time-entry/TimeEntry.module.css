@@ -1,14 +1,14 @@
-.timeEntry {
-  height: 80px;
-  display: flex;
+.time-entry {
   align-items: center;
-  justify-content: space-between;
   background-color: var(--white);
-  border: 1px solid var(--gray-3);
+  border-left: 4px solid var(--gray-1);
   border-radius: 4px;
+  border: 1px solid var(--gray-3);
+  display: flex;
+  height: 80px;
+  justify-content: space-between;
   padding: 0 16px;
   position: relative;
-  border-left: 4px solid var(--gray-1);
 }
 
 .development {
@@ -21,62 +21,54 @@
 
 .client {
   color: var(--gray-1);
-  font-weight: 700;
   font-size: 18px;
+  font-weight: 700;
   line-height: 28px;
 }
 
-.billableArea {
-  padding: 8px;
-  display: flex;
+.billable-area {
   align-items: center;
-  gap: 8px;
+  display: flex;
   font-size: 16px;
+  gap: 8px;
+  padding: 8px;
 }
 
 .billable {
   color: var(--green-1);
 }
 
-.nonBillable {
+.non-billable {
   color: var(--red-1);
 }
 
-.timeEntryTitle {
-  display: flex;
-  flex-direction: column;
-}
-
-.timeInterval {
+.time-interval {
   color: var(--gray-1);
   font-weight: 700;
 }
 
-.totalTime {
+.total-time {
   color: var(--gray-2);
 }
 
-.timeContainer {
+.time-container {
+  align-items: center;
   display: flex;
   flex-direction: row;
   gap: 20px;
-  align-items: center;
   text-align: right;
 }
 
-.timeArea {
+.time-area {
   display: flex;
   flex-direction: column;
 }
 
 @media (min-width: 1160px) {
-  .timeEntryTitle {
-    display: flex;
-    gap: 8px;
+  .time-entry-title {
     align-items: center;
-  }
-
-  .timeEntryTitle {
+    display: flex;
     flex-direction: row;
+    gap: 8px;
   }
 }

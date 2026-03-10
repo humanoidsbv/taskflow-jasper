@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 
 import { TimeEntry } from "../time-entry/TimeEntry";
 import { TimeEntriesType } from "@/types/dataTypes";
@@ -13,24 +13,24 @@ interface TimeEntriesProps {
 }
 
 const dateFormat = new Intl.DateTimeFormat("nl-NL", {
+  day: "numeric",
+  month: "numeric",
   timeZone: "Europe/Amsterdam",
   weekday: "long",
-  month: "numeric",
-  day: "numeric",
 });
 
 const timeFormat = new Intl.DateTimeFormat("nl-NL", {
-  timeZone: "Europe/Amsterdam",
   hour: "2-digit",
   minute: "2-digit",
+  timeZone: "Europe/Amsterdam",
 });
 
 const formatHeader = (entry: {
-  id: number;
+  billable: boolean;
   client: string;
+  id: number;
   startTimestamp: string;
   stopTimestamp: string;
-  billable: boolean;
 }): string => {
   const entryDate = new Date(entry.startTimestamp);
   const currentDate = new Date();
@@ -59,18 +59,19 @@ const formatHours = (elapsedHours: number): string => {
   const minutes = elapsedMinutes % 60;
   return `${hours.toFixed(0).toString().padStart(2, "0")}:${minutes.toFixed(0).toString().padStart(2, "0")}`;
 };
+
 const formatData = ({
-  client,
   billable,
+  client,
+  department,
   startTimestamp,
   stopTimestamp,
-  department,
 }: TimeEntriesType[number]): {
-  client: string;
   billable: boolean;
+  client: string;
+  department: string;
   timeInterval: string;
   totalTime: string;
-  department: string;
 } => {
   const startDate = new Date(startTimestamp);
   const stopDate = new Date(stopTimestamp);
@@ -81,11 +82,11 @@ const formatData = ({
   const timeInterval = `${startDateString} - ${stopDateString}`;
 
   return {
-    client,
     billable,
+    client,
+    department,
     timeInterval,
     totalTime,
-    department,
   };
 };
 
