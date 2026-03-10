@@ -1,4 +1,60 @@
+.timeEntry {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--white);
+  border: 1px solid var(--gray-3);
+  border-radius: 4px;
+  padding: 0 16px;
+}
+
 .timeEntryTitle {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.billableArea {
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+}
+
+.client {
+  color: var(--gray-1);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.billable {
+  color: var(--green-1);
+}
+
+.nonBillable {
+  color: var(--red-1);
+}
+
+.timeContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  text-align: right;
+}
+
+.timeArea {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeInterval {
+  color: var(--gray-1);
+  font-weight: 700;
+}
+
+.totalTime {
+  color: var(--gray-2);
 }

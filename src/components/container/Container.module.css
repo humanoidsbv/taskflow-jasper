@@ -1,0 +1,4 @@
+.container {
+  padding: calc(var(--header-height) + var(--subheader-height) + 40px) 180px 0;
+  background: var(--gray-4);
+}
