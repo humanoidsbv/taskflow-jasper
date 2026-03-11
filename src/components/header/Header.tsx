@@ -15,10 +15,8 @@ export const Header = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <div
-      className={`${styles.header} ${isMenuOpen ? styles["header-full"] : ""}`}
-    >
-      <div className={styles["logo-container"]}>
+    <div className={`${styles.header} ${isMenuOpen ? styles.headerFull : ""}`}>
+      <div className={styles.logoContainer}>
         <Logo onClick={() => setIsMenuOpen(false)} />
         <MenuToggle isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
       </div>

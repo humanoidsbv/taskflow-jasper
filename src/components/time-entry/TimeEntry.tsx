@@ -19,24 +19,22 @@ interface TimeEntryProps {
 
 export const TimeEntry = ({ data }: TimeEntryProps) => {
   return (
-    <li className={`${styles["time-entry"]} ${styles[`${data.department}`]}`}>
+    <li className={`${styles.timeEntry} ${styles[`${data.department}`]}`}>
       <div className={styles["time-entry-title"]}>
         <h3 className={styles["client"]}>{data.client}</h3>
-        <div className={styles["billable-area"]}>
+        <div className={styles.billableArea}>
           <Image alt="" src={data.billable ? greenIcon : redIcon} />
           <span
-            className={
-              data.billable ? styles["billable"] : styles["non-billable"]
-            }
+            className={data.billable ? styles["billable"] : styles.nonBillable}
           >
             {data.billable ? "Billable" : "Non-billable"}
           </span>
         </div>
       </div>
-      <div className={styles["time-container"]}>
-        <div className={styles["time-area"]}>
-          <span className={styles["time-interval"]}>{data.timeInterval}</span>
-          <span className={styles["total-time"]}>{data.totalTime}</span>
+      <div className={styles.timeContainer}>
+        <div className={styles.timeArea}>
+          <span className={styles.timeInterval}>{data.timeInterval}</span>
+          <span className={styles.totalTime}>{data.totalTime}</span>
         </div>
         <Link href="">
           <Image alt="" src={deleteIcon} />

@@ -4,7 +4,7 @@
 
 .link:active,
 .link:hover,
-.item-active {
+.itemActive {
   color: var(--white);
   cursor: pointer;
   text-decoration: underline;

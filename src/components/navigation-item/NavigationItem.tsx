@@ -16,9 +16,7 @@ export const NavigationItem = ({
   link,
   onClick,
 }: NavigationItemProps) => (
-  <li
-    className={`${styles.item} ${isCurrentPage ? styles["item-active"] : ""}`}
-  >
+  <li className={`${styles.item} ${isCurrentPage ? styles.itemActive : ""}`}>
     <Link className={styles.link} href={link ? link : "/"} onClick={onClick}>
       {children}
     </Link>

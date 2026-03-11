@@ -4,14 +4,14 @@
   gap: 20px;
 }
 
-.day-container {
+.dayContainer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin: 40px 0 20px;
 }
 
-.day-content {
+.dayContent {
   color: var(--gray-2);
   font-size: 24px;
   font-weight: 500;
