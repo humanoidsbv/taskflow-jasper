@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 
-import { NavigationItem } from "../navigation-item/NavigationItem";
+import { NavigationItem } from "@/components/navigation-item/NavigationItem";
 import { routes } from "@/services/destinations";
 
 import styles from "./Navigation.module.css";

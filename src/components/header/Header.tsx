@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 
-import { Logo } from "../logo/Logo";
-import { MenuToggle } from "../menu-toggle/MenuToggle";
-import { Navigation } from "../navigation/Navigation";
-import { UserProfile } from "../userprofile/UserProfile";
+import { Logo } from "@/components/logo/Logo";
+import { MenuToggle } from "@/components/menu-toggle/MenuToggle";
+import { Navigation } from "@/components/navigation/Navigation";
+import { UserProfile } from "@/components/userprofile/UserProfile";
 
 import styles from "./Header.module.css";
 

@@ -1,5 +1,5 @@
-
 import { ReactNode } from "react";
+
 import styles from "./Subheader.module.css";
 
 interface SubheaderProps {

@@ -1,7 +1,7 @@
+import { ReactNode } from "react";
 import Link from "next/link";
 
 import styles from "./NavigationItem.module.css";
-import { ReactNode } from "react";
 
 interface NavigationItemProps {
   children: ReactNode;

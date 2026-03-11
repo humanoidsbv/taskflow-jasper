@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
 import { ReactNode } from "react";
+import localFont from "next/font/local";
+import type { Metadata } from "next";
 
-import { Header } from "../components/header/Header";
+import { Header } from "@/components/header/Header";
+import Container from "@/components/container/Container";
 
 import "./globals.css";
-import Container from "@/components/container/Container";
 
 const maisonNeue = localFont({
   src: [

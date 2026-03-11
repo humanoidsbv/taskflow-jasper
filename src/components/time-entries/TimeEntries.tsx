@@ -2,9 +2,9 @@
 
 import { Fragment } from "react";
 
-import { TimeEntry } from "../time-entry/TimeEntry";
-import { TimeEntriesType } from "@/types/dataTypes";
 import { getElapsedTime } from "@/utils/utils";
+import { TimeEntriesType } from "@/types/dataTypes";
+import { TimeEntry } from "@/components/time-entry/TimeEntry";
 
 import styles from "./TimeEntries.module.css";
 
