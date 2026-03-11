@@ -1,0 +1,9 @@
+.dialog {
+  height: max-content;
+  width: max-content;
+  margin: auto;
+}
+
+.dialog::backdrop {
+  background-color: #fefefe99;
+}

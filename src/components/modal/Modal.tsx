@@ -1,0 +1,39 @@
+"use client";
+
+import { ReactNode, RefObject, useRef } from "react";
+
+import styles from "./Modal.module.css";
+
+interface ModalProps {
+  children: ReactNode;
+  modalRef: RefObject<HTMLDialogElement | null>;
+  onToggle: () => void;
+  id?: string;
+  // searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+export const Modal = ({
+  modalRef,
+  onToggle,
+  // searchParams,
+  children,
+  id,
+}: ModalProps) => {
+  const handleBackdropClick = (event: React.MouseEvent<HTMLDialogElement>) => {
+    const target = event.target as HTMLDialogElement;
+    if (target.nodeName === "DIALOG") {
+      onToggle();
+    }
+  };
+
+  return (
+    <dialog
+      className={styles.dialog}
+      onClick={handleBackdropClick}
+      ref={modalRef}
+      id={id}
+    >
+      <div>{children}</div>
+    </dialog>
+  );
+};
