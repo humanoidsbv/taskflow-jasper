@@ -13,6 +13,6 @@
 
 .dayContent {
   color: var(--gray-2);
-  font-size: 24px;
+  font-size: var(--font-x-large);
   font-weight: 500;
 }

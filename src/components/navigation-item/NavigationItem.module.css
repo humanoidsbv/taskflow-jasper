@@ -14,14 +14,8 @@
 .item {
   align-items: center;
   display: flex;
-  font-size: 20px;
+  font-size: var(--font-large);
   font-weight: 600;
   height: 50px;
   justify-content: center;
-}
-
-@media (min-width: 1160px) {
-  .item {
-    font-size: 16px;
-  }
 }
