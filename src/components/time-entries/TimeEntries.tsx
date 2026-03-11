@@ -123,9 +123,11 @@ export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
           return (
             <Fragment key={entry.id}>
               {hasHeader && (
-                <div className={styles.dayContainer}>
-                  <h2 className={styles.day}>{formatHeader(entry)}</h2>
-                  <span className={styles.hours}>
+                <div className={styles["day-container"]}>
+                  <h2 className={styles["day-content"]}>
+                    {formatHeader(entry)}
+                  </h2>
+                  <span className={styles["day-content"]}>
                     {formatHours(totalHoursByDay[today])}
                   </span>
                 </div>

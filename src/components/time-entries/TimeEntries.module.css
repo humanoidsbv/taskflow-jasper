@@ -4,26 +4,14 @@
   gap: 20px;
 }
 
-.filters {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.entries {
-  display: flex;
-  flex-direction: column;
-}
-
-.dayContainer {
+.day-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin: 40px 0 20px;
 }
 
-.day,
-.hours {
+.day-content {
   color: var(--gray-2);
   font-size: 24px;
   font-weight: 500;
