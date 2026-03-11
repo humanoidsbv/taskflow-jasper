@@ -24,10 +24,6 @@ export default function CalendarPage() {
         </Button>
       </Subheader>
       <TimeEntries timeEntries={timeEntries} />
-      <TimeEntries timeEntries={timeEntries} />
-      <Button variant="tertiary" href="https://www.google.com/">
-        Click me!
-      </Button>
     </>
   );
 }
