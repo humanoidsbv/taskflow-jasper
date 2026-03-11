@@ -9,9 +9,11 @@ import buttonIcon from "@/public/icons/plus-icon.svg";
 
 export default function CalendarPage() {
   const { buttonText, title, buttonAltText } = translations.calendar;
-  const nTimeEntries = timeEntries.length;
+  const timeEntriesAmount = timeEntries.length;
   const subtitle =
-    nTimeEntries === 1 ? `${nTimeEntries} event` : `${nTimeEntries} events`;
+    timeEntriesAmount === 1
+      ? `${timeEntriesAmount} event`
+      : `${timeEntriesAmount} events`;
 
   return (
     <>

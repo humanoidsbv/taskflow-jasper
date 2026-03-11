@@ -25,8 +25,7 @@
   --purple-3: #170025;
   --purple-4: #ae71d3;
   --red-1: #a80000;
-  --subheader-height: 72px;
-  --subheader-height-mobile: 120px;
+  --subheader-height: 120px;
   --torqoise-1: #009aa5;
   --white: #fff;
 }
@@ -62,4 +61,10 @@ a {
 h5 {
   font-size: 18px;
   font-weight: 500;
+}
+
+@media screen and (min-width: 1160px) {
+  :root {
+    --subheader-height: 72px;
+  }
 }
