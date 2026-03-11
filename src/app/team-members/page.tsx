@@ -2,17 +2,16 @@ import Image from "next/image";
 
 import { Button } from "@/components/button/Button";
 import { Subheader } from "@/components/subheader/Subheader";
-import { teamMembers } from "@/fixtures/teamMembers";
+import { teamMembers } from "@/services/fixtures";
 import { translations } from "@/services/translations";
 import buttonIcon from "@/public/icons/plus-icon.svg";
 
 export default function TeamMembersPage() {
   const { buttonText, title, buttonAltText } = translations.teamMembers;
-  const teamMembersAmount = teamMembers.length;
   const subtitle =
-    teamMembersAmount === 1
-      ? `${teamMembersAmount} member`
-      : `${teamMembersAmount} members`;
+    teamMembers.length === 1
+      ? `${teamMembers.length} member`
+      : `${teamMembers.length} members`;
 
   return (
     <Subheader subtitle={subtitle} title={title}>

@@ -22,7 +22,6 @@
       "@/*": ["./src/*"],
       "@/public/*": ["./public/*"],
       "@/services/*": ["./services/*"],
-      "@/fixtures/*": ["./fixtures/*"],
       "@/types/*": ["./types/*"],
       "@/utils/*": ["./utils/*"]
     }

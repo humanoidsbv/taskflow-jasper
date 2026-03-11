@@ -1,4 +1,4 @@
-import { teamMembers } from "@/fixtures/teamMembers";
+import { teamMembers } from "@/services/fixtures";
 
 import styles from "./TeamMember.module.css";
 
