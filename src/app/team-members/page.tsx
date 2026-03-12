@@ -8,10 +8,9 @@ import buttonIcon from "@/public/icons/plus-icon.svg";
 
 export default function TeamMembersPage() {
   const { buttonText, title, buttonAltText } = translations.teamMembers;
-  const subtitle =
-    teamMembers.length === 1
-      ? `${teamMembers.length} member`
-      : `${teamMembers.length} members`;
+  const subtitle = `${teamMembers.length} member${
+    teamMembers.length === 1 ? "" : "s"
+  }`;
 
   return (
     <Subheader subtitle={subtitle} title={title}>

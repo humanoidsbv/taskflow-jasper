@@ -1,5 +1,5 @@
-import { TimeEntryData } from "@/types/dataTypes";
 import { capitalizeString, dateFormat } from "@/utils/utils";
+import { TimeEntryData } from "@/types/dataTypes";
 
 export const formatHeader = ({ startTimestamp }: TimeEntryData): string => {
   const msPerDay = 24 * 3600 * 1000;

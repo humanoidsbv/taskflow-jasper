@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { formatTimeEntryData } from "./helpers";
 import deleteIcon from "@/public/icons/delete.svg";
 import greenIcon from "@/public/icons/ellipse-green.svg";
 import redIcon from "@/public/icons/ellipse-red.svg";
 import type { TimeEntryData } from "@/types/dataTypes";
 
-import { formatTimeEntryData } from "./helpers";
 import styles from "./TimeEntry.module.css";
 
 interface TimeEntryProps {
@@ -14,7 +14,7 @@ interface TimeEntryProps {
 }
 
 export const TimeEntry = ({ data }: TimeEntryProps) => {
-  const { department, client, billable, totalTime, timeInterval } =
+  const { billable, client, department, timeInterval, totalTime } =
     formatTimeEntryData(data);
 
   return (

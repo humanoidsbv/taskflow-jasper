@@ -2,11 +2,11 @@ import styles from "./TeamMember.module.css";
 
 interface TeamMemberProps {
   teamMember: {
-    name: string;
-    title: string;
-    startDate: string;
     client: string;
+    name: string;
     otherInfo: string;
+    startDate: string;
+    title: string;
   };
 }
 

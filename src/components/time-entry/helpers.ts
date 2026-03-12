@@ -1,5 +1,5 @@
-import { FormattedTimeEntryData, TimeEntryData } from "@/types/dataTypes";
 import { formatElapsedTime, timeFormat } from "@/utils/utils";
+import { FormattedTimeEntryData, TimeEntryData } from "@/types/dataTypes";
 
 export const formatTimeEntryData = ({
   startTimestamp,
