@@ -1,9 +1,5 @@
-import Image from "next/image";
-
-import { Button } from "../button/Button";
-import { translations } from "@/services/translations";
-import buttonIcon from "@/public/icons/plus-icon.svg";
 import { ReactNode } from "react";
+
 import styles from "./Subheader.module.css";
 
 interface SubheaderProps {

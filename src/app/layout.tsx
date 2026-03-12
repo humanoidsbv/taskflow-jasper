@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
 import { ReactNode } from "react";
+import localFont from "next/font/local";
+import type { Metadata } from "next";
 
-import { Header } from "../components/header/Header";
+import { Header } from "@/components/header/Header";
+import Container from "@/components/container/Container";
 
 import "./globals.css";
 
@@ -60,7 +61,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html className={maisonNeue.className} lang="en">
       <body>
         <Header />
-        {children}
+        <Container>{children}</Container>
       </body>
     </html>
   );

@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 
-import { Logo } from "../logo/Logo";
-import { MenuToggle } from "../menu-toggle/MenuToggle";
-import { Navigation } from "../navigation/Navigation";
-import { UserProfile } from "../userprofile/UserProfile";
+import { Logo } from "@/components/logo/Logo";
+import { MenuToggle } from "@/components/menu-toggle/MenuToggle";
+import { Navigation } from "@/components/navigation/Navigation";
+import { UserProfile } from "@/components/userprofile/UserProfile";
 
 import styles from "./Header.module.css";
 
@@ -15,10 +15,8 @@ export const Header = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <div
-      className={`${styles.header} ${isMenuOpen ? styles["header-full"] : ""}`}
-    >
-      <div className={styles["logo-container"]}>
+    <div className={`${styles.header} ${isMenuOpen ? styles.headerFull : ""}`}>
+      <div className={styles.logoContainer}>
         <Logo onClick={() => setIsMenuOpen(false)} />
         <MenuToggle isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
       </div>

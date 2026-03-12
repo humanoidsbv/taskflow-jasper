@@ -5,7 +5,7 @@
   border: none;
   cursor: pointer;
   display: flex;
-  font-size: 14px;
+  font-size: var(--font-x-small);
   font-weight: 700;
   gap: 8px;
   height: 40px;
@@ -50,13 +50,13 @@
 }
 
 .tertiary:hover {
-  background: 
+  background:
     linear-gradient(var(--blue-1), var(--blue-1)) padding-box,
     var(--purple-gradient) border-box;
 }
 
 .tertiary:active {
-  background: 
+  background:
     linear-gradient(var(--blue-2), var(--blue-2)) padding-box,
     var(--purple-gradient) border-box;
 }

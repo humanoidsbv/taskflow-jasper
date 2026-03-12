@@ -1,0 +1,110 @@
+.timeEntry {
+  align-items: center;
+  background-color: var(--white);
+  border-left: 4px solid var(--gray-1);
+  border-radius: 4px;
+  border: 1px solid var(--gray-3);
+  display: flex;
+  height: 80px;
+  justify-content: space-between;
+  padding: 0 16px;
+  position: relative;
+}
+
+.development {
+  border-left: 4px solid var(--torqoise-1);
+}
+
+.design {
+  border-left: 4px solid var(--purple-4);
+}
+
+.left {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  grid-template-rows: 1fr;
+}
+
+.client {
+  color: var(--gray-1);
+  font-size: 18px;
+  font-weight: 700;
+  grid-column: 1 / 3;
+  grid-row: 1;
+  line-height: 28px;
+}
+
+.billableIcon {
+  grid-column: 1;
+  grid-row: 2;
+  margin: auto;
+}
+
+.billableArea {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.billable {
+  color: var(--green-1);
+  font-size: 16px;
+}
+
+.nonBillable {
+  color: var(--red-1);
+}
+
+.right {
+  align-items: center;
+  display: grid;
+  gap: 0 20px;
+  text-align: right;
+}
+
+.timeInterval {
+  color: var(--gray-1);
+  font-weight: 700;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.totalTime {
+  color: var(--gray-2);
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.icon {
+  grid-column: 2;
+  grid-row: 1 / 3;
+}
+
+@media (min-width: 1160px) {
+  .timeTitle {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .left {
+    grid-template-columns: 1fr 24px;
+    grid-template-rows: 1fr;
+  }
+
+  .client {
+    grid-column: 1;
+    margin-right: 8px;
+  }
+
+  .billableIcon {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .billableArea {
+    grid-column: 3;
+    grid-row: 1;
+  }
+}

@@ -13,14 +13,14 @@
   right: 0;
   top: 0;
   transition: 0.3s ease-in-out;
-  z-index: 1;
+  z-index: 2;
 }
 
-.header-full {
+.headerFull {
   height: 100vh;
 }
 
-.logo-container {
+.logoContainer {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -37,7 +37,7 @@
     transition: none;
   }
 
-  .logo-container {
+  .logoContainer {
     width: auto;
   }
 }

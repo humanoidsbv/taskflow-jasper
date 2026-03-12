@@ -1,7 +1,7 @@
+import { ReactNode } from "react";
 import Link from "next/link";
 
 import styles from "./NavigationItem.module.css";
-import { ReactNode } from "react";
 
 interface NavigationItemProps {
   children: ReactNode;
@@ -16,9 +16,7 @@ export const NavigationItem = ({
   link,
   onClick,
 }: NavigationItemProps) => (
-  <li
-    className={`${styles.item} ${isCurrentPage ? styles["item-active"] : ""}`}
-  >
+  <li className={`${styles.item} ${isCurrentPage ? styles.itemActive : ""}`}>
     <Link className={styles.link} href={link ? link : "/"} onClick={onClick}>
       {children}
     </Link>

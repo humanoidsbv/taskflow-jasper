@@ -1,15 +1,22 @@
 .subheader {
   align-items: center;
+  background-color: var(--white);
   border-bottom: 1px solid var(--gray-3);
   display: flex;
   flex-direction: column;
   gap: 16px;
   justify-content: flex-start;
+  left: 0;
   padding: 20px;
+  position: fixed;
+  right: 0;
+  top: var(--header-height);
+  z-index: 1;
 }
 
-.subheader > button:first-of-type, .subheader > a:first-of-type {
-  margin-left:auto;
+.subheader > button:first-of-type,
+.subheader > a:first-of-type {
+  margin-left: auto;
 }
 
 .titles {
@@ -21,7 +28,7 @@
 
 .subtitle {
   color: var(--gray-2);
-  font-size: 14px;
+  font-size: var(--font-x-small);
   font-style: normal;
   font-weight: 500;
   line-height: normal;
