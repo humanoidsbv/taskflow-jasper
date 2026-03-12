@@ -2,32 +2,16 @@
 
 import { Fragment } from "react";
 
-import {
-  capitalizeString,
-  dateFormat,
-  formatHours,
-  getElapsedTime,
-} from "@/utils/utils";
-import { TimeEntriesType, TimeEntryType } from "@/types/dataTypes";
+import { formatHeader } from "./helpers";
+import { formatHours, getElapsedTime } from "@/utils/utils";
 import { TimeEntry } from "@/components/time-entry/TimeEntry";
+import { TimeEntryData } from "@/types/dataTypes";
 
 import styles from "./TimeEntries.module.css";
 
 interface TimeEntriesProps {
-  timeEntries: TimeEntriesType;
+  timeEntries: TimeEntryData[];
 }
-
-const formatHeader = ({ startTimestamp }: TimeEntryType): string => {
-  const msPerDay = 24 * 3600 * 1000;
-  const entryDate = new Date(startTimestamp);
-  const currentDate = new Date();
-  const yesterdayDate = new Date(currentDate.getTime() - msPerDay);
-  const formattedEntryDate = capitalizeString(dateFormat.format(entryDate));
-  const isToday = entryDate.toDateString() === currentDate.toDateString();
-  const isYesterday = entryDate.toDateString() === yesterdayDate.toDateString();
-
-  return `${formattedEntryDate}${isToday ? " (Today)" : ""}${isYesterday ? " (Yesterday)" : ""}`;
-};
 
 export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
   const sortedTimeEntries = timeEntries.sort((a, b) => {
@@ -51,29 +35,30 @@ export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
   );
 
   return (
-    <div className={styles.container}>
-      <ul>
-        {sortedTimeEntries.map((entry, i, arr) => {
-          const today = new Date(entry.startTimestamp).toLocaleDateString();
-          const hasHeader =
-            i === 0 ||
-            today !== new Date(arr[i - 1].startTimestamp).toLocaleDateString();
+    <ul>
+      {sortedTimeEntries.map((entry, index, timeEntries) => {
+        const today = new Date(entry.startTimestamp).toLocaleDateString();
+        const hasHeader =
+          index === 0 ||
+          today !==
+            new Date(
+              timeEntries[index - 1].startTimestamp,
+            ).toLocaleDateString();
 
-          return (
-            <Fragment key={entry.id}>
-              {hasHeader && (
-                <div className={styles.dayContainer}>
-                  <h2 className={styles.dayContent}>{formatHeader(entry)}</h2>
-                  <span className={styles.dayContent}>
-                    {formatHours(totalHoursByDay[today])}
-                  </span>
-                </div>
-              )}
-              <TimeEntry data={entry} />
-            </Fragment>
-          );
-        })}
-      </ul>
-    </div>
+        return (
+          <Fragment key={entry.id}>
+            {hasHeader && (
+              <div className={styles.container}>
+                <h2 className={styles.content}>{formatHeader(entry)}</h2>
+                <span className={styles.content}>
+                  {formatHours(totalHoursByDay[today])}
+                </span>
+              </div>
+            )}
+            <TimeEntry data={entry} />
+          </Fragment>
+        );
+      })}
+    </ul>
   );
 };

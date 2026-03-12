@@ -42,16 +42,7 @@
   color: var(--red-1);
 }
 
-.timeInterval {
-  color: var(--gray-1);
-  font-weight: 700;
-}
-
-.totalTime {
-  color: var(--gray-2);
-}
-
-.timeContainer {
+.right {
   align-items: center;
   display: flex;
   flex-direction: row;
@@ -59,9 +50,18 @@
   text-align: right;
 }
 
-.timeArea {
+.time {
   display: flex;
   flex-direction: column;
+}
+
+.timeInterval {
+  color: var(--gray-1);
+  font-weight: 700;
+}
+
+.totalTime {
+  color: var(--gray-2);
 }
 
 @media (min-width: 1160px) {
