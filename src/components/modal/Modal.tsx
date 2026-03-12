@@ -9,16 +9,9 @@ interface ModalProps {
   modalRef: RefObject<HTMLDialogElement | null>;
   onToggle: () => void;
   id?: string;
-  // searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-export const Modal = ({
-  modalRef,
-  onToggle,
-  // searchParams,
-  children,
-  id,
-}: ModalProps) => {
+export const Modal = ({ modalRef, onToggle, children, id }: ModalProps) => {
   const handleBackdropClick = (event: React.MouseEvent<HTMLDialogElement>) => {
     const target = event.target as HTMLDialogElement;
     if (target.nodeName === "DIALOG") {
@@ -33,7 +26,7 @@ export const Modal = ({
       ref={modalRef}
       id={id}
     >
-      <div>{children}</div>
+      <div className={styles.container}>{children}</div>
     </dialog>
   );
 };
