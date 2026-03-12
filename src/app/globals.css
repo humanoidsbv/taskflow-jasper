@@ -71,6 +71,6 @@ h5 {
 @media screen and (min-width: 1160px) {
   :root {
     --subheader-height: 72px;
-    --font-navigation: 16px;
+    --font-large: 16px;
   }
 }
