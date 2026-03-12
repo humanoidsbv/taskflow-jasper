@@ -19,21 +19,23 @@ export const TimeEntry = ({ data }: TimeEntryProps) => {
 
   return (
     <li className={`${styles.timeEntry} ${styles[`${department}`]}`}>
-      <div>
+      <div className={styles.left}>
         <h3 className={styles.client}>{client}</h3>
-        <div className={styles.billableArea}>
-          <Image alt="" src={billable ? greenIcon : redIcon} />
-          <span className={billable ? styles.billable : styles.nonBillable}>
-            {billable ? "Billable" : "Non-billable"}
-          </span>
-        </div>
+        <Image
+          className={styles.billableIcon}
+          alt=""
+          src={billable ? greenIcon : redIcon}
+        />
+        <span
+          className={`${styles.billableArea} ${billable ? styles.billable : styles.nonBillable}`}
+        >
+          {billable ? "Billable" : "Non-billable"}
+        </span>
       </div>
       <div className={styles.right}>
-        <div className={styles.time}>
-          <span className={styles.timeInterval}>{timeInterval}</span>
-          <span className={styles.totalTime}>{totalTime}</span>
-        </div>
-        <Link href="">
+        <span className={styles.timeInterval}>{timeInterval}</span>
+        <span className={styles.totalTime}>{totalTime}</span>
+        <Link href="" className={styles.icon}>
           <Image alt="" src={deleteIcon} />
         </Link>
       </div>
