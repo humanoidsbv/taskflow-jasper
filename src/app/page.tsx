@@ -6,7 +6,7 @@ import { useRef } from "react";
 import { Button } from "@/components/button/Button";
 import { Subheader } from "@/components/subheader/Subheader";
 import { TimeEntries } from "@/components/time-entries/TimeEntries";
-import { timeEntries } from "@/fixtures/timeEntries";
+import { timeEntries } from "@/services/fixtures";
 import { translations } from "@/services/translations";
 import buttonIcon from "@/public/icons/plus-icon.svg";
 import { Modal } from "@/components/modal/Modal";
@@ -26,11 +26,9 @@ export default function CalendarPage() {
   };
 
   const { buttonText, title, buttonAltText } = translations.calendar;
-  const timeEntriesAmount = timeEntries.length;
-  const subtitle =
-    timeEntriesAmount === 1
-      ? `${timeEntriesAmount} event`
-      : `${timeEntriesAmount} events`;
+  const subtitle = `${timeEntries.length} event${
+    timeEntries.length === 1 ? "" : "s"
+  }`;
 
   const searchParams = {
     calendarModal: true,

@@ -1,44 +1,41 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { formatTimeEntryData } from "./helpers";
 import deleteIcon from "@/public/icons/delete.svg";
 import greenIcon from "@/public/icons/ellipse-green.svg";
 import redIcon from "@/public/icons/ellipse-red.svg";
+import type { TimeEntryData } from "@/types/dataTypes";
 
 import styles from "./TimeEntry.module.css";
 
 interface TimeEntryProps {
-  data: {
-    billable: boolean;
-    client: string;
-    department: string;
-    timeInterval: string;
-    totalTime: string;
-  };
+  data: TimeEntryData;
 }
 
 export const TimeEntry = ({ data }: TimeEntryProps) => {
+  const { billable, client, department, timeInterval, totalTime } =
+    formatTimeEntryData(data);
+
   return (
-    <li className={`${styles["time-entry"]} ${styles[`${data.department}`]}`}>
-      <div className={styles["time-entry-title"]}>
-        <h3 className={styles["client"]}>{data.client}</h3>
-        <div className={styles["billable-area"]}>
-          <Image alt="" src={data.billable ? greenIcon : redIcon} />
-          <span
-            className={
-              data.billable ? styles["billable"] : styles["non-billable"]
-            }
-          >
-            {data.billable ? "Billable" : "Non-billable"}
-          </span>
-        </div>
+    <li className={`${styles.timeEntry} ${styles[`${department}`]}`}>
+      <div className={styles.left}>
+        <h3 className={styles.client}>{client}</h3>
+        <Image
+          className={styles.billableIcon}
+          alt=""
+          src={billable ? greenIcon : redIcon}
+        />
+        <span
+          className={`${styles.billableArea} ${billable ? styles.billable : styles.nonBillable}`}
+        >
+          {billable ? "Billable" : "Non-billable"}
+        </span>
       </div>
-      <div className={styles["time-container"]}>
-        <div className={styles["time-area"]}>
-          <span className={styles["time-interval"]}>{data.timeInterval}</span>
-          <span className={styles["total-time"]}>{data.totalTime}</span>
-        </div>
-        <Link href="">
+      <div className={styles.right}>
+        <span className={styles.timeInterval}>{timeInterval}</span>
+        <span className={styles.totalTime}>{totalTime}</span>
+        <Link href="" className={styles.icon}>
           <Image alt="" src={deleteIcon} />
         </Link>
       </div>

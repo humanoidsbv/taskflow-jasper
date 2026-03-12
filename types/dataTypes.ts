@@ -1,4 +1,4 @@
-export type TimeEntryType = {
+export type TimeEntryData = {
   id: number;
   client: string;
   startTimestamp: string;
@@ -7,4 +7,10 @@ export type TimeEntryType = {
   department: string;
 };
 
-export type TimeEntriesType = TimeEntryType[];
+export type FormattedTimeEntryData = Omit<
+  TimeEntryData,
+  "startTimestamp" | "stopTimestamp"
+> & {
+  timeInterval: string;
+  totalTime: string;
+};
