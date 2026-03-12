@@ -39,15 +39,12 @@ export default function CalendarPage() {
   return (
     <>
       <Subheader subtitle={subtitle} title={title}>
-        <Button href={{ query: { calendarModal: true } }}>
+        <Button onClick={toggleModal}>
           <Image alt={buttonAltText} src={buttonIcon} />
           <span>{buttonText}</span>
         </Button>
-        <Button onClick={toggleModal} variant="secondary">
-          Hello there
-        </Button>
         <Modal modalRef={modalRef} onToggle={toggleModal}>
-          General Kenobi!
+          Bovenmodaal <br /> Modaal <br /> Ondermodaal
         </Modal>
       </Subheader>
       <TimeEntries timeEntries={timeEntries} />
