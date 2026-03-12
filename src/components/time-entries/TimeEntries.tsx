@@ -3,56 +3,30 @@
 import { Fragment } from "react";
 
 import {
-  dateFormat,
-  timeFormat,
-  getElapsedTime,
   capitalizeString,
-  formatElapsedTime,
+  dateFormat,
   formatHours,
+  getElapsedTime,
 } from "@/utils/utils";
-import {
-  FormattedTimeEntryType,
-  TimeEntriesType,
-  TimeEntryType,
-} from "@/types/dataTypes";
+import { TimeEntriesType, TimeEntryType } from "@/types/dataTypes";
 import { TimeEntry } from "@/components/time-entry/TimeEntry";
 
 import styles from "./TimeEntries.module.css";
-
-const MS_PER_DAY = 24 * 3600 * 1000;
 
 interface TimeEntriesProps {
   timeEntries: TimeEntriesType;
 }
 
 const formatHeader = ({ startTimestamp }: TimeEntryType): string => {
+  const msPerDay = 24 * 3600 * 1000;
   const entryDate = new Date(startTimestamp);
   const currentDate = new Date();
-  const yesterdayDate = new Date(currentDate.getTime() - MS_PER_DAY);
+  const yesterdayDate = new Date(currentDate.getTime() - msPerDay);
   const formattedEntryDate = capitalizeString(dateFormat.format(entryDate));
-
   const isToday = entryDate.toDateString() === currentDate.toDateString();
   const isYesterday = entryDate.toDateString() === yesterdayDate.toDateString();
 
   return `${formattedEntryDate}${isToday ? " (Today)" : ""}${isYesterday ? " (Yesterday)" : ""}`;
-};
-
-const formatTimeEntryData = ({
-  startTimestamp,
-  stopTimestamp,
-  ...props
-}: TimeEntryType): FormattedTimeEntryType => {
-  const startDate = new Date(startTimestamp);
-  const stopDate = new Date(stopTimestamp);
-  const totalTime = formatElapsedTime(startDate, stopDate);
-
-  const timeInterval = `${timeFormat.format(startDate)} - ${timeFormat.format(stopDate)}`;
-
-  return {
-    timeInterval,
-    totalTime,
-    ...props,
-  };
 };
 
 export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
@@ -95,7 +69,7 @@ export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
                   </span>
                 </div>
               )}
-              <TimeEntry data={formatTimeEntryData(entry)} />
+              <TimeEntry data={entry} />
             </Fragment>
           );
         })}
