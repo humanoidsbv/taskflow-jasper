@@ -7,4 +7,12 @@ export type TimeEntryType = {
   department: string;
 };
 
+export type FormattedTimeEntryType = Omit<
+  TimeEntryType,
+  "startTimestamp" | "stopTimestamp"
+> & {
+  timeInterval: string;
+  totalTime: string;
+};
+
 export type TimeEntriesType = TimeEntryType[];

@@ -2,91 +2,56 @@
 
 import { Fragment } from "react";
 
-import { getElapsedTime } from "@/utils/utils";
-import { TimeEntriesType } from "@/types/dataTypes";
+import {
+  dateFormat,
+  timeFormat,
+  getElapsedTime,
+  capitalizeString,
+  formatElapsedTime,
+  formatHours,
+} from "@/utils/utils";
+import {
+  FormattedTimeEntryType,
+  TimeEntriesType,
+  TimeEntryType,
+} from "@/types/dataTypes";
 import { TimeEntry } from "@/components/time-entry/TimeEntry";
 
 import styles from "./TimeEntries.module.css";
+
+const MS_PER_DAY = 24 * 3600 * 1000;
 
 interface TimeEntriesProps {
   timeEntries: TimeEntriesType;
 }
 
-const dateFormat = new Intl.DateTimeFormat("nl-NL", {
-  day: "numeric",
-  month: "numeric",
-  timeZone: "Europe/Amsterdam",
-  weekday: "long",
-});
-
-const timeFormat = new Intl.DateTimeFormat("nl-NL", {
-  hour: "2-digit",
-  minute: "2-digit",
-  timeZone: "Europe/Amsterdam",
-});
-
-const formatHeader = (entry: {
-  billable: boolean;
-  client: string;
-  id: number;
-  startTimestamp: string;
-  stopTimestamp: string;
-}): string => {
-  const entryDate = new Date(entry.startTimestamp);
+const formatHeader = ({ startTimestamp }: TimeEntryType): string => {
+  const entryDate = new Date(startTimestamp);
   const currentDate = new Date();
-  const yesterdayDate = new Date(currentDate.getTime() - 3600 * 1000 * 24);
-  const formattedEntryDate = dateFormat.format(entryDate);
+  const yesterdayDate = new Date(currentDate.getTime() - MS_PER_DAY);
+  const formattedEntryDate = capitalizeString(dateFormat.format(entryDate));
 
-  return (
-    formattedEntryDate.at(0)?.toUpperCase() +
-    formattedEntryDate.slice(1) +
-    (currentDate.toLocaleDateString() === entryDate.toLocaleDateString()
-      ? " (Today)"
-      : yesterdayDate.toLocaleDateString() === entryDate.toLocaleDateString()
-        ? " (Yesterday)"
-        : "")
-  );
+  const isToday = entryDate.toDateString() === currentDate.toDateString();
+  const isYesterday = entryDate.toDateString() === yesterdayDate.toDateString();
+
+  return `${formattedEntryDate}${isToday ? " (Today)" : ""}${isYesterday ? " (Yesterday)" : ""}`;
 };
 
-const formatElapsedTime = (startDate: Date, stopDate: Date): string => {
-  const { elapsedHours, elapsedMinutes } = getElapsedTime(startDate, stopDate);
-  return `${elapsedHours.toString().padStart(2, "0")}:${elapsedMinutes.toString().padStart(2, "0")}`;
-};
-
-const formatHours = (elapsedHours: number): string => {
-  const elapsedMinutes = elapsedHours * 60;
-  const hours = Math.floor(elapsedMinutes / 60);
-  const minutes = elapsedMinutes % 60;
-  return `${hours.toFixed(0).toString().padStart(2, "0")}:${minutes.toFixed(0).toString().padStart(2, "0")}`;
-};
-
-const formatData = ({
-  billable,
-  client,
-  department,
+const formatTimeEntryData = ({
   startTimestamp,
   stopTimestamp,
-}: TimeEntriesType[number]): {
-  billable: boolean;
-  client: string;
-  department: string;
-  timeInterval: string;
-  totalTime: string;
-} => {
+  ...props
+}: TimeEntryType): FormattedTimeEntryType => {
   const startDate = new Date(startTimestamp);
   const stopDate = new Date(stopTimestamp);
   const totalTime = formatElapsedTime(startDate, stopDate);
 
-  const startDateString = timeFormat.format(startDate);
-  const stopDateString = timeFormat.format(stopDate);
-  const timeInterval = `${startDateString} - ${stopDateString}`;
+  const timeInterval = `${timeFormat.format(startDate)} - ${timeFormat.format(stopDate)}`;
 
   return {
-    billable,
-    client,
-    department,
     timeInterval,
     totalTime,
+    ...props,
   };
 };
 
@@ -130,7 +95,7 @@ export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
                   </span>
                 </div>
               )}
-              <TimeEntry data={formatData(entry)} />
+              <TimeEntry data={formatTimeEntryData(entry)} />
             </Fragment>
           );
         })}
