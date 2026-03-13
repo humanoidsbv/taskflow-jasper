@@ -1,6 +1,8 @@
 import Form from "next/form";
-import styles from "./TimeEntryForm.module.css";
+
 import { Button } from "../button/Button";
+
+import styles from "./TimeEntryForm.module.css";
 
 interface TimeEntryFormProps {
   closeModal: () => void;
