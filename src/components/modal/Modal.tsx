@@ -14,9 +14,7 @@ interface ModalProps {
 export const Modal = ({ modalRef, onToggle, children, id }: ModalProps) => {
   const handleBackdropClick = (event: React.MouseEvent<HTMLDialogElement>) => {
     const target = event.target as HTMLDialogElement;
-    if (target.nodeName === "DIALOG") {
-      onToggle();
-    }
+    if (target.nodeName === "DIALOG") onToggle();
   };
 
   return (

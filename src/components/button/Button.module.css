@@ -61,6 +61,12 @@
     var(--purple-gradient) border-box;
 }
 
+.empty {
+  background: none;
+  padding: 0;
+  height: auto;
+}
+
 @media (min-width: 1160px) {
   .button {
     width: auto;

@@ -38,6 +38,12 @@
   display: none;
 }
 
+.close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
 @media (min-width: 1160px) {
   .subheader {
     flex-direction: row;

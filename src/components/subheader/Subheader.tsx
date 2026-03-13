@@ -8,6 +8,8 @@ import { translations } from "@/services/translations";
 import buttonIcon from "@/public/icons/plus-icon.svg";
 import Image from "next/image";
 
+import closeIcon from "@/public/icons/close-black.svg";
+
 import styles from "./Subheader.module.css";
 
 interface SubheaderProps {
@@ -43,6 +45,13 @@ export const Subheader = ({ subtitle, pageName }: SubheaderProps) => {
         <span>{buttonText}</span>
       </Button>
       <Modal modalRef={modalRef} onToggle={toggleModal}>
+        <Button variant="empty" onClick={toggleModal} className={styles.close}>
+          <Image
+            alt="Close the modal"
+            className={styles.image}
+            src={closeIcon}
+          />
+        </Button>
         {pageName} form here
       </Modal>
     </div>

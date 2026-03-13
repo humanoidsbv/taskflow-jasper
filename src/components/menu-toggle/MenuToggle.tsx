@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import closeIcon from "@/public/icons/close.svg";
+import closeIcon from "@/public/icons/close-white.svg";
 import hamburgerIcon from "@/public/icons/hamburger-icon.svg";
 
 import styles from "./MenuToggle.module.css";
