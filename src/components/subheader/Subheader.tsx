@@ -32,13 +32,12 @@ export const Subheader = ({ pageName, subtitle }: SubheaderProps) => {
         <span>{buttonText}</span>
       </Button>
       <Modal modalRef={modalRef}>
-        <Button
-          variant="empty"
+        <button
           onClick={() => modalRef.current?.close()}
           className={styles.close}
         >
           <CloseIcon alt="Close the modal" className={styles.icon} />
-        </Button>
+        </button>
         {pageName} form here
       </Modal>
     </div>

@@ -39,6 +39,10 @@
 }
 
 .close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  height: auto;
   position: absolute;
   right: 20px;
   top: 20px;
