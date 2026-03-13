@@ -9,6 +9,7 @@ import CloseIcon from "@/public/icons/close.svg";
 import PlusIcon from "@/public/icons/plus-icon.svg";
 
 import styles from "./Subheader.module.css";
+import { TimeEntryForm } from "../time-entry-form/TimeEntryForm";
 
 interface SubheaderProps {
   pageName: keyof typeof translations;
@@ -38,7 +39,11 @@ export const Subheader = ({ pageName, subtitle }: SubheaderProps) => {
         >
           <CloseIcon alt="Close the modal" className={styles.icon} />
         </button>
-        {pageName} form here
+        {pageName === "calendar" ? (
+          <TimeEntryForm closeModal={() => modalRef.current?.close()} />
+        ) : (
+          <>{pageName} form here</>
+        )}
       </Modal>
     </div>
   );
