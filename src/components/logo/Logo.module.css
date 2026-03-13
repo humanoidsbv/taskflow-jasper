@@ -1,7 +1,7 @@
 .logo {
+  color: var(--white);
   height: 30px;
   width: 134px;
-  color: var(--white);
 }
 
 .link {

@@ -1,7 +1,7 @@
 .dialog {
   height: max-content;
-  width: max-content;
   margin: auto;
+  width: max-content;
 }
 
 .dialog::backdrop {
@@ -9,18 +9,18 @@
 }
 
 .container {
-  padding: 20px;
   height: 100%;
+  padding: 20px;
   position: relative;
 }
 
 :modal {
-  max-width: 100vw;
-  max-height: 100vh;
-  width: 100vw;
-  height: 100vh;
   border-radius: 0;
   border: none;
+  height: 100vh;
+  max-height: 100vh;
+  max-width: 100vw;
+  width: 100vw;
 }
 
 @media screen and (min-width: 1160px) {
@@ -30,9 +30,9 @@
   }
 
   :modal {
-    width: 560px;
-    height: fit-content;
     border-radius: 4px;
+    height: fit-content;
     overflow: hidden;
+    width: 560px;
   }
 }

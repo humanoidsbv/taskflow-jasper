@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-
 import CloseIcon from "@/public/icons/close.svg";
 import HamburgerIcon from "@/public/icons/hamburger-icon.svg";
 
@@ -15,11 +13,7 @@ interface MenuToggleProps {
 export const MenuToggle = ({ isMenuOpen, toggleMenu }: MenuToggleProps) => (
   <button className={styles.button} onClick={() => toggleMenu(!isMenuOpen)}>
     {isMenuOpen ? (
-      <CloseIcon
-        alt="Close the navigation menu"
-        className={styles.image}
-        // src={isMenuOpen ? closeIcon : hamburgerIcon}
-      />
+      <CloseIcon alt="Close the navigation menu" className={styles.image} />
     ) : (
       <HamburgerIcon alt="Open the navigation menu" className={styles.image} />
     )}
