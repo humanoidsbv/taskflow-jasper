@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import ChevronIcon from "@/public/icons/chevron-down.svg";
 import HumanoidsLogo from "@/public/logos/humanoids-logo.svg";
-import photo from "@/public/profile-photo.jpg";
+import photo from "@/public/images/profile-photo.jpg";
 
 import styles from "./UserProfile.module.css";
 
