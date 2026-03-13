@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Logo } from "@/components/logo/Logo";
 import { MenuToggle } from "@/components/menu-toggle/MenuToggle";
 import { Navigation } from "@/components/navigation/Navigation";
-import { UserProfile } from "@/components/userprofile/UserProfile";
+import { UserProfile } from "@/components/user-profile/UserProfile";
 
 import styles from "./Header.module.css";
 
