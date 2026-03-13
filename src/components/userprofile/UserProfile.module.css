@@ -2,6 +2,11 @@
   display: none;
 }
 
+.chevron {
+  color: var(--white);
+  cursor: pointer;
+}
+
 @media (min-width: 1160px) {
   .container {
     align-items: center;
@@ -33,9 +38,5 @@
     display: block;
     height: 36px;
     width: 36px;
-  }
-
-  .chevron {
-    cursor: pointer;
   }
 }

@@ -5,10 +5,8 @@ import { useRef } from "react";
 import { Button } from "../button/Button";
 import { Modal } from "@/components/modal/Modal";
 import { translations } from "@/services/translations";
-import buttonIcon from "@/public/icons/plus-icon.svg";
-import Image from "next/image";
-
-import closeIcon from "@/public/icons/close-black.svg";
+import ButtonIcon from "@/public/icons/plus-icon.svg";
+import CloseIcon from "@/public/icons/close.svg";
 
 import styles from "./Subheader.module.css";
 
@@ -41,16 +39,12 @@ export const Subheader = ({ subtitle, pageName }: SubheaderProps) => {
         <p className={styles.subtitle}>{subtitle}</p>
       </div>
       <Button onClick={toggleModal}>
-        <Image alt={buttonAltText} src={buttonIcon} />
+        <ButtonIcon alt={buttonAltText} />
         <span>{buttonText}</span>
       </Button>
       <Modal modalRef={modalRef} onToggle={toggleModal}>
         <Button variant="empty" onClick={toggleModal} className={styles.close}>
-          <Image
-            alt="Close the modal"
-            className={styles.image}
-            src={closeIcon}
-          />
+          <CloseIcon alt="Close the modal" className={styles.icon} />
         </Button>
         {pageName} form here
       </Modal>

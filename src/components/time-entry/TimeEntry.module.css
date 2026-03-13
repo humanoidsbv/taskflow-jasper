@@ -80,6 +80,10 @@
   grid-row: 1 / 3;
 }
 
+.deleteIcon {
+  color: var(--black);
+}
+
 @media (min-width: 1160px) {
   .timeTitle {
     align-items: center;

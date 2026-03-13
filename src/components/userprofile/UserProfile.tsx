@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import chevron from "@/public/icons/chevron-down.svg";
+import Chevron from "@/public/icons/chevron-down.svg";
 import logo from "@/public/logos/humanoids-logo.png";
 import photo from "@/public/profile-photo.jpg";
 
@@ -17,6 +17,6 @@ export const UserProfile = () => (
         src={photo}
       />
     </Link>
-    <Image alt="Toggle the profile" className={styles.chevron} src={chevron} />
+    <Chevron alt="Toggle the profile" className={styles.chevron} />
   </div>
 );

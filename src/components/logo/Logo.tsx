@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import logo from "@/public/logos/taskflow-logo.svg";
+import LogoImage from "@/public/logos/taskflow-logo.svg";
 
 import styles from "./Logo.module.css";
 
@@ -11,6 +11,6 @@ interface LogoProps {
 
 export const Logo = ({ onClick }: LogoProps) => (
   <Link href="/" className={styles.link} onClick={onClick}>
-    <Image alt="Taskflow logo" className={styles.logo} src={logo} />
+    <LogoImage alt="Taskflow logo" className={styles.logo} />
   </Link>
 );
