@@ -1,10 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { formatTimeEntryData } from "./helpers";
-import deleteIcon from "@/public/icons/delete.svg";
-import greenIcon from "@/public/icons/ellipse-green.svg";
-import redIcon from "@/public/icons/ellipse-red.svg";
+import DeleteIcon from "@/public/icons/delete.svg";
+import EllipseIcon from "@/public/icons/ellipse.svg";
 import type { TimeEntryData } from "@/types/dataTypes";
 
 import styles from "./TimeEntry.module.css";
@@ -21,10 +19,9 @@ export const TimeEntry = ({ data }: TimeEntryProps) => {
     <li className={`${styles.timeEntry} ${styles[`${department}`]}`}>
       <div className={styles.left}>
         <h3 className={styles.client}>{client}</h3>
-        <Image
-          className={styles.billableIcon}
+        <EllipseIcon
+          className={`${styles.billableIcon} ${billable ? styles.billable : styles.nonBillable}`}
           alt=""
-          src={billable ? greenIcon : redIcon}
         />
         <span
           className={`${styles.billableArea} ${billable ? styles.billable : styles.nonBillable}`}
@@ -36,7 +33,10 @@ export const TimeEntry = ({ data }: TimeEntryProps) => {
         <span className={styles.timeInterval}>{timeInterval}</span>
         <span className={styles.totalTime}>{totalTime}</span>
         <Link href="" className={styles.icon}>
-          <Image alt="" src={deleteIcon} />
+          <DeleteIcon
+            alt={`Delete this entry of ${client}`}
+            className={styles.deleteIcon}
+          />
         </Link>
       </div>
     </li>
