@@ -17,7 +17,8 @@ interface SubheaderProps {
 
 export const Subheader = ({ subtitle, pageName }: SubheaderProps) => {
   const modalRef = useRef<HTMLDialogElement>(null);
-  const { buttonText, buttonAltText, title } = translations[pageName];
+  const { buttonText, buttonAltText, title } =
+    translations[pageName in translations ? pageName : "default"];
 
   const toggleModal = () => {
     if (!modalRef.current) {
@@ -42,7 +43,7 @@ export const Subheader = ({ subtitle, pageName }: SubheaderProps) => {
         <span>{buttonText}</span>
       </Button>
       <Modal modalRef={modalRef} onToggle={toggleModal}>
-        content
+        {pageName} form here
       </Modal>
     </div>
   );

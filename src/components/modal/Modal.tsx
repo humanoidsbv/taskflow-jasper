@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, RefObject, useRef } from "react";
+import { ReactNode, RefObject } from "react";
 
 import styles from "./Modal.module.css";
 
