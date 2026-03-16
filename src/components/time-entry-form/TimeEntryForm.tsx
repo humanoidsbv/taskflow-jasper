@@ -47,13 +47,19 @@ export const TimeEntryForm = ({ closeModal }: TimeEntryFormProps) => {
       className={styles.container}
     >
       <span className={styles.title}>New event</span>
-      <label className={styles.long}>
-        Client
-        <input name="client" required type="text" />
+      <label className={styles.client}>
+        <span className={styles.labelField}>Client</span>
+        <input
+          className={styles.inputField}
+          name="client"
+          required
+          type="text"
+          placeholder="Client"
+        />
       </label>
-      <label className={styles.long}>
-        Activity
-        <select name="activity" required>
+      <label className={styles.activity}>
+        <span className={styles.labelField}>Activity</span>
+        <select className={styles.inputField} name="activity" required>
           {activityOptions.map((option) => (
             <option key={option.value} value={option.value}>
               {option.placeholder}
@@ -61,26 +67,49 @@ export const TimeEntryForm = ({ closeModal }: TimeEntryFormProps) => {
           ))}
         </select>
       </label>
-      <label className={styles.long}>
-        Date
-        <input name="date" required type="date" />
-      </label>
-      <label className={styles.short}>
-        From
-        <input name="startDate" required type="time" />
-      </label>
-      <label className={styles.short}>
-        To
-        <input name="stopDate" required type="time" />
-      </label>
-      <div className={styles.totalHours}>
-        <span className={styles.hoursText}>Total</span>
-        <span className={styles.hoursValue}>{totalHours}</span>
+      <div className={styles.timeContainer}>
+        <label className={styles.date}>
+          <span className={styles.labelField}>Date</span>
+          <input
+            className={styles.inputField}
+            name="date"
+            required
+            type="date"
+          />
+        </label>
+        <label className={styles.from}>
+          <span className={styles.labelField}>From</span>
+          <input
+            className={styles.inputField}
+            name="startDate"
+            required
+            type="time"
+          />
+        </label>
+        <label className={styles.from}>
+          <span className={styles.labelField}>To</span>
+          <input
+            className={styles.inputField}
+            name="stopDate"
+            required
+            type="time"
+          />
+        </label>
+        <div className={styles.totalHours}>
+          <span className={`${styles.labelField} ${styles.total}`}>Total</span>
+          <span className={styles.hours}>{totalHours}</span>
+        </div>
       </div>
-      <Button variant="secondary" onClick={closeModal}>
-        Cancel
-      </Button>
-      <Button type="submit">Add event</Button>
+      <div className={styles.buttons}>
+        <Button
+          className={styles.cancelButton}
+          variant="secondary"
+          onClick={closeModal}
+        >
+          Cancel
+        </Button>
+        <Button type="submit">Add event</Button>
+      </div>
     </Form>
   );
 };

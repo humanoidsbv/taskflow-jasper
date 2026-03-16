@@ -4,6 +4,10 @@
   width: max-content;
 }
 
+.timeContainer label {
+  font-size: var(--font-small);
+}
+
 .dialog::backdrop {
   background-color: #4b5464cc;
 }

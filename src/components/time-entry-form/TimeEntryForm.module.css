@@ -1,23 +1,141 @@
-.container {
-  display: grid;
-  gap: 24px;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+.title {
+  font-size: var(--font-medium);
+  font-weight: 500;
+  color: var(--gray-2);
 }
 
-.container label {
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 100%;
+}
+
+.client {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.long {
-  grid-column: 1 / span 3;
+.activity {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.long input[type="text"] {
+.date {
   display: flex;
-  padding: 15px;
-  align-items: flex-start;
-  align-self: stretch;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.timeContainer {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.from {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100px;
+}
+
+.inputField {
+  border: 1px solid var(--gray-3);
+  border-radius: 4px;
+  padding: 0 16px;
+  height: 40px;
+  color: var(--gray-1);
+  font-size: var(--font-x-small);
+  opacity: 1;
+}
+
+.inputField::placeholder {
+  opacity: 0.5;
+}
+
+.inputField:hover {
+  border: 1px solid var(--gray-2);
+  color: var(--gray-1);
+}
+
+.inputField:active {
+  border: 1px solid var(--gray-1);
+}
+
+.inputField:disabled {
+  border: 1px solid var(--gray-1);
+  opacity: 0.4;
+  color: var(--gray-1);
+}
+
+.inputField[type="date"]::-webkit-calendar-picker-indicator {
+  background-image: url("/icons/calendar.svg");
+  opacity: 0.6;
+}
+
+.inputField[type="time"]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+.labelField {
+  color: var(--gray-2);
+  font-size: var(--font-x-small);
+  font-weight: 700;
+}
+
+.total {
+  font-weight: 500;
+}
+
+.hours {
+  font-size: var(--font-x-large);
+  color: var(--gray-2);
+  font-weight: 500;
+  margin-top: auto;
+}
+
+.totalHours {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.cancelButton {
+  color: var(--gray-1);
+  font-weight: 500;
+}
+
+.buttons button {
+  flex-grow: 1;
+}
+
+@media screen and (min-width: 1160px) {
+  .buttons {
+    flex-direction: row;
+    gap: 32px;
+    margin-top: 24px;
+  }
+
+  .title {
+    font-size: var(--font-x-large);
+  }
+
+  .date {
+    max-width: 200px;
+  }
+
+  .from {
+    width: 80px;
+  }
 }
