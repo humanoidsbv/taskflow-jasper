@@ -3,7 +3,7 @@
 import Form from "next/form";
 
 import { Button } from "@/components/button/Button";
-import { createCalendarEvent } from "./actions";
+import { createCalendarEvent } from "../../../services/actions";
 
 import styles from "./TimeEntryForm.module.css";
 import { useState } from "react";
@@ -28,13 +28,10 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
 
   function handleChange(event: React.SyntheticEvent<HTMLFormElement>) {
     const formData = new FormData(event.currentTarget);
-    const startDate = new Date(
-      `2026-01-01T${formData.get("startDate") || "00:00"}`,
+    const baseDate = new Date().toDateString();
+    const [startDate, stopDate] = ["startDate", "stopDate"].map(
+      (key) => new Date(`${baseDate} ${formData.get(key) || "00:00"}`),
     );
-    const stopDate = new Date(
-      `2026-01-01T${formData.get("stopDate") || "00:00"}`,
-    );
-
     const elapsedHours = formatHours(getElapsedTime(startDate, stopDate));
 
     setTotalHours(elapsedHours);
