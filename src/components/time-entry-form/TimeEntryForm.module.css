@@ -1,0 +1,23 @@
+.container {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+}
+
+.container label {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.long {
+  grid-column: 1 / span 3;
+}
+
+.long input[type="text"] {
+  display: flex;
+  padding: 15px;
+  align-items: flex-start;
+  align-self: stretch;
+}

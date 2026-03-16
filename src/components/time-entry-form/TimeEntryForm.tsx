@@ -41,10 +41,18 @@ export const TimeEntryForm = ({ closeModal }: TimeEntryFormProps) => {
   }
 
   return (
-    <>
+    <Form
+      action={createCalendarEvent}
+      onChange={handleChange}
+      className={styles.container}
+    >
       <span className={styles.title}>New event</span>
-      <Form action={createCalendarEvent} onChange={handleChange}>
+      <label className={styles.long}>
+        Client
         <input name="client" required type="text" />
+      </label>
+      <label className={styles.long}>
+        Activity
         <select name="activity" required>
           {activityOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -52,15 +60,27 @@ export const TimeEntryForm = ({ closeModal }: TimeEntryFormProps) => {
             </option>
           ))}
         </select>
+      </label>
+      <label className={styles.long}>
+        Date
         <input name="date" required type="date" />
+      </label>
+      <label className={styles.short}>
+        From
         <input name="startDate" required type="time" />
+      </label>
+      <label className={styles.short}>
+        To
         <input name="stopDate" required type="time" />
-        <span className={styles.totalHours}>{totalHours}</span>
-        <Button variant="secondary" onClick={closeModal}>
-          Cancel
-        </Button>
-        <Button type="submit">Add event</Button>
-      </Form>
-    </>
+      </label>
+      <div className={styles.totalHours}>
+        <span className={styles.hoursText}>Total</span>
+        <span className={styles.hoursValue}>{totalHours}</span>
+      </div>
+      <Button variant="secondary" onClick={closeModal}>
+        Cancel
+      </Button>
+      <Button type="submit">Add event</Button>
+    </Form>
   );
 };
