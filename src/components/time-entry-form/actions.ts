@@ -3,6 +3,7 @@
 export const createCalendarEvent = async (
   formData: FormData,
 ): Promise<void> => {
-  const client = formData.get("client");
-  console.log(client);
+  const data = Object.fromEntries(formData);
+
+  console.table(data);
 };

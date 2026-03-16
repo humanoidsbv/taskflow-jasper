@@ -182,7 +182,7 @@ export const timeEntries = [
     id: 11,
     client: "L.D.G. Soixante-Neuf",
     startTimestamp: "2026-03-12T12:00:00.000Z",
-    stopTimestamp: "2026-03-12T15:00:00.000Z",
+    stopTimestamp: "2026-03-12T15:05:00.000Z",
     billable: true,
     department: "development",
   },
