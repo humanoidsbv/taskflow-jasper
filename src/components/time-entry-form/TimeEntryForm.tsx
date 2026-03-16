@@ -10,7 +10,7 @@ import { useState } from "react";
 import { formatHours, getElapsedTime } from "@/utils/utils";
 
 interface TimeEntryFormProps {
-  closeModal: () => void;
+  onCancel: () => void;
 }
 
 const activityOptions = [
@@ -23,7 +23,7 @@ const activityOptions = [
   },
 ];
 
-export const TimeEntryForm = ({ closeModal }: TimeEntryFormProps) => {
+export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
   const [totalHours, setTotalHours] = useState("00:00");
 
   function handleChange(event: React.SyntheticEvent<HTMLFormElement>) {
@@ -45,10 +45,12 @@ export const TimeEntryForm = ({ closeModal }: TimeEntryFormProps) => {
       action={createCalendarEvent}
       onChange={handleChange}
       className={styles.container}
+      onSubmit={onCancel}
+      formMethod=""
     >
       <span className={styles.title}>New event</span>
-      <label className={styles.client}>
-        <span className={styles.labelField}>Client</span>
+      <label className={styles.labelField}>
+        <span className={styles.label}>Client</span>
         <input
           className={styles.inputField}
           name="client"
@@ -57,8 +59,8 @@ export const TimeEntryForm = ({ closeModal }: TimeEntryFormProps) => {
           placeholder="Client"
         />
       </label>
-      <label className={styles.activity}>
-        <span className={styles.labelField}>Activity</span>
+      <label className={styles.labelField}>
+        <span className={styles.label}>Activity</span>
         <select className={styles.inputField} name="activity" required>
           {activityOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -68,8 +70,8 @@ export const TimeEntryForm = ({ closeModal }: TimeEntryFormProps) => {
         </select>
       </label>
       <div className={styles.timeContainer}>
-        <label className={styles.date}>
-          <span className={styles.labelField}>Date</span>
+        <label className={`${styles.labelField} ${styles.date}`}>
+          <span className={styles.label}>Date</span>
           <input
             className={styles.inputField}
             name="date"
@@ -77,8 +79,8 @@ export const TimeEntryForm = ({ closeModal }: TimeEntryFormProps) => {
             type="date"
           />
         </label>
-        <label className={styles.from}>
-          <span className={styles.labelField}>From</span>
+        <label className={`${styles.labelField} ${styles.timeField}`}>
+          <span className={styles.label}>From</span>
           <input
             className={styles.inputField}
             name="startDate"
@@ -86,8 +88,8 @@ export const TimeEntryForm = ({ closeModal }: TimeEntryFormProps) => {
             type="time"
           />
         </label>
-        <label className={styles.from}>
-          <span className={styles.labelField}>To</span>
+        <label className={`${styles.labelField} ${styles.timeField}`}>
+          <span className={styles.label}>To</span>
           <input
             className={styles.inputField}
             name="stopDate"
@@ -96,7 +98,7 @@ export const TimeEntryForm = ({ closeModal }: TimeEntryFormProps) => {
           />
         </label>
         <div className={styles.totalHours}>
-          <span className={`${styles.labelField} ${styles.total}`}>Total</span>
+          <span className={`${styles.label} ${styles.total}`}>Total</span>
           <span className={styles.hours}>{totalHours}</span>
         </div>
       </div>
@@ -104,7 +106,8 @@ export const TimeEntryForm = ({ closeModal }: TimeEntryFormProps) => {
         <Button
           className={styles.cancelButton}
           variant="secondary"
-          onClick={closeModal}
+          onClick={onCancel}
+          type="button"
         >
           Cancel
         </Button>

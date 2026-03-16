@@ -40,7 +40,7 @@ export const Subheader = ({ pageName, subtitle }: SubheaderProps) => {
           <CloseIcon alt="Close the modal" className={styles.icon} />
         </button>
         {pageName === "calendar" ? (
-          <TimeEntryForm closeModal={() => modalRef.current?.close()} />
+          <TimeEntryForm onCancel={() => modalRef.current?.close()} />
         ) : (
           <>{pageName} form here</>
         )}

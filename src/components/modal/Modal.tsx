@@ -14,7 +14,9 @@ export const Modal = ({ modalRef, id, children }: ModalProps) => {
   return (
     <dialog
       className={styles.dialog}
-      onClick={(e) => e.target === modalRef.current && modalRef.current.close()}
+      onMouseDown={(e) =>
+        e.target === modalRef.current && modalRef.current.close()
+      }
       ref={modalRef}
       id={id}
     >
