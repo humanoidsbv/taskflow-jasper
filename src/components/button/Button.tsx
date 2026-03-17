@@ -29,10 +29,10 @@ export const Button = ({
     </Link>
   ) : (
     <button
-      className={classNameList}
-      type={type}
       {...props}
+      className={classNameList}
       disabled={disabled}
+      type={type}
     >
       {children}
     </button>

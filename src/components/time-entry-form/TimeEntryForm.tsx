@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useRef, useState } from "react";
 import Form from "next/form";
 
 import { Button } from "@/components/button/Button";
@@ -26,10 +26,12 @@ const activityOptions = [
 ];
 
 const initialState = {
-  message: "Initial message",
+  message: "",
 };
 
 export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [canSubmit, setCanSubmit] = useState(false);
   const [totalHours, setTotalHours] = useState("00:00");
   const [state, formAction, pending] = useActionState(
     createCalendarEvent,
@@ -37,6 +39,8 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
   );
 
   function handleChange(event: React.SyntheticEvent<HTMLFormElement>) {
+    console.log("handleChange");
+
     const formData = new FormData(event.currentTarget);
     const baseDate = new Date().toDateString();
     const [startDate, stopDate] = ["startDate", "stopDate"].map(
@@ -45,6 +49,22 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
     const elapsedHours = formatHours(getElapsedTime(startDate, stopDate));
 
     setTotalHours(elapsedHours);
+    setCanSubmit(event.currentTarget.checkValidity());
+    console.log("canSubmit: ", canSubmit);
+  }
+
+  // function handleBlur(event: React.SyntheticEvent<HTMLFormElement>) {
+  //   console.log("handleBlur");
+
+  //   const formData = new FormData(event.currentTarget);
+  //   if (inputRef.current?.hasAttribute("min")) {
+  //     inputRef.current.min = `${formData.get("startDate") || "00:00"}`;
+  //   }
+  // }
+
+  function handleSubmit() {
+    setTotalHours("00:00");
+    setCanSubmit(false);
   }
 
   return (
@@ -52,7 +72,8 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
       action={formAction}
       className={styles.container}
       onChange={handleChange}
-      onSubmit={onCancel}
+      // onBlur={handleBlur}
+      onSubmit={handleSubmit}
     >
       <h2 className={styles.title}>New event</h2>
       <InputField
@@ -76,6 +97,7 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
           required
           title="Date"
           type="date"
+          max="9999-12-12"
         />
         <InputField
           className={styles.timeField}
@@ -90,13 +112,17 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
           required
           title="To"
           type="time"
+          min="12:00"
+          inputRef={inputRef}
         />
         <div className={styles.totalHours}>
           <span className={`${styles.label} ${styles.total}`}>Total</span>
           <span className={styles.hours}>{totalHours}</span>
         </div>
       </div>
-      <p aria-live="polite">{state?.message}</p>
+      <p aria-live="polite">
+        {state?.message} {pending ? "pending...." : "ready"}
+      </p>
       <div className={styles.buttons}>
         <Button
           className={styles.cancelButton}
@@ -106,7 +132,7 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
         >
           Cancel
         </Button>
-        <Button type="submit" disabled={pending}>
+        <Button type="submit" disabled={!canSubmit || pending}>
           Add event
         </Button>
       </div>
