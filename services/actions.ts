@@ -27,12 +27,7 @@ export const createCalendarEvent = async (
   _prevState: CreateCalendarEventState,
   formData: FormData,
 ): Promise<CreateCalendarEventState> => {
-  const waitFor = (delay) =>
-    new Promise((resolve) => setTimeout(resolve, delay));
-  await waitFor(2000);
-
   const data = Object.fromEntries(formData);
-  console.table(data);
 
   const formattedData = {
     client: data.client,
@@ -45,14 +40,11 @@ export const createCalendarEvent = async (
   const validatedData = schema.safeParse(formattedData);
 
   if (!validatedData.success) {
-    console.table(z.treeifyError(validatedData.error).errors);
     return {
       message: validatedData.error.message,
       errors: z.treeifyError(validatedData.error).errors,
     };
   }
-
-  console.table(validatedData);
 
   return { message: "Event created" };
 };

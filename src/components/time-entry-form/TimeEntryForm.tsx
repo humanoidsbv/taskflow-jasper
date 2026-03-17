@@ -39,8 +39,6 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
   );
 
   function handleChange(event: React.SyntheticEvent<HTMLFormElement>) {
-    console.log("handleChange");
-
     const formData = new FormData(event.currentTarget);
     const baseDate = new Date().toDateString();
     const [startDate, stopDate] = ["startDate", "stopDate"].map(
@@ -50,17 +48,7 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
 
     setTotalHours(elapsedHours);
     setCanSubmit(event.currentTarget.checkValidity());
-    console.log("canSubmit: ", canSubmit);
   }
-
-  // function handleBlur(event: React.SyntheticEvent<HTMLFormElement>) {
-  //   console.log("handleBlur");
-
-  //   const formData = new FormData(event.currentTarget);
-  //   if (inputRef.current?.hasAttribute("min")) {
-  //     inputRef.current.min = `${formData.get("startDate") || "00:00"}`;
-  //   }
-  // }
 
   function handleSubmit() {
     setTotalHours("00:00");
@@ -72,7 +60,6 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
       action={formAction}
       className={styles.container}
       onChange={handleChange}
-      // onBlur={handleBlur}
       onSubmit={handleSubmit}
     >
       <h2 className={styles.title}>New event</h2>
@@ -121,7 +108,7 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
         </div>
       </div>
       <p aria-live="polite">
-        {state?.message} {pending ? "pending...." : "ready"}
+        {state?.message} {pending ? "pending...." : ""}
       </p>
       <div className={styles.buttons}>
         <Button
