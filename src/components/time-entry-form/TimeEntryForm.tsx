@@ -1,13 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import Form from "next/form";
 
 import { Button } from "@/components/button/Button";
-import { createCalendarEvent } from "../../../services/actions";
+import { createCalendarEvent } from "@/services/actions";
+import { formatHours, getElapsedTime } from "@/utils/utils";
 
 import styles from "./TimeEntryForm.module.css";
-import { useState } from "react";
-import { formatHours, getElapsedTime } from "@/utils/utils";
 
 interface TimeEntryFormProps {
   onCancel: () => void;
@@ -40,12 +40,11 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
   return (
     <Form
       action={createCalendarEvent}
-      onChange={handleChange}
       className={styles.container}
+      onChange={handleChange}
       onSubmit={onCancel}
-      formMethod=""
     >
-      <span className={styles.title}>New event</span>
+      <h2 className={styles.title}>New event</h2>
       <label className={styles.labelField}>
         <span className={styles.label}>Client</span>
         <input

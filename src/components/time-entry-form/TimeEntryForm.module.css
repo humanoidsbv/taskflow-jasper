@@ -1,14 +1,14 @@
-.title {
-  font-size: var(--font-medium);
-  font-weight: 500;
-  color: var(--gray-2);
-}
-
 .container {
   display: flex;
   flex-direction: column;
   gap: 24px;
   height: 100%;
+}
+
+.title {
+  color: var(--gray-2);
+  font-size: var(--font-medium);
+  font-weight: 500;
 }
 
 .date {
@@ -17,22 +17,17 @@
 
 .timeContainer {
   display: flex;
-  gap: 20px;
   flex-wrap: wrap;
-}
-
-.from {
-  width: 100px;
+  gap: 20px;
 }
 
 .inputField {
-  border: 1px solid var(--gray-3);
   border-radius: 4px;
-  padding: 0 16px;
-  height: 40px;
+  border: 1px solid var(--gray-3);
   color: var(--gray-1);
   font-size: var(--font-x-small);
-  opacity: 1;
+  height: 40px;
+  padding: 0 16px;
 }
 
 .inputField::placeholder {
@@ -41,7 +36,6 @@
 
 .inputField:hover {
   border: 1px solid var(--gray-2);
-  color: var(--gray-1);
 }
 
 .inputField:active {
@@ -50,8 +44,8 @@
 
 .inputField:disabled {
   border: 1px solid var(--gray-1);
-  opacity: 0.4;
   color: var(--gray-1);
+  opacity: 0.4;
 }
 
 .inputField[type="date"]::-webkit-calendar-picker-indicator {
@@ -84,8 +78,8 @@
 }
 
 .hours {
-  font-size: var(--font-x-large);
   color: var(--gray-2);
+  font-size: var(--font-x-large);
   font-weight: 500;
   margin-top: auto;
 }
