@@ -14,18 +14,33 @@ const schema = z.object({
   }),
 });
 
+interface CreateCalendarEventState {
+  message: string;
+  errors?: string[];
+}
+
 export const createCalendarEvent = async (
+  _prevState: CreateCalendarEventState,
   formData: FormData,
-): Promise<void> => {
+): Promise<CreateCalendarEventState> => {
+  console.table(formData);
   const data = Object.fromEntries(formData);
 
-  const formattedData = {
+  const validatedData = schema.safeParse({
     client: data.client,
     startTimestamp: new Date(`${data.date}T${data.startDate}`).toISOString(),
     stopTimestamp: new Date(`${data.date}T${data.stopDate}`).toISOString(),
     billable: data.activity.toString().split("-")[1] === "billable",
     department: data.activity.toString().split("-")[0],
-  };
+  });
+  if (!validatedData.success) {
+    return {
+      message: "Invalid form values",
+      errors: z.treeifyError(validatedData.error).errors,
+    };
+  }
 
-  console.table(formattedData);
+  console.table(validatedData);
+
+  return { message: "Event created" };
 };

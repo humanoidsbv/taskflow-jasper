@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import Form from "next/form";
 
 import { Button } from "@/components/button/Button";
@@ -25,8 +25,16 @@ const activityOptions = [
   },
 ];
 
+const initialState = {
+  message: "Initial message",
+};
+
 export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
   const [totalHours, setTotalHours] = useState("00:00");
+  const [state, formAction, pending] = useActionState(
+    createCalendarEvent,
+    initialState,
+  );
 
   function handleChange(event: React.SyntheticEvent<HTMLFormElement>) {
     const formData = new FormData(event.currentTarget);
@@ -41,7 +49,7 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
 
   return (
     <Form
-      action={createCalendarEvent}
+      action={formAction}
       className={styles.container}
       onChange={handleChange}
       onSubmit={onCancel}
@@ -88,6 +96,7 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
           <span className={styles.hours}>{totalHours}</span>
         </div>
       </div>
+      <p aria-live="polite">{state?.message}</p>
       <div className={styles.buttons}>
         <Button
           className={styles.cancelButton}
@@ -97,7 +106,9 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
         >
           Cancel
         </Button>
-        <Button type="submit">Add event</Button>
+        <Button type="submit" disabled={pending}>
+          Add event
+        </Button>
       </div>
     </Form>
   );
