@@ -6,6 +6,8 @@ import Form from "next/form";
 import { Button } from "@/components/button/Button";
 import { createCalendarEvent } from "@/services/actions";
 import { formatHours, getElapsedTime } from "@/utils/utils";
+import { InputField } from "@/components/input-field/InputField";
+import { SelectField } from "@/components/input-field/SelectField";
 
 import styles from "./TimeEntryForm.module.css";
 
@@ -45,54 +47,42 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
       onSubmit={onCancel}
     >
       <h2 className={styles.title}>New event</h2>
-      <label className={styles.labelField}>
-        <span className={styles.label}>Client</span>
-        <input
-          className={styles.inputField}
-          name="client"
-          required
-          type="text"
-          placeholder="Client"
-        />
-      </label>
-      <label className={styles.labelField}>
-        <span className={styles.label}>Activity</span>
-        <select className={styles.inputField} name="activity" required>
-          {activityOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.placeholder}
-            </option>
-          ))}
-        </select>
-      </label>
+      <InputField
+        name="client"
+        placeholder="Client"
+        required
+        title="Date Test"
+        type="text"
+      />
+      <SelectField title="Activity" name="activity">
+        {activityOptions.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.placeholder}
+          </option>
+        ))}
+      </SelectField>
       <div className={styles.timeContainer}>
-        <label className={`${styles.labelField} ${styles.date}`}>
-          <span className={styles.label}>Date</span>
-          <input
-            className={styles.inputField}
-            name="date"
-            required
-            type="date"
-          />
-        </label>
-        <label className={`${styles.labelField} ${styles.timeField}`}>
-          <span className={styles.label}>From</span>
-          <input
-            className={styles.inputField}
-            name="startDate"
-            required
-            type="time"
-          />
-        </label>
-        <label className={`${styles.labelField} ${styles.timeField}`}>
-          <span className={styles.label}>To</span>
-          <input
-            className={styles.inputField}
-            name="stopDate"
-            required
-            type="time"
-          />
-        </label>
+        <InputField
+          className={styles.date}
+          name="date"
+          required
+          title="Date"
+          type="date"
+        />
+        <InputField
+          className={styles.timeField}
+          name="startDate"
+          required
+          title="From"
+          type="time"
+        />
+        <InputField
+          className={styles.timeField}
+          name="stopDate"
+          required
+          title="To"
+          type="time"
+        />
         <div className={styles.totalHours}>
           <span className={`${styles.label} ${styles.total}`}>Total</span>
           <span className={styles.hours}>{totalHours}</span>
