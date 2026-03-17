@@ -1,29 +1,18 @@
-export const getElapsedTime = (
-  startDate: Date,
-  stopDate: Date,
-): {
-  elapsedHours: number;
-  elapsedMinutes: number;
-} => {
-  const totalMinutes = Math.floor(
-    (stopDate.getTime() - startDate.getTime()) / (1000 * 60),
+export const getElapsedTime = (startDate: Date, stopDate: Date): number => {
+  const totalMinutes = Math.max(
+    0,
+    Math.floor((stopDate.getTime() - startDate.getTime()) / (1000 * 60)),
   );
-  const elapsedHours = Math.floor(totalMinutes / 60);
-  const elapsedMinutes = totalMinutes % 60;
+  const elapsedHours = totalMinutes / 60;
 
-  return { elapsedHours, elapsedMinutes };
+  return elapsedHours;
 };
 
-export const formatElapsedTime = (startDate: Date, stopDate: Date): string => {
-  const { elapsedHours, elapsedMinutes } = getElapsedTime(startDate, stopDate);
-  return `${elapsedHours.toString().padStart(2, "0")}:${elapsedMinutes.toString().padStart(2, "0")}`;
-};
-
-export const formatHours = (elapsedHours: number): string => {
-  const elapsedMinutes = elapsedHours * 60;
-  const hours = Math.floor(elapsedMinutes / 60);
-  const minutes = elapsedMinutes % 60;
-  return `${hours.toFixed(0).toString().padStart(2, "0")}:${minutes.toFixed(0).toString().padStart(2, "0")}`;
+export const formatHours = (hours: number): string => {
+  const totalMinutes = hours * 60;
+  const roundedHours = Math.floor(totalMinutes / 60);
+  const restMinutes = totalMinutes % 60;
+  return `${roundedHours.toFixed(0).toString().padStart(2, "0")}:${restMinutes.toFixed(0).toString().padStart(2, "0")}`;
 };
 
 export const dateFormat = new Intl.DateTimeFormat("nl-NL", {

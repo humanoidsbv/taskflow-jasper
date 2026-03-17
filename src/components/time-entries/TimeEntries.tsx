@@ -24,7 +24,7 @@ export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
   const totalHoursByDay = sortedTimeEntries.reduce<Record<string, number>>(
     (acc, item) => {
       const date = new Date(item.startTimestamp).toLocaleDateString();
-      const { elapsedHours } = getElapsedTime(
+      const elapsedHours = getElapsedTime(
         new Date(item.startTimestamp),
         new Date(item.stopTimestamp),
       );

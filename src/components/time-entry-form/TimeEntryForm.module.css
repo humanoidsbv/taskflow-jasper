@@ -1,0 +1,81 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 100%;
+}
+
+.title {
+  color: var(--gray-2);
+  font-size: var(--font-medium);
+  font-weight: 500;
+}
+
+.timeContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.date {
+  width: 100%;
+}
+
+.time {
+  width: 100px;
+}
+
+.total {
+  color: var(--gray-2);
+  font-size: var(--font-x-small);
+  font-weight: 500;
+}
+
+.hours {
+  color: var(--gray-2);
+  font-size: var(--font-x-large);
+  font-weight: 500;
+  margin-top: auto;
+}
+
+.totalHours {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.buttons button {
+  flex-grow: 1;
+}
+
+.cancelButton {
+  color: var(--gray-1);
+  font-weight: 500;
+}
+
+@media screen and (min-width: 1160px) {
+  .buttons {
+    flex-direction: row;
+    gap: 32px;
+    margin-top: 24px;
+  }
+
+  .title {
+    font-size: var(--font-x-large);
+  }
+
+  .date {
+    max-width: 200px;
+  }
+
+  .time {
+    width: 80px;
+  }
+}
