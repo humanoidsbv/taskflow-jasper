@@ -1,28 +1,28 @@
 import styles from "./InputField.module.css";
 
 interface InputFieldProps {
-  title: string;
+  className?: string;
   name: string;
-  type: string;
   placeholder?: string;
   required?: boolean;
-  className?: string;
+  title: string;
+  type: string;
 }
 
 export const InputField = ({
-  title,
+  className,
   name,
-  type,
   placeholder,
   required,
-  className,
+  title,
+  type,
 }: InputFieldProps) => {
-  const classNameList = `${styles.labelField} ${className}`;
+  const classNameList = `${styles.container} ${className}`;
   return (
     <label className={classNameList}>
       <span className={styles.label}>{title}</span>
       <input
-        className={styles.inputField}
+        className={styles.input}
         name={name}
         placeholder={placeholder}
         type={type}

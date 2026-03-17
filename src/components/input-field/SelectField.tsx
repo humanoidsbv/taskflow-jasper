@@ -3,25 +3,25 @@ import { ReactNode } from "react";
 import styles from "@/components/input-field/InputField.module.css";
 
 interface SelectFieldProps {
-  title: string;
+  children: ReactNode;
+  className?: string;
   name: string;
   required?: boolean;
-  className?: string;
-  children: ReactNode;
+  title: string;
 }
 
 export const SelectField = ({
-  title,
+  children,
+  className,
   name,
   required,
-  className,
-  children,
+  title,
 }: SelectFieldProps) => {
-  const classNameList = `${styles.labelField} ${className}`;
+  const classNameList = `${styles.container} ${className}`;
   return (
     <label className={classNameList}>
       <span className={styles.label}>{title}</span>
-      <select className={styles.inputField} name={name} required={required}>
+      <select className={styles.input} name={name} required={required}>
         {children}
       </select>
     </label>
