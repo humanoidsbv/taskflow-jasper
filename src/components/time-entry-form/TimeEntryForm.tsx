@@ -27,6 +27,7 @@ const activityOptions = [
 
 const initialState = {
   message: "",
+  errors: [],
 };
 
 export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
@@ -67,7 +68,7 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
         name="client"
         placeholder="Client"
         required
-        title="Date Test"
+        title="Date"
         type="text"
       />
       <SelectField title="Activity" name="activity">
@@ -107,8 +108,11 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
           <span className={styles.hours}>{totalHours}</span>
         </div>
       </div>
-      <p aria-live="polite">
-        {state?.message} {pending ? "pending...." : ""}
+      <p
+        aria-live="polite"
+        className={`${styles.message} ${state.errors ? styles.error : styles.confirm} ${pending && styles.pending}`}
+      >
+        {pending ? "Pending submission..." : state.message}
       </p>
       <div className={styles.buttons}>
         <Button
