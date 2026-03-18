@@ -2,26 +2,67 @@
 
 import { z } from "zod";
 
-const schema = z.object({
-  client: z
-    .string()
-    .refine((client) => client !== "test" && client.length > 0, {
-      message: "Test",
+const timeToMinutes = (time: string) => {
+  return parseInt(time.split(":")[0]) * 60 + parseInt(time.split(":")[1]);
+};
+
+const schema = z
+  .object({
+    client: z.string().refine((client) => client.length > 0, {
+      error: "Client is required",
     }),
-  department: z.string(),
-  billable: z.boolean(),
-  startTimestamp: z.coerce.date().refine((date) => date, {
-    error: "Invalid date format used!",
-  }),
-  stopTimestamp: z.coerce.date().refine((date) => date, {
-    error: "Invalid date format used!",
-  }),
-});
+    activity: z.string().refine(
+      (activity) => {
+        const splitActivity = activity.split("-");
+        return (
+          activity.length > 2 &&
+          splitActivity.length === 2 &&
+          splitActivity[0].length > 0 &&
+          splitActivity[1].length > 0
+        );
+      },
+      {
+        error: "Activity should be in form 'department-billable'",
+      },
+    ),
+    date: z.iso.date(),
+    startTime: z.iso.time(),
+    stopTime: z.iso.time(),
+  })
+  .refine(
+    (data) => timeToMinutes(data.stopTime) - timeToMinutes(data.startTime) > 0,
+    {
+      error: "Start time should be earlier than stop time",
+      path: ["startTime", "stopTime"],
+    },
+  );
 
 interface CreateCalendarEventState {
   message: string;
   errors?: string[];
 }
+
+type ValidatedDataType = {
+  client: string;
+  activity: string;
+  date: string;
+  startTime: string;
+  stopTime: string;
+};
+
+const formatData = (validatedData: ValidatedDataType) => {
+  return {
+    client: validatedData.client,
+    department: validatedData.activity.split("-")[0],
+    billable: validatedData.activity.split("-")[1] === "billable",
+    startTimestamp: new Date(
+      `${validatedData.date}T${validatedData.startTime}Z`,
+    ).toISOString(),
+    stopTimestamp: new Date(
+      `${validatedData.date}T${validatedData.stopTime}Z`,
+    ).toISOString(),
+  };
+};
 
 export const createCalendarEvent = async (
   _prevState: CreateCalendarEventState,
@@ -29,22 +70,27 @@ export const createCalendarEvent = async (
 ): Promise<CreateCalendarEventState> => {
   const data = Object.fromEntries(formData);
 
-  const formattedData = {
-    client: data.client,
-    startTimestamp: new Date(`${data.date}T${data.startDate}`),
-    stopTimestamp: new Date(`${data.date}T${data.stopDate}`),
-    billable: data.activity.toString().split("-")[1] === "billable",
-    department: data.activity.toString().split("-")[0],
-  };
+  console.log("data");
+  console.table(data);
 
-  const validatedData = schema.safeParse(formattedData);
+  const validatedData = schema.safeParse(data);
+
+  console.log("validatedData.data");
+  console.table(validatedData.data);
 
   if (!validatedData.success) {
     return {
-      message: validatedData.error.message,
+      message: validatedData.error.issues
+        .map((error) => error.message)
+        .join(", "),
       errors: z.treeifyError(validatedData.error).errors,
     };
   }
+
+  const formattedData = formatData(validatedData.data);
+
+  console.log("formattedData");
+  console.table(formattedData);
 
   return { message: "Event created" };
 };

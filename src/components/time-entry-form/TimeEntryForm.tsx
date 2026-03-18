@@ -41,10 +41,10 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
   function handleChange(event: React.SyntheticEvent<HTMLFormElement>) {
     const formData = new FormData(event.currentTarget);
     const baseDate = new Date().toDateString();
-    const [startDate, stopDate] = ["startDate", "stopDate"].map(
+    const [startTime, stopTime] = ["startTime", "stopTime"].map(
       (key) => new Date(`${baseDate} ${formData.get(key) || "00:00"}`),
     );
-    const elapsedHours = formatHours(getElapsedTime(startDate, stopDate));
+    const elapsedHours = formatHours(getElapsedTime(startTime, stopTime));
 
     setTotalHours(elapsedHours);
     setCanSubmit(event.currentTarget.checkValidity());
@@ -88,14 +88,14 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
         />
         <InputField
           className={styles.timeField}
-          name="startDate"
+          name="startTime"
           required
           title="From"
           type="time"
         />
         <InputField
           className={styles.timeField}
-          name="stopDate"
+          name="stopTime"
           required
           title="To"
           type="time"
