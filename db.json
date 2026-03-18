@@ -1,0 +1,36 @@
+{
+  "time-entries": [
+    {
+      "client": "Heineken",
+      "id": 1,
+      "startTimestamp": "2026-03-18T12:00:00.000Z",
+      "stopTimestamp": "2026-03-18T14:30:00.000Z",
+      "department": "development",
+      "billable": true
+    },
+    {
+      "client": "Hertog Jan",
+      "id": 2,
+      "startTimestamp": "2026-03-18T10:00:00.000Z",
+      "stopTimestamp": "2026-03-18T11:30:00.000Z",
+      "department": "design",
+      "billable": true
+    },
+    {
+      "client": "Grolsch",
+      "id": 3,
+      "startTimestamp": "2026-03-18T10:30:00.000Z",
+      "stopTimestamp": "2026-03-18T10:00:00.000Z",
+      "department": "development",
+      "billable": false
+    },
+    {
+      "client": "Hertog Jan",
+      "id": 4,
+      "startTimestamp": "2026-03-19T11:30:00.000Z",
+      "stopTimestamp": "2026-03-19T16:00:00.000Z",
+      "department": "design",
+      "billable": true
+    }
+  ]
+}

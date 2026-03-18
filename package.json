@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "json-server": "json-server db.json --port 3004",
+    "dev": "next & npm run json-server",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
