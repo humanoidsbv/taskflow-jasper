@@ -51,17 +51,11 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
     setCanSubmit(event.currentTarget.checkValidity());
   }
 
-  function handleSubmit() {
-    setTotalHours("00:00");
-    setCanSubmit(false);
-  }
-
   return (
     <Form
       action={formAction}
       className={styles.container}
       onChange={handleChange}
-      onSubmit={handleSubmit}
     >
       <h2 className={styles.title}>New event</h2>
       <InputField
@@ -100,7 +94,6 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
           required
           title="To"
           type="time"
-          min="12:00"
           inputRef={inputRef}
         />
         <div className={styles.totalHours}>

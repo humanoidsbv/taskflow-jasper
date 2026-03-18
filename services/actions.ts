@@ -43,8 +43,8 @@ interface CreateCalendarEventState {
 }
 
 type ValidatedDataType = {
-  client: string;
   activity: string;
+  client: string;
   date: string;
   startTime: string;
   stopTime: string;
@@ -52,9 +52,9 @@ type ValidatedDataType = {
 
 const formatData = (validatedData: ValidatedDataType) => {
   return {
+    billable: validatedData.activity.split("-")[1] === "billable",
     client: validatedData.client,
     department: validatedData.activity.split("-")[0],
-    billable: validatedData.activity.split("-")[1] === "billable",
     startTimestamp: new Date(
       `${validatedData.date}T${validatedData.startTime}Z`,
     ).toISOString(),
@@ -70,13 +70,7 @@ export const createCalendarEvent = async (
 ): Promise<CreateCalendarEventState> => {
   const data = Object.fromEntries(formData);
 
-  console.log("data");
-  console.table(data);
-
   const validatedData = schema.safeParse(data);
-
-  console.log("validatedData.data");
-  console.table(validatedData.data);
 
   if (!validatedData.success) {
     return {
@@ -88,9 +82,6 @@ export const createCalendarEvent = async (
   }
 
   const formattedData = formatData(validatedData.data);
-
-  console.log("formattedData");
-  console.table(formattedData);
 
   return { message: "Event created" };
 };
