@@ -6,7 +6,7 @@
       "startTimestamp": "2026-03-18T12:00:00.000Z",
       "stopTimestamp": "2026-03-18T14:30:00.000Z",
       "department": "development",
-      "billable": true
+      "billable": false
     },
     {
       "client": "Hertog Jan",
@@ -19,7 +19,7 @@
     {
       "client": "Grolsch",
       "id": 3,
-      "startTimestamp": "2026-03-18T10:30:00.000Z",
+      "startTimestamp": "2026-03-18T09:30:00.000Z",
       "stopTimestamp": "2026-03-18T10:00:00.000Z",
       "department": "development",
       "billable": false
