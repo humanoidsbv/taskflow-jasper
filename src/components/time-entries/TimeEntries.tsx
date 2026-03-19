@@ -14,14 +14,9 @@ interface TimeEntriesProps {
 }
 
 export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
-  const sortedTimeEntries = timeEntries.sort((a, b) => {
-    return (
-      new Date(b.startTimestamp).getTime() -
-      new Date(a.startTimestamp).getTime()
-    );
-  });
+  console.table(timeEntries);
 
-  const totalHoursByDay = sortedTimeEntries.reduce<Record<string, number>>(
+  const totalHoursByDay = timeEntries.reduce<Record<string, number>>(
     (acc, item) => {
       const date = new Date(item.startTimestamp).toLocaleDateString();
       const elapsedHours = getElapsedTime(
@@ -36,7 +31,7 @@ export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
 
   return (
     <ul>
-      {sortedTimeEntries.map((entry, index, timeEntries) => {
+      {timeEntries.map((entry, index, timeEntries) => {
         const today = new Date(entry.startTimestamp).toLocaleDateString();
         const hasHeader =
           index === 0 ||

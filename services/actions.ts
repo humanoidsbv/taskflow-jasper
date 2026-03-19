@@ -2,18 +2,12 @@
 
 import { z } from "zod";
 
+import { ValidatedDataType } from "@/types/dataTypes";
+
 interface CreateCalendarEventState {
   message: string;
   errors?: string[];
 }
-
-type ValidatedDataType = {
-  activity: string;
-  client: string;
-  date: string;
-  startTime: string;
-  stopTime: string;
-};
 
 const minutes = (time: string) => {
   return parseInt(time.split(":")[0]) * 60 + parseInt(time.split(":")[1]);
@@ -68,6 +62,10 @@ export const createCalendarEvent = async (
   const data = Object.fromEntries(formData);
 
   const validatedData = schema.safeParse(data);
+
+  // const waitFor = (delay) =>
+  //   new Promise((resolve) => setTimeout(resolve, delay));
+  // await waitFor(1000);
 
   if (!validatedData.success) {
     return {

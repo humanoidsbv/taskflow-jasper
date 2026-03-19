@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useRef, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import Form from "next/form";
 
 import { Button } from "@/components/button/Button";
@@ -38,6 +38,8 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
     createCalendarEvent,
     initialState,
   );
+  const [pendingString, setPendingString] = useState("");
+  const pendingTimeoutRef = useRef<number | null>(null);
 
   function handleChange(event: React.SyntheticEvent<HTMLFormElement>) {
     const formData = new FormData(event.currentTarget);
@@ -50,6 +52,27 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
     setTotalHours(elapsedHours);
     setCanSubmit(event.currentTarget.checkValidity());
   }
+
+  useEffect(() => {
+    console.table({
+      pending,
+      errors: state.errors,
+      pendingString,
+    });
+    if (!pending && !state.errors) {
+      onCancel();
+      setTotalHours("00:00");
+    }
+    if (pending && pendingString === "") {
+      pendingTimeoutRef.current = window.setTimeout(() => {
+        setPendingString("Pending submission...");
+      }, 1000);
+    }
+    if (!pending && pendingTimeoutRef.current) {
+      clearTimeout(pendingTimeoutRef.current);
+      setPendingString("");
+    }
+  }, [pending, onCancel]);
 
   return (
     <Form
@@ -105,7 +128,7 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
         aria-live="polite"
         className={`${styles.message} ${state.errors ? styles.error : styles.confirm} ${pending && styles.pending}`}
       >
-        {pending ? "Pending submission..." : state.message}
+        {pending ? pendingString : state.message}
       </p>
       <div className={styles.buttons}>
         <Button
