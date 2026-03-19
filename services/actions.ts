@@ -2,7 +2,20 @@
 
 import { z } from "zod";
 
-const timeToMinutes = (time: string) => {
+interface CreateCalendarEventState {
+  message: string;
+  errors?: string[];
+}
+
+type ValidatedDataType = {
+  activity: string;
+  client: string;
+  date: string;
+  startTime: string;
+  stopTime: string;
+};
+
+const minutes = (time: string) => {
   return parseInt(time.split(":")[0]) * 60 + parseInt(time.split(":")[1]);
 };
 
@@ -29,26 +42,10 @@ const schema = z
     startTime: z.iso.time(),
     stopTime: z.iso.time(),
   })
-  .refine(
-    (data) => timeToMinutes(data.stopTime) - timeToMinutes(data.startTime) > 0,
-    {
-      error: "Start time should be earlier than stop time",
-      path: ["startTime", "stopTime"],
-    },
-  );
-
-interface CreateCalendarEventState {
-  message: string;
-  errors?: string[];
-}
-
-type ValidatedDataType = {
-  activity: string;
-  client: string;
-  date: string;
-  startTime: string;
-  stopTime: string;
-};
+  .refine((data) => minutes(data.stopTime) - minutes(data.startTime) > 0, {
+    error: "Start time should be earlier than stop time",
+    path: ["startTime", "stopTime"],
+  });
 
 const formatData = (validatedData: ValidatedDataType) => {
   return {
