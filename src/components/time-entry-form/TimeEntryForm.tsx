@@ -10,6 +10,7 @@ import { InputField } from "@/components/input-field/InputField";
 import { SelectField } from "@/components/input-field/SelectField";
 
 import styles from "./TimeEntryForm.module.css";
+import { useRouter } from "next/navigation";
 
 interface TimeEntryFormProps {
   onCancel: () => void;
@@ -31,6 +32,7 @@ const initialState = {
 };
 
 export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
+  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [canSubmit, setCanSubmit] = useState(false);
   const [totalHours, setTotalHours] = useState("00:00");
@@ -40,6 +42,7 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
   );
   const [pendingString, setPendingString] = useState("");
   const pendingTimeoutRef = useRef<number | null>(null);
+  const [refreshed, setRefreshed] = useState(false);
 
   function handleChange(event: React.SyntheticEvent<HTMLFormElement>) {
     const formData = new FormData(event.currentTarget);
@@ -54,14 +57,12 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
   }
 
   useEffect(() => {
-    console.table({
-      pending,
-      errors: state.errors,
-      pendingString,
-    });
-    if (!pending && !state.errors) {
+    if (pending) setRefreshed(false);
+    if (!pending && state.errors?.length === 0 && !refreshed) {
       onCancel();
       setTotalHours("00:00");
+      router.refresh();
+      setRefreshed(true);
     }
     if (pending && pendingString === "") {
       pendingTimeoutRef.current = window.setTimeout(() => {
@@ -126,7 +127,7 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
       </div>
       <p
         aria-live="polite"
-        className={`${styles.message} ${state.errors ? styles.error : styles.confirm} ${pending && styles.pending}`}
+        className={`${styles.message} ${state.errors?.length === 0 ? styles.error : styles.confirm} ${pending && styles.pending}`}
       >
         {pending ? pendingString : state.message}
       </p>

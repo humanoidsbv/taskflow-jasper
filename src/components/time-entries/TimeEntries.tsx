@@ -5,7 +5,7 @@ import { Fragment } from "react";
 import { formatHeader } from "./helpers";
 import { formatHours, getElapsedTime } from "@/utils/utils";
 import { TimeEntry } from "@/components/time-entry/TimeEntry";
-import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
+import { CreatedTimeEntry } from "@/types/dataTypes";
 
 import styles from "./TimeEntries.module.css";
 
@@ -14,8 +14,6 @@ interface TimeEntriesProps {
 }
 
 export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
-  console.table(timeEntries);
-
   const totalHoursByDay = timeEntries.reduce<Record<string, number>>(
     (acc, item) => {
       const date = new Date(item.startTimestamp).toLocaleDateString();

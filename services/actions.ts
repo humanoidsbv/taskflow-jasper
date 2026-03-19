@@ -62,10 +62,6 @@ export const createCalendarEvent = async (
 
   const validatedData = schema.safeParse(data);
 
-  // const waitFor = (delay) =>
-  //   new Promise((resolve) => setTimeout(resolve, delay));
-  // await waitFor(1000);
-
   if (!validatedData.success) {
     return {
       message: validatedData.error.issues
@@ -79,7 +75,5 @@ export const createCalendarEvent = async (
 
   const newEntry = await createTimeEntry(formattedData);
 
-  console.table(newEntry);
-
-  return { message: "Event created" };
+  return { message: "Event created", errors: [] };
 };

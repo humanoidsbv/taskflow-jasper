@@ -1,8 +1,4 @@
-import {
-  CreatedTimeEntry,
-  TimeEntryData,
-  ValidatedDataType,
-} from "@/types/dataTypes";
+import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
 
 class NotFoundError extends Error {
   constructor(message: string) {
@@ -25,7 +21,6 @@ export async function getTimeEntries(): Promise<CreatedTimeEntry[]> {
     if (response.status === 404) {
       throw new NotFoundError("Time entry not found!");
     }
-    console.log("succes");
     return response.json();
   } catch (error) {
     console.error(error);
