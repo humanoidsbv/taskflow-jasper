@@ -2,7 +2,7 @@
   "time-entries": [
     {
       "client": "Heineken",
-      "id": 1,
+      "id": "1",
       "startTimestamp": "2026-03-18T12:00:00.000Z",
       "stopTimestamp": "2026-03-18T14:30:00.000Z",
       "department": "development",
@@ -10,7 +10,7 @@
     },
     {
       "client": "Hertog Jan",
-      "id": 2,
+      "id": "2",
       "startTimestamp": "2026-03-18T10:00:00.000Z",
       "stopTimestamp": "2026-03-18T11:30:00.000Z",
       "department": "design",
@@ -18,7 +18,7 @@
     },
     {
       "client": "Grolsch",
-      "id": 3,
+      "id": "3",
       "startTimestamp": "2026-03-18T09:30:00.000Z",
       "stopTimestamp": "2026-03-18T10:00:00.000Z",
       "department": "development",
@@ -26,11 +26,28 @@
     },
     {
       "client": "Hertog Jan",
-      "id": 4,
+      "id": "4",
       "startTimestamp": "2026-03-19T11:30:00.000Z",
       "stopTimestamp": "2026-03-19T16:00:00.000Z",
       "department": "design",
       "billable": true
+    },
+    {
+      "id": "20de",
+      "client": "Jupiler",
+      "startTimestamp": "2026-03-19T09:00:00.000Z",
+      "stopTimestamp": "2026-03-19T11:00:00.000Z",
+      "department": "design",
+      "billable": true
+    },
+    {
+      "id": "8f70",
+      "billable": false,
+      "client": "Heineken",
+      "department": "design",
+      "startTimestamp": "2000-10-24T11:11:00.000Z",
+      "stopTimestamp": "2000-10-24T12:12:00.000Z"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

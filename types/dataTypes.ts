@@ -1,5 +1,4 @@
 export type TimeEntryData = {
-  id: number;
   client: string;
   startTimestamp: string;
   stopTimestamp: string;
@@ -22,3 +21,5 @@ export type ValidatedDataType = {
   startTime: string;
   stopTime: string;
 };
+
+export type CreatedTimeEntry = TimeEntryData & { id: string };

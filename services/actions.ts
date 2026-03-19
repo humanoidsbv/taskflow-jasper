@@ -1,8 +1,7 @@
-"use server";
-
 import { z } from "zod";
 
-import { ValidatedDataType } from "@/types/dataTypes";
+import { TimeEntryData, ValidatedDataType } from "@/types/dataTypes";
+import { createTimeEntry } from "./timeEntries";
 
 interface CreateCalendarEventState {
   message: string;
@@ -41,7 +40,7 @@ const schema = z
     path: ["startTime", "stopTime"],
   });
 
-const formatData = (validatedData: ValidatedDataType) => {
+const formatData = (validatedData: ValidatedDataType): TimeEntryData => {
   return {
     billable: validatedData.activity.split("-")[1] === "billable",
     client: validatedData.client,
@@ -77,6 +76,10 @@ export const createCalendarEvent = async (
   }
 
   const formattedData = formatData(validatedData.data);
+
+  const newEntry = await createTimeEntry(formattedData);
+
+  console.table(newEntry);
 
   return { message: "Event created" };
 };

@@ -5,12 +5,12 @@ import { Fragment } from "react";
 import { formatHeader } from "./helpers";
 import { formatHours, getElapsedTime } from "@/utils/utils";
 import { TimeEntry } from "@/components/time-entry/TimeEntry";
-import { TimeEntryData } from "@/types/dataTypes";
+import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
 
 import styles from "./TimeEntries.module.css";
 
 interface TimeEntriesProps {
-  timeEntries: TimeEntryData[];
+  timeEntries: CreatedTimeEntry[];
 }
 
 export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
