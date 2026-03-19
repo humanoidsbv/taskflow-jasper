@@ -1,6 +1,5 @@
 "use server";
 
-import { TimeEntryData } from "@/types/dataTypes";
 import { z } from "zod";
 
 const timeToMinutes = (time: string) => {
@@ -73,6 +72,10 @@ export const createCalendarEvent = async (
 
   const validatedData = schema.safeParse(data);
 
+  // const waitFor = (delay) =>
+  //   new Promise((resolve) => setTimeout(resolve, delay));
+  // await waitFor(1000);
+
   if (!validatedData.success) {
     return {
       message: validatedData.error.issues
@@ -86,28 +89,3 @@ export const createCalendarEvent = async (
 
   return { message: "Event created" };
 };
-
-export async function getTimeEntries(): Promise<TimeEntryData[]> {
-  try {
-    const response = await fetch("http://localhost:3004/time-entries", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.status === 404) {
-      throw new NotFoundError("Pls help I am under da water");
-    }
-    return response.json();
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-}
-
-class NotFoundError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "NotFoundError";
-  }
-}
