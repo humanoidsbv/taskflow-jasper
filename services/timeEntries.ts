@@ -1,4 +1,11 @@
-import { TimeEntryData } from "@/types/dataTypes";
+import { TimeEntryData, ValidatedDataType } from "@/types/dataTypes";
+
+class NotFoundError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "NotFoundError";
+  }
+}
 
 export async function getTimeEntries(): Promise<TimeEntryData[]> {
   try {
@@ -22,9 +29,4 @@ export async function getTimeEntries(): Promise<TimeEntryData[]> {
   }
 }
 
-class NotFoundError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "NotFoundError";
-  }
-}
+// export async function putTimeEntry(timeEntry: ValidatedDataType) {}

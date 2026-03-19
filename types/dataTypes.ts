@@ -14,3 +14,11 @@ export type FormattedTimeEntryData = Omit<
   timeInterval: string;
   totalTime: string;
 };
+
+export type ValidatedDataType = {
+  activity: string;
+  client: string;
+  date: string;
+  startTime: string;
+  stopTime: string;
+};
