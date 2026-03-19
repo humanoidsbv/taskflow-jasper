@@ -85,7 +85,7 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
         name="client"
         placeholder="Client"
         required
-        title="Date"
+        title="Client"
         type="text"
       />
       <SelectField title="Activity" name="activity">

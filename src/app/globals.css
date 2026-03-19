@@ -36,6 +36,10 @@
   --white: #fff;
 }
 
+:focus-visible {
+  outline: 3px solid var(--torqoise-1);
+}
+
 html,
 body {
   max-width: 100vw;
