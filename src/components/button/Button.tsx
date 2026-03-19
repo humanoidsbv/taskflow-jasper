@@ -6,6 +6,7 @@ import styles from "./Button.module.css";
 interface ButtonProps {
   children: ReactNode;
   className?: string;
+  disabled?: boolean;
   href?: string | { query: { [key: string]: boolean } };
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
@@ -18,15 +19,21 @@ export const Button = ({
   href,
   type,
   variant = "primary",
+  disabled,
   ...props
 }: ButtonProps) => {
   const classNameList = `${styles.button} ${styles[variant]} ${className}`;
   return href ? (
-    <Link className={classNameList} href={href}>
+    <Link className={classNameList} href={href} aria-disabled={disabled}>
       {children}
     </Link>
   ) : (
-    <button className={classNameList} type={type} {...props}>
+    <button
+      className={classNameList}
+      disabled={disabled}
+      type={type}
+      {...props}
+    >
       {children}
     </button>
   );
