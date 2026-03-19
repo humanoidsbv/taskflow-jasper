@@ -19,7 +19,7 @@ export async function getTimeEntries(): Promise<TimeEntryData[]> {
       },
     );
     if (response.status === 404) {
-      throw new NotFoundError("Pls help I am under da water");
+      throw new NotFoundError("Time entry not found!");
     }
     console.log("succes");
     return response.json();
