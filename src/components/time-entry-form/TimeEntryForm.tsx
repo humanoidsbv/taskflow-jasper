@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "sonner";
 import { useActionState, useEffect, useRef, useState } from "react";
 import Form from "next/form";
 
@@ -8,6 +9,7 @@ import { createCalendarEvent } from "@/services/actions";
 import { formatHours, getElapsedTime } from "@/utils/utils";
 import { InputField } from "@/components/input-field/InputField";
 import { SelectField } from "@/components/input-field/SelectField";
+import CloseIcon from "@/public/icons/close.svg";
 
 import styles from "./TimeEntryForm.module.css";
 
@@ -31,13 +33,15 @@ const initialState = {
     Record<"client" | "activity" | "date" | "startTime" | "stopTime", string[]>
   >,
   values: {} as Partial<
-    Record<"client" | "activity" | "date" | "startTime" | "stopTime", string>
+    Record<
+      "client" | "activity" | "date" | "startTime" | "stopTime" | "id",
+      string
+    >
   >,
 };
 
 export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [canSubmit, setCanSubmit] = useState(true);
   const [totalHours, setTotalHours] = useState("00:00");
   const [state, formAction, pending] = useActionState(
     createCalendarEvent,
@@ -55,9 +59,23 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
     setTotalHours(elapsedHours);
   }
 
+  function showCreatedToast(className: string) {
+    const toastId = toast("New event added", {
+      duration: 16000,
+      className,
+      cancel: (
+        <CloseIcon alt="Close message" onClick={() => toast.dismiss(toastId)} />
+      ),
+    });
+  }
+
   useEffect(() => {
+    if (!pending && Object.keys(state.errors).length !== 0) {
+      showCreatedToast("toastFailure");
+    }
     if (!pending && Object.keys(state.errors).length === 0) {
       onCancel();
+      showCreatedToast("toastSuccess");
       setTotalHours("00:00");
     }
   }, [pending, onCancel]);
@@ -139,7 +157,7 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
         >
           Cancel
         </Button>
-        <Button type="submit" disabled={!canSubmit || pending}>
+        <Button type="submit" disabled={pending}>
           Add event
         </Button>
       </div>

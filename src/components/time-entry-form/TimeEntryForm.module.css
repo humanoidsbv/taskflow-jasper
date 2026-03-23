@@ -76,6 +76,10 @@
   color: var(--gray-2);
 }
 
+.toastSuccess {
+  background-color: green;
+}
+
 @media screen and (min-width: 1160px) {
   .buttons {
     flex-direction: row;

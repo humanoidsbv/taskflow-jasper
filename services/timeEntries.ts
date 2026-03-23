@@ -52,7 +52,10 @@ export async function createTimeEntry(
       };
     }
 
-    return { message: "Event created", errors: {} };
+    return {
+      message: "Event created",
+      errors: {},
+    };
   } catch (error) {
     return {
       message: "Network error while creating time entry",

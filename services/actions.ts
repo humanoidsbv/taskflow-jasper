@@ -2,9 +2,9 @@
 
 import { z } from "zod";
 
-import { TimeEntryData, ValidatedDataType } from "@/types/dataTypes";
 import { createTimeEntry } from "./timeEntries";
 import { revalidatePath } from "next/cache";
+import { TimeEntryData, ValidatedDataType } from "@/types/dataTypes";
 
 interface CreateCalendarEventState {
   message: string;
