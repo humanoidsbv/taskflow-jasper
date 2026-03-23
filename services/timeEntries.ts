@@ -34,22 +34,31 @@ export async function createTimeEntry(
     baseUrl?: string;
     signal?: AbortSignal;
   },
-): Promise<CreatedTimeEntry> {
-  const requestResult = await fetch("http://localhost:3004/time-entries", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(timeEntry),
-    signal: options?.signal,
-  });
+): Promise<{ message: string; errors: {} }> {
+  try {
+    const requestResult = await fetch("http://localhost:3004/time-entries", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(timeEntry),
+      signal: options?.signal,
+    });
+    if (!requestResult.ok) {
+      const resultText = await requestResult.text();
+      return {
+        message: "Failed to create time entry",
+        errors: { server: [resultText || "Unknown server error"] },
+      };
+    }
 
-  if (!requestResult.ok) {
-    const resultText = await requestResult.text();
-    throw new Error(
-      `Failed to create time entry: ${requestResult.status} ${resultText}`,
-    );
+    return { message: "Event created", errors: {} };
+  } catch (error) {
+    return {
+      message: "Network error while creating time entry",
+      errors: {
+        server: [error instanceof Error ? error.message : "Unknown error"],
+      },
+    };
   }
-
-  return (await requestResult.json()) as CreatedTimeEntry;
 }

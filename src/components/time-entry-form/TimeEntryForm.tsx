@@ -28,21 +28,22 @@ const activityOptions = [
 
 const initialState = {
   message: "",
-  errors: [],
+  errors: {} as Partial<
+    Record<"client" | "activity" | "date" | "startTime" | "stopTime", string[]>
+  >,
+  values: {} as Partial<
+    Record<"client" | "activity" | "date" | "startTime" | "stopTime", string>
+  >,
 };
 
 export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
-  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
-  const [canSubmit, setCanSubmit] = useState(false);
+  const [canSubmit, setCanSubmit] = useState(true);
   const [totalHours, setTotalHours] = useState("00:00");
   const [state, formAction, pending] = useActionState(
     createCalendarEvent,
     initialState,
   );
-  const [pendingString, setPendingString] = useState("");
-  const pendingTimeoutRef = useRef<number | null>(null);
-  const [refreshed, setRefreshed] = useState(false);
 
   function handleChange(event: React.SyntheticEvent<HTMLFormElement>) {
     const formData = new FormData(event.currentTarget);
@@ -53,25 +54,12 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
     const elapsedHours = formatHours(getElapsedTime(startTime, stopTime));
 
     setTotalHours(elapsedHours);
-    setCanSubmit(event.currentTarget.checkValidity());
   }
 
   useEffect(() => {
-    if (pending) setRefreshed(false);
-    if (!pending && state.errors?.length === 0 && !refreshed) {
+    if (!pending && Object.keys(state.errors).length === 0) {
       onCancel();
       setTotalHours("00:00");
-      router.refresh();
-      setRefreshed(true);
-    }
-    if (pending && pendingString === "") {
-      pendingTimeoutRef.current = window.setTimeout(() => {
-        setPendingString("Pending submission...");
-      }, 1000);
-    }
-    if (!pending && pendingTimeoutRef.current) {
-      clearTimeout(pendingTimeoutRef.current);
-      setPendingString("");
     }
   }, [pending, onCancel]);
 
@@ -88,8 +76,13 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
         required
         title="Client"
         type="text"
+        defaultValue={state?.values?.client}
       />
-      <SelectField title="Activity" name="activity">
+      <SelectField
+        title="Activity"
+        name="activity"
+        defaultValue={state?.values?.activity}
+      >
         {activityOptions.map((option) => (
           <option key={option.value} value={option.value}>
             {option.placeholder}
@@ -104,6 +97,7 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
           title="Date"
           type="date"
           max="9999-12-12"
+          defaultValue={state?.values?.date}
         />
         <InputField
           className={styles.timeField}
@@ -111,6 +105,7 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
           required
           title="From"
           type="time"
+          defaultValue={state?.values?.startTime}
         />
         <InputField
           className={styles.timeField}
@@ -119,6 +114,7 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
           title="To"
           type="time"
           inputRef={inputRef}
+          defaultValue={state?.values?.stopTime}
         />
         <div className={styles.totalHours}>
           <span className={`${styles.label} ${styles.total}`}>Total</span>
@@ -127,9 +123,20 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
       </div>
       <p
         aria-live="polite"
-        className={`${styles.message} ${state.errors?.length === 0 ? styles.error : styles.confirm} ${pending && styles.pending}`}
+        className={`${styles.message} ${
+          state.errors ===
+          ({} as Partial<
+            Record<
+              "client" | "activity" | "date" | "startTime" | "stopTime",
+              string[]
+            >
+          >)
+            ? styles.error
+            : styles.confirm
+        } ${pending && styles.pending}`}
       >
-        {pending ? pendingString : state.message}
+        {pending ? "" : state.message}
+        {state?.errors?.startTime && <p>{state.errors?.stopTime?.[0]}</p>}
       </p>
       <div className={styles.buttons}>
         <Button

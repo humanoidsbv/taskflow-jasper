@@ -1,11 +1,19 @@
+"use server";
+
 import { z } from "zod";
 
 import { TimeEntryData, ValidatedDataType } from "@/types/dataTypes";
 import { createTimeEntry } from "./timeEntries";
+import { revalidatePath } from "next/cache";
 
 interface CreateCalendarEventState {
   message: string;
-  errors?: string[];
+  errors: Partial<
+    Record<"client" | "activity" | "date" | "startTime" | "stopTime", string[]>
+  >;
+  values?: Partial<
+    Record<"client" | "activity" | "date" | "startTime" | "stopTime", string>
+  >;
 }
 
 const minutes = (time: string) => {
@@ -35,9 +43,14 @@ const schema = z
     startTime: z.iso.time(),
     stopTime: z.iso.time(),
   })
-  .refine((data) => minutes(data.stopTime) - minutes(data.startTime) > 0, {
-    error: "Start time should be earlier than stop time",
-    path: ["startTime", "stopTime"],
+  .superRefine((data, ctx) => {
+    if (minutes(data.stopTime) <= minutes(data.startTime)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["stopTime"],
+        message: "Stop time must be later than start time",
+      });
+    }
   });
 
 const formatData = (validatedData: ValidatedDataType): TimeEntryData => {
@@ -59,21 +72,24 @@ export const createCalendarEvent = async (
   formData: FormData,
 ): Promise<CreateCalendarEventState> => {
   const data = Object.fromEntries(formData);
-
   const validatedData = schema.safeParse(data);
+  const values = Object.fromEntries(formData) as Partial<
+    Record<"client" | "activity" | "date" | "startTime" | "stopTime", string>
+  >;
 
   if (!validatedData.success) {
     return {
       message: validatedData.error.issues
         .map((error) => error.message)
         .join(", "),
-      errors: z.treeifyError(validatedData.error).errors,
+      errors: z.flattenError(validatedData.error).fieldErrors,
+      values,
     };
   }
 
-  const formattedData = formatData(validatedData.data);
+  const response = await createTimeEntry(formatData(validatedData.data));
 
-  const newEntry = await createTimeEntry(formattedData);
+  revalidatePath("/");
 
-  return { message: "Event created", errors: [] };
+  return { message: response.message, errors: response.errors, values: {} };
 };
