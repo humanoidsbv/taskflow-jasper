@@ -10,7 +10,6 @@ import { InputField } from "@/components/input-field/InputField";
 import { SelectField } from "@/components/input-field/SelectField";
 
 import styles from "./TimeEntryForm.module.css";
-import { useRouter } from "next/navigation";
 
 interface TimeEntryFormProps {
   onCancel: () => void;
@@ -77,11 +76,14 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
         title="Client"
         type="text"
         defaultValue={state?.values?.client}
+        disabled={pending}
       />
+      {state.errors.client && <span>{state.errors.client}</span>}
       <SelectField
         title="Activity"
         name="activity"
         defaultValue={state?.values?.activity}
+        disabled={pending}
       >
         {activityOptions.map((option) => (
           <option key={option.value} value={option.value}>
@@ -89,6 +91,7 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
           </option>
         ))}
       </SelectField>
+      {state.errors.activity && <span>{state.errors.activity}</span>}
       <div className={styles.timeContainer}>
         <InputField
           className={styles.date}
@@ -98,7 +101,9 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
           type="date"
           max="9999-12-12"
           defaultValue={state?.values?.date}
+          disabled={pending}
         />
+        {state.errors.date && <span>{state.errors.date}</span>}
         <InputField
           className={styles.timeField}
           name="startTime"
@@ -106,7 +111,9 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
           title="From"
           type="time"
           defaultValue={state?.values?.startTime}
+          disabled={pending}
         />
+        {state.errors.startTime && <span>{state.errors.startTime}</span>}
         <InputField
           className={styles.timeField}
           name="stopTime"
@@ -115,29 +122,14 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
           type="time"
           inputRef={inputRef}
           defaultValue={state?.values?.stopTime}
+          disabled={pending}
         />
+        {state.errors.stopTime && <span>{state.errors.stopTime}</span>}
         <div className={styles.totalHours}>
           <span className={`${styles.label} ${styles.total}`}>Total</span>
           <span className={styles.hours}>{totalHours}</span>
         </div>
       </div>
-      <p
-        aria-live="polite"
-        className={`${styles.message} ${
-          state.errors ===
-          ({} as Partial<
-            Record<
-              "client" | "activity" | "date" | "startTime" | "stopTime",
-              string[]
-            >
-          >)
-            ? styles.error
-            : styles.confirm
-        } ${pending && styles.pending}`}
-      >
-        {pending ? "" : state.message}
-        {state?.errors?.startTime && <p>{state.errors?.stopTime?.[0]}</p>}
-      </p>
       <div className={styles.buttons}>
         <Button
           className={styles.cancelButton}

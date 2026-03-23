@@ -79,9 +79,7 @@ export const createCalendarEvent = async (
 
   if (!validatedData.success) {
     return {
-      message: validatedData.error.issues
-        .map((error) => error.message)
-        .join(", "),
+      message: "Error validating data",
       errors: z.flattenError(validatedData.error).fieldErrors,
       values,
     };
