@@ -18,14 +18,14 @@ export const formatHours = (hours: number): string => {
 export const dateFormat = new Intl.DateTimeFormat("nl-NL", {
   day: "numeric",
   month: "numeric",
-  timeZone: "Europe/Amsterdam",
+  timeZone: "UTC",
   weekday: "long",
 });
 
 export const timeFormat = new Intl.DateTimeFormat("nl-NL", {
   hour: "2-digit",
   minute: "2-digit",
-  timeZone: "Europe/Amsterdam",
+  timeZone: "UTC",
 });
 
 export const capitalizeString = (text: string) =>
