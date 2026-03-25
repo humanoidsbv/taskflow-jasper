@@ -62,6 +62,12 @@ select {
   font: inherit;
 }
 
+button {
+  border: none;
+  cursor: pointer;
+  background: none;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;

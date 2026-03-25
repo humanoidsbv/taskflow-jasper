@@ -28,6 +28,25 @@ export async function getTimeEntries(): Promise<CreatedTimeEntry[]> {
   }
 }
 
+export async function deleteTimeEntry(id: string) {
+  try {
+    const response = await fetch(`http://localhost:3004/time-entries/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.table(response);
+    if (response.status === 404) {
+      throw new NotFoundError("Time entry not found!");
+    }
+    return response.json();
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
 export async function createTimeEntry(
   timeEntry: TimeEntryData,
   options?: {

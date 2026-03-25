@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 
-import { createTimeEntry } from "./timeEntries";
+import { createTimeEntry, deleteTimeEntry } from "./timeEntries";
 import { revalidatePath } from "next/cache";
 import { TimeEntryData, ValidatedDataType } from "@/types/dataTypes";
 
@@ -90,4 +90,18 @@ export const createCalendarEvent = async (
   revalidatePath("/");
 
   return { message: response.message, errors: response.errors, values: {} };
+};
+
+export const deleteCalendarEvent = async (
+  id: string,
+): Promise<CreateCalendarEventState> => {
+  const response = await deleteTimeEntry(id);
+
+  revalidatePath("/");
+
+  return {
+    message: response.message,
+    errors: response.errors,
+    values: response.json,
+  };
 };
