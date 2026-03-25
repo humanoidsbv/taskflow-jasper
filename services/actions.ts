@@ -11,9 +11,7 @@ interface CreateCalendarEventState {
   errors: Partial<
     Record<"client" | "activity" | "date" | "startTime" | "stopTime", string[]>
   >;
-  values?: Partial<
-    Record<"client" | "activity" | "date" | "startTime" | "stopTime", string>
-  >;
+  values?: Partial<ValidatedDataType>;
 }
 
 const minutes = (time: string) => {
@@ -73,9 +71,7 @@ export const createCalendarEvent = async (
 ): Promise<CreateCalendarEventState> => {
   const data = Object.fromEntries(formData);
   const validatedData = schema.safeParse(data);
-  const values = Object.fromEntries(formData) as Partial<
-    Record<"client" | "activity" | "date" | "startTime" | "stopTime", string>
-  >;
+  const values = Object.fromEntries(formData);
 
   if (!validatedData.success) {
     return {

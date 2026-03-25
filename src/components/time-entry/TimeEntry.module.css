@@ -79,11 +79,11 @@
   grid-column: 2;
   grid-row: 1 / 3;
   color: var(--black);
-}
 
-.delete:hover {
-  cursor: pointer;
-  color: var(--red-4);
+  &:hover {
+    cursor: pointer;
+    color: var(--red-4);
+  }
 }
 
 @media (min-width: 1160px) {

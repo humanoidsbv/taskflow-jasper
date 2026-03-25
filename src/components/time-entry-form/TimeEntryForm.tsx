@@ -1,7 +1,7 @@
 "use client";
 
 import { toast } from "sonner";
-import { useActionState, useEffect, useRef, useState } from "react";
+import { RefObject, useActionState, useEffect, useRef, useState } from "react";
 import Form from "next/form";
 
 import { Button } from "@/components/button/Button";
@@ -14,7 +14,7 @@ import CloseIcon from "@/public/icons/close.svg";
 import styles from "./TimeEntryForm.module.css";
 
 interface TimeEntryFormProps {
-  onCancel: () => void;
+  modalRef: RefObject<HTMLDialogElement | null>;
 }
 
 const activityOptions = [
@@ -40,13 +40,16 @@ const initialState = {
   >,
 };
 
-export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
+export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [totalHours, setTotalHours] = useState("00:00");
   const [state, formAction, pending] = useActionState(
     createCalendarEvent,
     initialState,
   );
+  const isModalOpen = modalRef.current?.open;
+
+  const closeModal = () => modalRef.current?.close();
 
   function handleChange(event: React.SyntheticEvent<HTMLFormElement>) {
     const formData = new FormData(event.currentTarget);
@@ -70,15 +73,15 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
   }
 
   useEffect(() => {
-    if (!pending && Object.keys(state.errors).length !== 0) {
+    if (!pending && Object.keys(state.errors).length !== 0 && !isModalOpen) {
       showCreatedToast("toastFailure");
     }
-    if (!pending && Object.keys(state.errors).length === 0) {
-      onCancel();
+    if (!pending && Object.keys(state.errors).length === 0 && isModalOpen) {
+      closeModal();
       showCreatedToast("toastSuccess");
       setTotalHours("00:00");
     }
-  }, [pending, onCancel]);
+  }, [pending]);
 
   return (
     <Form
@@ -152,7 +155,7 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
         <Button
           className={styles.cancelButton}
           variant="secondary"
-          onClick={onCancel}
+          onClick={closeModal}
           type="button"
         >
           Cancel
