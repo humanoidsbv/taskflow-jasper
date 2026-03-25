@@ -61,7 +61,7 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
 
   function showCreatedToast(className: string) {
     const toastId = toast("New event added", {
-      duration: 16000,
+      duration: 5000,
       className,
       cancel: (
         <CloseIcon alt="Close message" onClick={() => toast.dismiss(toastId)} />
