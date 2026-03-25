@@ -11,6 +11,7 @@ import { deleteCalendarEvent } from "@/services/actions";
 import { deleteTimeEntry } from "@/services/timeEntries";
 import { toast } from "sonner";
 import { Button } from "../button/Button";
+import { dateFormat } from "@/utils/utils";
 
 interface TimeEntryProps {
   data: CreatedTimeEntry;
@@ -21,18 +22,26 @@ export const TimeEntry = ({ data }: TimeEntryProps) => {
     formatTimeEntryData(data);
 
   async function deleteEntry() {
-    const response = await deleteCalendarEvent(data.id);
-    const toastId = toast("Event deleted", {
-      duration: 16000,
-      className: "toastSuccess",
-      cancel: (
-        <CloseIcon alt="Close message" onClick={() => toast.dismiss(toastId)} />
-      ),
-    });
+    if (window.confirm(`Are you sure you want to delete ${data.client}?`)) {
+      const response = await deleteCalendarEvent(data.id);
+      const toastId = toast("Event deleted", {
+        duration: 5000,
+        className: "toastSuccess",
+        cancel: (
+          <CloseIcon
+            alt="Close message"
+            onClick={() => toast.dismiss(toastId)}
+          />
+        ),
+      });
+    }
   }
 
   return (
-    <li className={`${styles.timeEntry} ${styles[`${department}`]}`}>
+    <li
+      className={`${styles.timeEntry} ${styles[`${department}`]}`}
+      tabIndex={0}
+    >
       <div className={styles.left}>
         <h3 className={styles.client}>{client}</h3>
         <EllipseIcon
