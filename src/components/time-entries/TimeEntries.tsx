@@ -34,7 +34,7 @@ export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
   const deleteEntry = async (data: CreatedTimeEntry) => {
     if (window.confirm(`Are you sure you want to delete ${data.client}?`)) {
       const response = await deleteCalendarEvent(data.id);
-      const toastId = toast(`Event deleted: ${response.values?.client}`, {
+      toast(`Event deleted: ${response.values?.client}`, {
         duration: 5000,
         className: "toastSuccess",
         action: {
