@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
+import { RefObject, useActionState, useEffect, useRef, useState } from "react";
 import Form from "next/form";
 
 import { Button } from "@/components/button/Button";
@@ -8,11 +9,12 @@ import { createCalendarEvent } from "@/services/actions";
 import { formatHours, getElapsedTime } from "@/utils/utils";
 import { InputField } from "@/components/input-field/InputField";
 import { SelectField } from "@/components/input-field/SelectField";
+import CloseIcon from "@/public/icons/close.svg";
 
 import styles from "./TimeEntryForm.module.css";
 
 interface TimeEntryFormProps {
-  onCancel: () => void;
+  modalRef: RefObject<HTMLDialogElement | null>;
 }
 
 const activityOptions = [
@@ -27,19 +29,27 @@ const activityOptions = [
 
 const initialState = {
   message: "",
-  errors: [],
+  errors: {} as Partial<
+    Record<"client" | "activity" | "date" | "startTime" | "stopTime", string[]>
+  >,
+  values: {} as Partial<
+    Record<
+      "client" | "activity" | "date" | "startTime" | "stopTime" | "id",
+      string
+    >
+  >,
 };
 
-export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
+export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [canSubmit, setCanSubmit] = useState(false);
   const [totalHours, setTotalHours] = useState("00:00");
   const [state, formAction, pending] = useActionState(
     createCalendarEvent,
     initialState,
   );
-  const [pendingString, setPendingString] = useState("");
-  const pendingTimeoutRef = useRef<number | null>(null);
+  const isModalOpen = modalRef.current?.open;
+
+  const closeModal = () => modalRef.current?.close();
 
   function handleChange(event: React.SyntheticEvent<HTMLFormElement>) {
     const formData = new FormData(event.currentTarget);
@@ -50,29 +60,28 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
     const elapsedHours = formatHours(getElapsedTime(startTime, stopTime));
 
     setTotalHours(elapsedHours);
-    setCanSubmit(event.currentTarget.checkValidity());
+  }
+
+  function showCreatedToast(className: string) {
+    const toastId = toast("New event added", {
+      duration: 16000,
+      className,
+      cancel: (
+        <CloseIcon alt="Close message" onClick={() => toast.dismiss(toastId)} />
+      ),
+    });
   }
 
   useEffect(() => {
-    console.table({
-      pending,
-      errors: state.errors,
-      pendingString,
-    });
-    if (!pending && !state.errors) {
-      onCancel();
+    if (!pending && Object.keys(state.errors).length !== 0 && !isModalOpen) {
+      showCreatedToast("toastFailure");
+    }
+    if (!pending && Object.keys(state.errors).length === 0 && isModalOpen) {
+      closeModal();
+      showCreatedToast("toastSuccess");
       setTotalHours("00:00");
     }
-    if (pending && pendingString === "") {
-      pendingTimeoutRef.current = window.setTimeout(() => {
-        setPendingString("Pending submission...");
-      }, 1000);
-    }
-    if (!pending && pendingTimeoutRef.current) {
-      clearTimeout(pendingTimeoutRef.current);
-      setPendingString("");
-    }
-  }, [pending, onCancel]);
+  }, [pending]);
 
   return (
     <Form
@@ -87,14 +96,23 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
         required
         title="Client"
         type="text"
+        defaultValue={state?.values?.client}
+        disabled={pending}
       />
-      <SelectField title="Activity" name="activity">
+      {state.errors.client && <span>{state.errors.client}</span>}
+      <SelectField
+        title="Activity"
+        name="activity"
+        defaultValue={state?.values?.activity}
+        disabled={pending}
+      >
         {activityOptions.map((option) => (
           <option key={option.value} value={option.value}>
             {option.placeholder}
           </option>
         ))}
       </SelectField>
+      {state.errors.activity && <span>{state.errors.activity}</span>}
       <div className={styles.timeContainer}>
         <InputField
           className={styles.date}
@@ -103,14 +121,20 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
           title="Date"
           type="date"
           max="9999-12-12"
+          defaultValue={state?.values?.date}
+          disabled={pending}
         />
+        {state.errors.date && <span>{state.errors.date}</span>}
         <InputField
           className={styles.timeField}
           name="startTime"
           required
           title="From"
           type="time"
+          defaultValue={state?.values?.startTime}
+          disabled={pending}
         />
+        {state.errors.startTime && <span>{state.errors.startTime}</span>}
         <InputField
           className={styles.timeField}
           name="stopTime"
@@ -118,28 +142,25 @@ export const TimeEntryForm = ({ onCancel }: TimeEntryFormProps) => {
           title="To"
           type="time"
           inputRef={inputRef}
+          defaultValue={state?.values?.stopTime}
+          disabled={pending}
         />
+        {state.errors.stopTime && <span>{state.errors.stopTime}</span>}
         <div className={styles.totalHours}>
           <span className={`${styles.label} ${styles.total}`}>Total</span>
           <span className={styles.hours}>{totalHours}</span>
         </div>
       </div>
-      <p
-        aria-live="polite"
-        className={`${styles.message} ${state.errors ? styles.error : styles.confirm} ${pending && styles.pending}`}
-      >
-        {pending ? pendingString : state.message}
-      </p>
       <div className={styles.buttons}>
         <Button
           className={styles.cancelButton}
           variant="secondary"
-          onClick={onCancel}
+          onClick={closeModal}
           type="button"
         >
           Cancel
         </Button>
-        <Button type="submit" disabled={!canSubmit || pending}>
+        <Button type="submit" disabled={pending}>
           Add event
         </Button>
       </div>

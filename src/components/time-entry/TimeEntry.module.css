@@ -82,6 +82,10 @@
 
 .deleteIcon {
   color: var(--black);
+
+  &:hover {
+    color: var(--red-4);
+  }
 }
 
 @media (min-width: 1160px) {

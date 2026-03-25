@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import localFont from "next/font/local";
 import type { Metadata } from "next";
+import { Toaster } from "sonner";
 
 import { Header } from "@/components/header/Header";
 import Container from "@/components/container/Container";
@@ -62,6 +63,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body>
         <Header />
         <Container>{children}</Container>
+        <Toaster />
       </body>
     </html>
   );

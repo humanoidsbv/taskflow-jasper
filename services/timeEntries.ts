@@ -1,4 +1,4 @@
-import { TimeEntryData, ValidatedDataType } from "@/types/dataTypes";
+import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
 
 class NotFoundError extends Error {
   constructor(message: string) {
@@ -7,7 +7,7 @@ class NotFoundError extends Error {
   }
 }
 
-export async function getTimeEntries(): Promise<TimeEntryData[]> {
+export async function getTimeEntries(): Promise<CreatedTimeEntry[]> {
   try {
     const response = await fetch(
       "http://localhost:3004/time-entries?_sort=-startTimestamp",
@@ -21,7 +21,6 @@ export async function getTimeEntries(): Promise<TimeEntryData[]> {
     if (response.status === 404) {
       throw new NotFoundError("Time entry not found!");
     }
-    console.log("succes");
     return response.json();
   } catch (error) {
     console.error(error);
@@ -29,4 +28,40 @@ export async function getTimeEntries(): Promise<TimeEntryData[]> {
   }
 }
 
-// export async function putTimeEntry(timeEntry: ValidatedDataType) {}
+export async function createTimeEntry(
+  timeEntry: TimeEntryData,
+  options?: {
+    baseUrl?: string;
+    signal?: AbortSignal;
+  },
+): Promise<{ message: string; errors: {} }> {
+  try {
+    const requestResult = await fetch("http://localhost:3004/time-entries", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(timeEntry),
+      signal: options?.signal,
+    });
+    if (!requestResult.ok) {
+      const resultText = await requestResult.text();
+      return {
+        message: "Failed to create time entry",
+        errors: { server: [resultText || "Unknown server error"] },
+      };
+    }
+
+    return {
+      message: "Event created",
+      errors: {},
+    };
+  } catch (error) {
+    return {
+      message: "Network error while creating time entry",
+      errors: {
+        server: [error instanceof Error ? error.message : "Unknown error"],
+      },
+    };
+  }
+}
