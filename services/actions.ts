@@ -83,8 +83,6 @@ export const createCalendarEvent = async (
 
   const response = await createTimeEntry(formatData(validatedData.data));
 
-  revalidatePath("/");
-
   return { message: response.message, errors: response.errors, values: {} };
 };
 
@@ -98,6 +96,6 @@ export const deleteCalendarEvent = async (
   return {
     message: response.message,
     errors: response.errors,
-    values: response.json,
+    values: response,
   };
 };

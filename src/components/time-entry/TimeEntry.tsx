@@ -8,7 +8,7 @@ import CloseIcon from "@/public/icons/close.svg";
 
 import styles from "./TimeEntry.module.css";
 import { deleteCalendarEvent } from "@/services/actions";
-import { deleteTimeEntry } from "@/services/timeEntries";
+import { createTimeEntry, deleteTimeEntry } from "@/services/timeEntries";
 import { toast } from "sonner";
 import { Button } from "../button/Button";
 import { dateFormat } from "@/utils/utils";
@@ -24,9 +24,18 @@ export const TimeEntry = ({ data }: TimeEntryProps) => {
   async function deleteEntry() {
     if (window.confirm(`Are you sure you want to delete ${data.client}?`)) {
       const response = await deleteCalendarEvent(data.id);
-      const toastId = toast("Event deleted", {
+      const toastId = toast(`Event deleted: ${response.values?.client}`, {
         duration: 5000,
         className: "toastSuccess",
+        action: {
+          label: "Undo",
+          onClick: async () => {
+            await createTimeEntry(response.values as TimeEntryData);
+            toast(`Event restored: ${response.values?.client}`, {
+              className: "toastSuccess",
+            });
+          },
+        },
         cancel: (
           <CloseIcon
             alt="Close message"

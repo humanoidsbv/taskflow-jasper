@@ -1,4 +1,7 @@
+"use server";
+
 import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
+import { revalidatePath } from "next/cache";
 
 class NotFoundError extends Error {
   constructor(message: string) {
@@ -36,11 +39,10 @@ export async function deleteTimeEntry(id: string) {
         "Content-Type": "application/json",
       },
     });
-    console.table(response);
     if (response.status === 404) {
       throw new NotFoundError("Time entry not found!");
     }
-    return response.json();
+    return await response.json();
   } catch (error) {
     console.error(error);
     return [];
@@ -70,6 +72,8 @@ export async function createTimeEntry(
         errors: { server: [resultText || "Unknown server error"] },
       };
     }
+
+    revalidatePath("/");
 
     return {
       message: "Event created",
