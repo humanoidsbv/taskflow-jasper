@@ -82,10 +82,10 @@
 
 .deleteIcon {
   color: var(--black);
-}
 
-.deleteIcon:hover {
-  color: var(--red-4);
+  &:hover {
+    color: var(--red-4);
+  }
 }
 
 @media (min-width: 1160px) {
