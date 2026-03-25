@@ -1,14 +1,6 @@
 {
   "time-entries": [
     {
-      "id": "43a9",
-      "billable": true,
-      "client": "Hertog Jan",
-      "department": "design",
-      "startTimestamp": "2026-03-25T11:00:00.000Z",
-      "stopTimestamp": "2026-03-25T13:40:00.000Z"
-    },
-    {
       "id": "fb70",
       "billable": true,
       "client": "SSR-Leiden",

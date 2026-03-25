@@ -5,9 +5,13 @@ import { Fragment } from "react";
 import { formatHeader } from "./helpers";
 import { formatHours, getElapsedTime } from "@/utils/utils";
 import { TimeEntry } from "@/components/time-entry/TimeEntry";
-import { CreatedTimeEntry } from "@/types/dataTypes";
+import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
+import CloseIcon from "@/public/icons/close.svg";
 
 import styles from "./TimeEntries.module.css";
+import { deleteCalendarEvent } from "@/services/actions";
+import { toast } from "sonner";
+import { createTimeEntry } from "@/services/timeEntries";
 
 interface TimeEntriesProps {
   timeEntries: CreatedTimeEntry[];
@@ -26,6 +30,34 @@ export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
     },
     {},
   );
+
+  const deleteEntry = async (data: CreatedTimeEntry) => {
+    if (window.confirm(`Are you sure you want to delete ${data.client}?`)) {
+      const response = await deleteCalendarEvent(data.id);
+      const toastId = toast(`Event deleted: ${response.values?.client}`, {
+        duration: 5000,
+        className: "toastSuccess",
+        action: {
+          label: "Undo",
+          onClick: async () => {
+            await createTimeEntry(response.values as TimeEntryData);
+            const toastId = toast(
+              `Event restored: ${response.values?.client}`,
+              {
+                className: "toastSuccess",
+                cancel: (
+                  <CloseIcon
+                    alt="Close message"
+                    onClick={() => toast.dismiss(toastId)}
+                  />
+                ),
+              },
+            );
+          },
+        },
+      });
+    }
+  };
 
   return (
     <ul>
@@ -48,7 +80,7 @@ export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
                 </span>
               </div>
             )}
-            <TimeEntry data={entry} />
+            <TimeEntry data={entry} onDelete={deleteEntry} />
           </Fragment>
         );
       })}
