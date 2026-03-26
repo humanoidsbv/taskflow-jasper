@@ -1,7 +1,8 @@
 "use server";
 
-import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
 import { revalidatePath } from "next/cache";
+
+import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
 
 class NotFoundError extends Error {
   constructor(message: string) {

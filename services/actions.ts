@@ -6,8 +6,8 @@ import { createTimeEntry } from "./timeEntries";
 import { TimeEntryData, ValidatedDataType } from "@/types/dataTypes";
 
 export interface CreateCalendarEventState {
-  message: string;
   errors: Partial<Record<string, string[]>>;
+  message: string;
   values?: Partial<ValidatedDataType>;
 }
 

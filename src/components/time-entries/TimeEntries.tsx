@@ -1,16 +1,16 @@
 "use client";
 
 import { Fragment } from "react";
+import { toast } from "sonner";
 
+import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
+import { createTimeEntry, deleteTimeEntry } from "@/services/timeEntries";
 import { formatHeader } from "./helpers";
 import { formatHours, getElapsedTime } from "@/utils/utils";
 import { TimeEntry } from "@/components/time-entry/TimeEntry";
-import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
 import CloseIcon from "@/public/icons/close.svg";
 
 import styles from "./TimeEntries.module.css";
-import { toast } from "sonner";
-import { createTimeEntry, deleteTimeEntry } from "@/services/timeEntries";
 
 interface TimeEntriesProps {
   timeEntries: CreatedTimeEntry[];
@@ -31,29 +31,30 @@ export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
   );
 
   const deleteEntry = async (data: CreatedTimeEntry) => {
-    if (window.confirm(`Are you sure you want to delete ${data.client}?`)) {
-      const response = await deleteTimeEntry(data.id);
+    if (!window.confirm(`Are you sure you want to delete ${data.client}?`))
+      return;
 
-      toast(`Event deleted: ${response.client}`, {
-        duration: 5000,
-        className: "toastSuccess",
-        action: {
-          label: "Undo",
-          onClick: async () => {
-            await createTimeEntry(response as TimeEntryData);
-            const toastId = toast(`Event restored: ${response?.client}`, {
-              className: "toastSuccess",
-              cancel: (
-                <CloseIcon
-                  alt="Close message"
-                  onClick={() => toast.dismiss(toastId)}
-                />
-              ),
-            });
-          },
+    const response = await deleteTimeEntry(data.id);
+
+    toast(`Event deleted: ${response.client}`, {
+      duration: 5000,
+      className: "toastSuccess",
+      action: {
+        label: "Undo",
+        onClick: async () => {
+          await createTimeEntry(response as TimeEntryData);
+          const toastId = toast(`Event restored: ${response?.client}`, {
+            className: "toastSuccess",
+            cancel: (
+              <CloseIcon
+                alt="Close message"
+                onClick={() => toast.dismiss(toastId)}
+              />
+            ),
+          });
         },
-      });
-    }
+      },
+    });
   };
 
   return (
