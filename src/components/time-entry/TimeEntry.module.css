@@ -75,15 +75,13 @@
   grid-row: 2;
 }
 
-.icon {
+.delete {
   grid-column: 2;
   grid-row: 1 / 3;
-}
-
-.deleteIcon {
   color: var(--black);
 
   &:hover {
+    cursor: pointer;
     color: var(--red-4);
   }
 }

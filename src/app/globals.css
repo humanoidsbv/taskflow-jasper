@@ -62,6 +62,12 @@ select {
   font: inherit;
 }
 
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -81,9 +87,9 @@ li[data-sonner-toast] {
   align-items: center;
   border-radius: 4px;
   display: flex;
-  justify-content: space-between;
-  gap: 16px;
   font-size: var(--font-large);
+  gap: 16px;
+  justify-content: space-between;
   padding: 12px 16px;
 }
 
@@ -93,7 +99,10 @@ li[data-sonner-toast] svg:hover {
 
 div[data-title] {
   font-size: var(--font-large);
-  width: max-content;
+  max-width: 275px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 li[data-sonner-toast].toastSuccess {
@@ -108,7 +117,7 @@ li[data-sonner-toast].toastFailure {
 
 @media screen and (min-width: 1160px) {
   :root {
-    --subheader-height: 72px;
     --font-large: 16px;
+    --subheader-height: 72px;
   }
 }

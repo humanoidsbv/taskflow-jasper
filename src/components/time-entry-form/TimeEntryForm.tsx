@@ -1,7 +1,7 @@
 "use client";
 
-import { toast } from "sonner";
 import { RefObject, useActionState, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import Form from "next/form";
 
 import { Button } from "@/components/button/Button";
@@ -64,7 +64,7 @@ export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
 
   function showCreatedToast(className: string) {
     const toastId = toast("New event added", {
-      duration: 16000,
+      duration: 5000,
       className,
       cancel: (
         <CloseIcon alt="Close message" onClick={() => toast.dismiss(toastId)} />
