@@ -17,10 +17,7 @@ export const TimeEntry = ({ data, onDelete }: TimeEntryProps) => {
     formatTimeEntryData(data);
 
   return (
-    <li
-      className={`${styles.timeEntry} ${styles[`${department}`]}`}
-      tabIndex={0}
-    >
+    <li className={`${styles.timeEntry} ${styles[`${department}`]}`}>
       <div className={styles.left}>
         <h3 className={styles.client}>{client}</h3>
         <EllipseIcon

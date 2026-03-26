@@ -1,36 +1,36 @@
 {
   "time-entries": [
     {
-      "id": "7337",
+      "id": "b81a",
       "billable": true,
-      "client": "SSR-Leiden",
+      "client": "Dagstart met Sam",
       "department": "design",
-      "startTimestamp": "2026-03-14T12:00:00.000Z",
-      "stopTimestamp": "2026-03-14T14:00:00.000Z"
+      "startTimestamp": "2026-03-26T09:30:00.000Z",
+      "stopTimestamp": "2026-03-26T10:00:00.000Z"
     },
     {
-      "id": "2098",
+      "id": "9440",
       "billable": true,
-      "client": "Humanoides",
+      "client": "Nieuwe ticket",
       "department": "design",
-      "startTimestamp": "2026-03-25T12:00:00.000Z",
-      "stopTimestamp": "2026-03-25T15:00:00.000Z"
+      "startTimestamp": "2026-03-26T10:00:00.000Z",
+      "stopTimestamp": "2026-03-26T12:00:00.000Z"
     },
     {
-      "id": "0059",
+      "id": "d4ec",
       "billable": true,
-      "client": "SSR-Leiden",
+      "client": "SCRUM: PSD Open (Dev) toets",
       "department": "design",
-      "startTimestamp": "2026-03-25T12:30:00.000Z",
-      "stopTimestamp": "2026-03-25T12:33:00.000Z"
+      "startTimestamp": "2026-03-27T11:30:00.000Z",
+      "stopTimestamp": "2026-03-27T12:00:00.000Z"
     },
     {
-      "id": "01ae",
-      "billable": true,
-      "client": "Robot People",
-      "department": "design",
-      "startTimestamp": "2026-03-25T12:00:00.000Z",
-      "stopTimestamp": "2026-03-25T14:00:00.000Z"
+      "id": "7d9f",
+      "billable": false,
+      "client": "Merel / Jasper",
+      "department": "development",
+      "startTimestamp": "2026-03-30T13:00:00.000Z",
+      "stopTimestamp": "2026-03-30T13:40:00.000Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
