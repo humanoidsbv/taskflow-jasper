@@ -43,12 +43,14 @@ export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
         label: "Undo",
         onClick: async () => {
           await createTimeEntry(response as TimeEntryData);
-          const toastId = toast(`Event restored: ${response?.client}`, {
+          const id = crypto.randomUUID();
+          toast(`Event restored: ${response?.client}`, {
+            id,
             className: "toastSuccess",
             cancel: (
               <CloseIcon
                 alt="Close message"
-                onClick={() => toast.dismiss(toastId)}
+                onClick={() => toast.dismiss(id)}
               />
             ),
           });
