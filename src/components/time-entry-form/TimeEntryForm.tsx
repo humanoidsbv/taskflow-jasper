@@ -85,6 +85,7 @@ export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
 
   return (
     <Form
+      key={1}
       action={formAction}
       className={styles.container}
       onChange={handleChange}

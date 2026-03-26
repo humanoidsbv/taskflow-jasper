@@ -47,6 +47,14 @@
       "department": "development",
       "startTimestamp": "2026-03-28T09:00:00.000Z",
       "stopTimestamp": "2026-03-28T15:00:00.000Z"
+    },
+    {
+      "id": "f227",
+      "billable": false,
+      "client": "Robot People",
+      "department": "design",
+      "startTimestamp": "2026-03-26T12:00:00.000Z",
+      "stopTimestamp": "2026-03-26T14:00:00.000Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
