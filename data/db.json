@@ -17,20 +17,12 @@
       "stopTimestamp": "2026-03-26T12:00:00.000Z"
     },
     {
-      "id": "d4ec",
+      "id": "5c1c",
       "billable": true,
-      "client": "SCRUM: PSD Open (Dev) toets",
+      "client": "Waarom is mijn huisarts in Gouda zo debiel",
       "department": "design",
-      "startTimestamp": "2026-03-27T11:30:00.000Z",
-      "stopTimestamp": "2026-03-27T12:00:00.000Z"
-    },
-    {
-      "id": "7d9f",
-      "billable": false,
-      "client": "Merel / Jasper",
-      "department": "development",
-      "startTimestamp": "2026-03-30T13:00:00.000Z",
-      "stopTimestamp": "2026-03-30T13:40:00.000Z"
+      "startTimestamp": "2026-03-26T15:00:00.000Z",
+      "stopTimestamp": "2026-03-26T15:03:00.000Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

@@ -9,9 +9,8 @@ import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
 import CloseIcon from "@/public/icons/close.svg";
 
 import styles from "./TimeEntries.module.css";
-import { deleteCalendarEvent } from "@/services/actions";
 import { toast } from "sonner";
-import { createTimeEntry } from "@/services/timeEntries";
+import { createTimeEntry, deleteTimeEntry } from "@/services/timeEntries";
 
 interface TimeEntriesProps {
   timeEntries: CreatedTimeEntry[];
@@ -33,26 +32,24 @@ export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
 
   const deleteEntry = async (data: CreatedTimeEntry) => {
     if (window.confirm(`Are you sure you want to delete ${data.client}?`)) {
-      const response = await deleteCalendarEvent(data.id);
-      toast(`Event deleted: ${response.values?.client}`, {
+      const response = await deleteTimeEntry(data.id);
+
+      toast(`Event deleted: ${response.client}`, {
         duration: 5000,
         className: "toastSuccess",
         action: {
           label: "Undo",
           onClick: async () => {
-            await createTimeEntry(response.values as TimeEntryData);
-            const toastId = toast(
-              `Event restored: ${response.values?.client}`,
-              {
-                className: "toastSuccess",
-                cancel: (
-                  <CloseIcon
-                    alt="Close message"
-                    onClick={() => toast.dismiss(toastId)}
-                  />
-                ),
-              },
-            );
+            await createTimeEntry(response as TimeEntryData);
+            const toastId = toast(`Event restored: ${response?.client}`, {
+              className: "toastSuccess",
+              cancel: (
+                <CloseIcon
+                  alt="Close message"
+                  onClick={() => toast.dismiss(toastId)}
+                />
+              ),
+            });
           },
         },
       });
