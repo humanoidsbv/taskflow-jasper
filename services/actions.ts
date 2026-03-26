@@ -2,15 +2,12 @@
 
 import { z } from "zod";
 
-import { createTimeEntry, deleteTimeEntry } from "./timeEntries";
-import { revalidatePath } from "next/cache";
+import { createTimeEntry } from "./timeEntries";
 import { TimeEntryData, ValidatedDataType } from "@/types/dataTypes";
 
-interface CreateCalendarEventState {
+export interface CreateCalendarEventState {
+  errors: Partial<Record<string, string[]>>;
   message: string;
-  errors: Partial<
-    Record<"client" | "activity" | "date" | "startTime" | "stopTime", string[]>
-  >;
   values?: Partial<ValidatedDataType>;
 }
 
@@ -84,18 +81,4 @@ export const createCalendarEvent = async (
   const response = await createTimeEntry(formatData(validatedData.data));
 
   return { message: response.message, errors: response.errors, values: {} };
-};
-
-export const deleteCalendarEvent = async (
-  id: string,
-): Promise<CreateCalendarEventState> => {
-  const response = await deleteTimeEntry(id);
-
-  revalidatePath("/");
-
-  return {
-    message: response.message,
-    errors: response.errors,
-    values: response,
-  };
 };

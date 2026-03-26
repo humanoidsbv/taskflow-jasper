@@ -1,7 +1,8 @@
 "use server";
 
-import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
 import { revalidatePath } from "next/cache";
+
+import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
 
 class NotFoundError extends Error {
   constructor(message: string) {
@@ -42,6 +43,7 @@ export async function deleteTimeEntry(id: string) {
     if (response.status === 404) {
       throw new NotFoundError("Time entry not found!");
     }
+    revalidatePath("/");
     return await response.json();
   } catch (error) {
     console.error(error);
