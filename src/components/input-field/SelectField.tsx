@@ -7,6 +7,7 @@ interface SelectFieldProps {
   className?: string;
   defaultValue?: string;
   disabled?: boolean;
+  multiple?: boolean;
   name: string;
   required?: boolean;
   title: string;
@@ -17,6 +18,7 @@ export const SelectField = ({
   className,
   defaultValue,
   disabled,
+  multiple,
   name,
   required,
   title,
@@ -29,6 +31,7 @@ export const SelectField = ({
       <select
         className={styles.input}
         disabled={disabled}
+        multiple={multiple}
         name={name}
         required={required}
         defaultValue={defaultValue}

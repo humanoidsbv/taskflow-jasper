@@ -1,6 +1,8 @@
+import { CalendarFilters } from "@/components/filters/CalendarFilters";
+import { Filters } from "@/components/filters/Filters";
+import { getTimeEntries } from "@/services/timeEntries";
 import { Subheader } from "@/components/subheader/Subheader";
 import { TimeEntries } from "@/components/time-entries/TimeEntries";
-import { getTimeEntries } from "@/services/timeEntries";
 
 export default async function CalendarPage() {
   const timeEntries = await getTimeEntries();
@@ -12,6 +14,9 @@ export default async function CalendarPage() {
   return (
     <>
       <Subheader subtitle={subtitle} pageName="calendar" />
+      <Filters>
+        <CalendarFilters />
+      </Filters>
       <TimeEntries timeEntries={timeEntries} />
     </>
   );
