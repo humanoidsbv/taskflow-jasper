@@ -19,6 +19,8 @@ const clientOptions = [{ value: "Heineken", placeholder: "Heineken" }];
 export const CalendarFilters = () => {
   const searchParams = useSearchParams();
 
+  const updateParams = () => {};
+
   return (
     <div className={styles.filters}>
       <SelectField name="sortBy" title="Sort by">
@@ -45,6 +47,7 @@ export const CalendarFilters = () => {
         type="date"
         title="Date"
         placeholder="Select date range"
+        onChange={updateParams}
       />
       <InputField
         name="search"

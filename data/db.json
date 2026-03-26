@@ -23,6 +23,30 @@
       "department": "design",
       "startTimestamp": "2026-03-26T15:00:00.000Z",
       "stopTimestamp": "2026-03-26T15:03:00.000Z"
+    },
+    {
+      "id": "63c6",
+      "billable": true,
+      "client": "Humanoides",
+      "department": "design",
+      "startTimestamp": "2026-04-04T12:00:00.000Z",
+      "stopTimestamp": "2026-04-04T14:50:00.000Z"
+    },
+    {
+      "id": "d92c",
+      "billable": true,
+      "client": "Humanoides",
+      "department": "design",
+      "startTimestamp": "2026-03-26T12:01:00.000Z",
+      "stopTimestamp": "2026-03-26T15:05:00.000Z"
+    },
+    {
+      "id": "d910",
+      "billable": true,
+      "client": "Robot People",
+      "department": "development",
+      "startTimestamp": "2026-03-28T09:00:00.000Z",
+      "stopTimestamp": "2026-03-28T15:00:00.000Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
