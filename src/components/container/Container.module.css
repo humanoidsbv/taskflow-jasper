@@ -1,6 +1,6 @@
 .container {
-  min-height: 100vh;
   background: var(--gray-4);
+  min-height: 100vh;
   padding: calc(var(--header-height) + var(--subheader-height) + 20px) 10px 40px;
 }
 
