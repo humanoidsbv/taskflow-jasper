@@ -1,6 +1,11 @@
+"use client";
+
+import Form from "next/form";
 import { InputField } from "../input-field/InputField";
 import { SelectField } from "../input-field/SelectField";
+
 import styles from "./CalendarFilters.module.css";
+import { useSearchParams } from "next/navigation";
 
 const sortByOptions = [
   { value: "nameASC", placeholder: "Name A-Z" },
@@ -12,11 +17,17 @@ const sortByOptions = [
 const clientOptions = [{ value: "Heineken", placeholder: "Heineken" }];
 
 export const CalendarFilters = () => {
+  const searchParams = useSearchParams();
+
   return (
     <div className={styles.filters}>
       <SelectField name="sortBy" title="Sort by">
         {sortByOptions.map((option) => (
-          <option key={option.value} value={option.value}>
+          <option
+            key={option.value}
+            value={option.value}
+            defaultValue={searchParams.get(`${option.value}`) || ""}
+          >
             {option.placeholder}
           </option>
         ))}

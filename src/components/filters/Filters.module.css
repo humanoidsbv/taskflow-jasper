@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 100%;
+}
+
+.logo {
+  color: var(--gray-7);
+  display: block;
+  width: max-content;
+}
+
+.close {
+  height: auto;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: auto;
+}
+
+.pageTitle {
+  color: var(--gray-1);
+  font-size: var(--font-small);
+  font-weight: 700;
+}
+
+.filters {
+  color: var(--gray-1);
+  font-size: var(--font-large);
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: auto;
+}

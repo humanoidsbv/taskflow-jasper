@@ -14,7 +14,7 @@ export default async function CalendarPage() {
   return (
     <>
       <Subheader subtitle={subtitle} pageName="calendar" />
-      <Filters>
+      <Filters pageName="Calendar">
         <CalendarFilters />
       </Filters>
       <TimeEntries timeEntries={timeEntries} />
