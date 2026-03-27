@@ -23,3 +23,10 @@ export type ValidatedDataType = {
 };
 
 export type CreatedTimeEntry = TimeEntryData & { id: string };
+
+export type SearchParamsType = Promise<{
+  sortBy?: string;
+  client?: string;
+  date?: string;
+  search?: string;
+}>;
