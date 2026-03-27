@@ -1,5 +1,6 @@
 "use client";
 
+import { useDebouncedCallback } from "use-debounce";
 import { InputField } from "../input-field/InputField";
 import { SelectField } from "../input-field/SelectField";
 
@@ -23,17 +24,19 @@ export const CalendarFilters = () => {
 
   const updateParams = (name: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    params.set(name, value);
+    value ? params.set(name, value) : params.delete(name);
     router.push(`${pathName}?${params.toString()}`);
   };
+
+  const handleSearch = useDebouncedCallback(updateParams, 300);
 
   return (
     <div className={styles.filters}>
       <SelectField
-        name="sortBy"
+        name="sort_by"
         title="Sort by"
-        defaultValue={searchParams.get("sortBy") ?? ""}
-        onChange={(e) => updateParams("sortBy", e.currentTarget.value)}
+        defaultValue={searchParams.get("sort_by") ?? ""}
+        onChange={(e) => updateParams("sort_by", e.currentTarget.value)}
       >
         {sortByOptions.map((option) => (
           <option
@@ -72,7 +75,7 @@ export const CalendarFilters = () => {
         title="Search clients"
         placeholder="search"
         defaultValue={searchParams.get("search") ?? ""}
-        onChange={(e) => updateParams("search", e.currentTarget.value)}
+        onChange={(e) => handleSearch("search", e.currentTarget.value)}
       />
     </div>
   );
