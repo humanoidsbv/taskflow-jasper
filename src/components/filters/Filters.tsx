@@ -52,6 +52,9 @@ export const Filters = ({ pageName, children }: FiltersProps) => {
               <h3 className={styles.filters}>Filters</h3>
               {children}
               <div className={styles.buttons}>
+                <Button type="submit" disabled={false}>
+                  Apply
+                </Button>
                 <Button
                   className={styles.cancelButton}
                   variant="secondary"
@@ -59,9 +62,6 @@ export const Filters = ({ pageName, children }: FiltersProps) => {
                   type="button"
                 >
                   Cancel
-                </Button>
-                <Button type="submit" disabled={false}>
-                  Add event
                 </Button>
               </div>
             </div>

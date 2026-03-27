@@ -55,11 +55,6 @@
   flex-grow: 1;
 }
 
-.cancelButton {
-  color: var(--gray-1);
-  font-weight: 500;
-}
-
 .message {
   font-size: var(--font-medium);
 }

@@ -70,6 +70,7 @@ export const CalendarFilters = () => {
         onChange={(e) => updateParams("date", e.currentTarget.value)}
       />
       <InputField
+        className={styles.search}
         name="search"
         type="text"
         title="Search clients"
