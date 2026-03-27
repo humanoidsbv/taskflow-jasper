@@ -15,3 +15,10 @@ export const translations = {
     title: "Default Title",
   },
 };
+
+export const sortByOptions = [
+  { value: "startDateDESC", placeholder: "Starting date new-old" },
+  { value: "startDateASC", placeholder: "Starting date old-new" },
+  { value: "nameASC", placeholder: "Name A-Z" },
+  { value: "nameDESC", placeholder: "Name Z-A" },
+];
