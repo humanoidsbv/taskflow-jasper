@@ -10,9 +10,11 @@ import { sortByOptions } from "@/services/translations";
 
 import styles from "./CalendarFilters.module.css";
 
-const clientOptions = [{ value: "Heineken", placeholder: "Heineken" }];
+interface CalendarFiltersProps {
+  clients: string[];
+}
 
-export const CalendarFilters = () => {
+export const CalendarFilters = ({ clients }: CalendarFiltersProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathName = usePathname();
@@ -53,9 +55,9 @@ export const CalendarFilters = () => {
         onChange={(e) => updateParams("client", e.currentTarget.value)}
       >
         <option value="">Select client(s)</option>
-        {clientOptions.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.placeholder}
+        {clients.map((option) => (
+          <option key={option} value={option}>
+            {option}
           </option>
         ))}
       </SelectField>

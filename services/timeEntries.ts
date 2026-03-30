@@ -12,6 +12,28 @@ class NotFoundError extends Error {
   }
 }
 
+export const getClients = async (): Promise<string[]> => {
+  try {
+    const response = await fetch(
+      "http://localhost:3004/time-entries?_sort=client",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+    const result = (await response.json()) as CreatedTimeEntry[];
+
+    return result
+      .map((entry) => entry.client)
+      .filter((value, index, array) => array.indexOf(value) === index);
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
 export const getTimeEntries = async (
   searchParams?: Promise<{
     sort_by?: string;
@@ -26,7 +48,7 @@ export const getTimeEntries = async (
 
   params.append("_sort", "-startTimestamp");
 
-  if (inputParams?.search) params.set("client:contains", inputParams.search);
+  if (inputParams?.search) params.append("client:contains", inputParams.search);
   if (inputParams?.client) params.set("client", inputParams.client);
   if (inputParams?.date)
     params.set("startTimestamp:contains", inputParams.date);

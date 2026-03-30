@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Modal } from "../modal/Modal";
 import { Button } from "../button/Button";
 import FilterIcon from "@/public/icons/filter.svg";
@@ -8,7 +8,6 @@ import CloseIcon from "@/public/icons/close.svg";
 import TaskflowLogo from "@/public/logos/taskflow-logo.svg";
 
 import styles from "./Filters.module.css";
-import Link from "next/link";
 
 interface FiltersProps {
   pageName: string;

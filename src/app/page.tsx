@@ -1,6 +1,6 @@
 import { CalendarFilters } from "@/components/filters/CalendarFilters";
 import { Filters } from "@/components/filters/Filters";
-import { getTimeEntries } from "@/services/timeEntries";
+import { getClients, getTimeEntries } from "@/services/timeEntries";
 import { Subheader } from "@/components/subheader/Subheader";
 import { TimeEntries } from "@/components/time-entries/TimeEntries";
 
@@ -17,6 +17,10 @@ export default async function CalendarPage({
   searchParams,
 }: CalendarPageProps) {
   const timeEntries = await getTimeEntries(searchParams);
+  const clientsVisible = Array.from(
+    new Set(timeEntries.map((entry) => entry.client)),
+  );
+  const clients = await getClients();
 
   const subtitle = `${timeEntries.length} event${
     timeEntries.length === 1 ? "" : "s"
@@ -26,7 +30,7 @@ export default async function CalendarPage({
     <>
       <Subheader subtitle={subtitle} pageName="calendar" />
       <Filters pageName="Calendar">
-        <CalendarFilters />
+        <CalendarFilters clients={clients} />
       </Filters>
       <TimeEntries timeEntries={timeEntries} />
     </>
