@@ -49,9 +49,8 @@ export const getTimeEntries = async (
   params.append("_sort", "-startTimestamp");
 
   if (inputParams?.search) params.append("client:contains", inputParams.search);
-  if (inputParams?.client) params.set("client", inputParams.client);
-  if (inputParams?.date)
-    params.set("startTimestamp:contains", inputParams.date);
+  if (inputParams?.client) params.append("client:in", inputParams.client);
+  if (inputParams?.date) params.set("startTimestamp:gt", inputParams.date);
   if (inputParams?.sort_by) {
     const query = sortByOptions.find(
       (option) => option.value === inputParams.sort_by,

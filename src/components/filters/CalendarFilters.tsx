@@ -16,13 +16,36 @@ interface CalendarFiltersProps {
 
 export const CalendarFilters = ({ clients }: CalendarFiltersProps) => {
   const searchParams = useSearchParams();
+
   const router = useRouter();
   const pathName = usePathname();
 
-  const updateParams = (name: string, value: string) => {
+  const formatSearchParamList = (
+    name: string,
+    value: string,
+    remove?: boolean,
+  ) => {
+    const current = searchParams.get(name)?.split(",") ?? [];
+
+    if (remove) {
+      return current?.filter((entry) => entry !== value).join(",");
+    }
+
+    return current.length === 0 ? value : [...current, value].join(",");
+  };
+
+  const updateParams = (name: string, value: string, append?: boolean) => {
     const params = new URLSearchParams(searchParams.toString());
-    value ? params.set(name, value) : params.delete(name);
-    console.log("updateParams");
+    if (!value) {
+      params.delete(name);
+    }
+    if (value && append) {
+      params.append(name, value);
+    }
+    if (value && !append) {
+      params.set(name, value);
+    }
+
     const next = params.toString();
     if (next === searchParams.toString()) return;
     router.replace(`${pathName}?${next}`);
@@ -48,19 +71,34 @@ export const CalendarFilters = ({ clients }: CalendarFiltersProps) => {
           </option>
         ))}
       </SelectField>
-      <SelectField
-        name="client"
-        title="Client"
-        defaultValue={searchParams.get("client") ?? ""}
-        onChange={(e) => updateParams("client", e.currentTarget.value)}
-      >
-        <option value="">Select client(s)</option>
+      <fieldset>
+        <input
+          name="client"
+          type="text"
+          placeholder="Select client(s)"
+          disabled
+        />
         {clients.map((option) => (
-          <option key={option} value={option}>
+          <label key={option}>
+            <input
+              type="checkbox"
+              name="client"
+              value={option}
+              onChange={(e) =>
+                updateParams(
+                  e.currentTarget.name,
+                  formatSearchParamList(
+                    e.currentTarget.name,
+                    e.currentTarget.value,
+                    !e.currentTarget.checked,
+                  ),
+                )
+              }
+            />
             {option}
-          </option>
+          </label>
         ))}
-      </SelectField>
+      </fieldset>
       <InputField
         name="date"
         type="date"
