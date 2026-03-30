@@ -9,6 +9,7 @@ import { SelectField } from "../input-field/SelectField";
 import { sortByOptions } from "@/services/translations";
 
 import styles from "./CalendarFilters.module.css";
+import { CheckboxField } from "../input-field/CheckboxField";
 
 interface CalendarFiltersProps {
   clients: string[];
@@ -19,6 +20,13 @@ export const CalendarFilters = ({ clients }: CalendarFiltersProps) => {
 
   const router = useRouter();
   const pathName = usePathname();
+
+  const updateClient = (value: string, remove: boolean) => {
+    return updateParams(
+      "client",
+      formatSearchParamList("client", value, remove),
+    );
+  };
 
   const formatSearchParamList = (
     name: string,
@@ -71,34 +79,11 @@ export const CalendarFilters = ({ clients }: CalendarFiltersProps) => {
           </option>
         ))}
       </SelectField>
-      <fieldset>
-        <input
-          name="client"
-          type="text"
-          placeholder="Select client(s)"
-          disabled
-        />
-        {clients.map((option) => (
-          <label key={option}>
-            <input
-              type="checkbox"
-              name="client"
-              value={option}
-              onChange={(e) =>
-                updateParams(
-                  e.currentTarget.name,
-                  formatSearchParamList(
-                    e.currentTarget.name,
-                    e.currentTarget.value,
-                    !e.currentTarget.checked,
-                  ),
-                )
-              }
-            />
-            {option}
-          </label>
-        ))}
-      </fieldset>
+      <CheckboxField
+        options={clients}
+        name="client"
+        onCheckClient={updateClient}
+      />
       <InputField
         name="date"
         type="date"
