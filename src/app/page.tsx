@@ -3,11 +3,10 @@ import { Filters } from "@/components/filters/Filters";
 import { getTimeEntries } from "@/services/timeEntries";
 import { Subheader } from "@/components/subheader/Subheader";
 import { TimeEntries } from "@/components/time-entries/TimeEntries";
-import { SearchParamsType } from "@/types/dataTypes";
 
 interface CalendarPageProps {
   searchParams: Promise<{
-    sortBy?: string;
+    sort_by?: string;
     client?: string;
     date?: string;
     search?: string;

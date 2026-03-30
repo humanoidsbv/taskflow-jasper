@@ -2,11 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 
-import {
-  CreatedTimeEntry,
-  SearchParamsType,
-  TimeEntryData,
-} from "@/types/dataTypes";
+import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
+import { sortByOptions } from "./translations";
 
 class NotFoundError extends Error {
   constructor(message: string) {
@@ -17,17 +14,28 @@ class NotFoundError extends Error {
 
 export const getTimeEntries = async (
   searchParams?: Promise<{
-    sortBy?: string;
+    sort_by?: string;
     client?: string;
     date?: string;
     search?: string;
   }>,
 ): Promise<CreatedTimeEntry[]> => {
   const baseURL = `http://localhost:3004/time-entries`;
-  // const { sort_by, client, date, search } = searchParams;
   const params = new URLSearchParams();
-  // const { sortBy, client, date, search } = searchParams ?? {};
-  // if ((await searchParams)?.search) params.set("q", search);
+  const inputParams = await searchParams;
+
+  params.append("_sort", "-startTimestamp");
+
+  if (inputParams?.search) params.set("client:contains", inputParams.search);
+  if (inputParams?.client) params.set("client", inputParams.client);
+  if (inputParams?.date)
+    params.set("startTimestamp:contains", inputParams.date);
+  if (inputParams?.sort_by) {
+    const query = sortByOptions.find(
+      (option) => option.value === inputParams.sort_by,
+    )?.query;
+    if (query) params.set("_sort", query);
+  }
 
   try {
     const response = await fetch(`${baseURL}?${params.toString()}`, {
