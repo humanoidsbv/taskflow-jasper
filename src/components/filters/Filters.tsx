@@ -12,12 +12,17 @@ import styles from "./Filters.module.css";
 interface FiltersProps {
   pageName: string;
   children: React.ReactNode;
+  filtersAmountActive: number;
 }
 
-export const Filters = ({ pageName, children }: FiltersProps) => {
+export const Filters = ({
+  pageName,
+  children,
+  filtersAmountActive,
+}: FiltersProps) => {
   const modalRef = useRef<HTMLDialogElement>(null);
   const [isMobile, setIsMobile] = useState(true);
-  const buttonText = "Filters (0 applied)";
+  const buttonText = `Filters (${filtersAmountActive} applied)`;
   const buttonAltText = "Apply filters";
   const closeModal = () => modalRef.current?.close();
 

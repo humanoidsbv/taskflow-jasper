@@ -19,7 +19,12 @@ export default async function CalendarPage({
   const params = searchParams ?? {};
   const timeEntries = await getTimeEntries(params);
   const clients = await getClients();
-  const filtersNumberApplied = params;
+
+  // if ((await searchParams)?.search)
+  //   if ((await searchParams)?.client)
+  //   if ((await searchParams)?.date)
+  //   if ((await searchParams)?.sort_by)
+  const filtersAmountActive = Object.values(await searchParams).length;
 
   const subtitle = `${timeEntries.length} event${
     timeEntries.length === 1 ? "" : "s"
@@ -28,7 +33,7 @@ export default async function CalendarPage({
   return (
     <>
       <Subheader subtitle={subtitle} pageName="calendar" />
-      <Filters pageName="Calendar">
+      <Filters pageName="Calendar" filtersAmountActive={filtersAmountActive}>
         <CalendarFilters clients={clients} />
       </Filters>
       <TimeEntries timeEntries={timeEntries} />
