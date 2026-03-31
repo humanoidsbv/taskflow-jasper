@@ -6,10 +6,10 @@ import { TimeEntries } from "@/components/time-entries/TimeEntries";
 
 interface CalendarPageProps {
   searchParams: Promise<{
-    sort_by?: string;
     client?: string;
     date?: string;
     search?: string;
+    sort_by?: string;
   }>;
 }
 
@@ -20,7 +20,6 @@ export default async function CalendarPage({
   const timeEntries = await getTimeEntries(params);
   const clients = await getClients();
   const filtersNumberApplied = params;
-  console.log("filtersNumberApplied: ", filtersNumberApplied);
 
   const subtitle = `${timeEntries.length} event${
     timeEntries.length === 1 ? "" : "s"

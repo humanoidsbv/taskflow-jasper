@@ -28,16 +28,10 @@ export const CheckboxField = ({
         <div
           className={styles.input}
           onClick={() => {
-            activeList
-              ? console.log("activeList", activeList)
-              : console.log("activeList falsey");
             if (dialogRef.current?.open) {
               dialogRef.current?.close();
-              console.log("close()");
             } else {
-              console.log("show()");
               dialogRef.current?.show();
-              dialogRef.current?.open;
             }
           }}
         >
@@ -51,10 +45,9 @@ export const CheckboxField = ({
           className={styles.layover}
           closedby="any"
           ref={dialogRef}
-          onMouseDown={(e) => {
-            console.log("mouseDown");
-            e.target === dialogRef.current && dialogRef.current.close();
-          }}
+          onMouseDown={(e) =>
+            e.target === dialogRef.current && dialogRef.current.close()
+          }
         >
           <div className={styles.dialogContainer}>
             {options &&
