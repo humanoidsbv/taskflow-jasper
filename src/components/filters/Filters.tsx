@@ -8,6 +8,7 @@ import CloseIcon from "@/public/icons/close.svg";
 import TaskflowLogo from "@/public/logos/taskflow-logo.svg";
 
 import styles from "./Filters.module.css";
+import { usePathname, useRouter } from "next/navigation";
 
 interface FiltersProps {
   pageName: string;
@@ -21,10 +22,13 @@ export const Filters = ({
   filtersAmountActive,
 }: FiltersProps) => {
   const modalRef = useRef<HTMLDialogElement>(null);
+  const pathName = usePathname();
+  const router = useRouter();
   const [isMobile, setIsMobile] = useState(true);
   const buttonText = `Filters (${filtersAmountActive} applied)`;
   const buttonAltText = "Apply filters";
   const closeModal = () => modalRef.current?.close();
+  const removeFilters = () => router.replace(pathName);
 
   useEffect(() => {
     const updateMobile = () => setIsMobile(window.innerWidth < 1160);
@@ -56,13 +60,16 @@ export const Filters = ({
               <h3 className={styles.filters}>Filters</h3>
               {children}
               <div className={styles.buttons}>
-                <Button type="submit" disabled={false}>
+                <Button type="submit" disabled={false} onClick={closeModal}>
                   Apply
                 </Button>
                 <Button
                   className={styles.cancelButton}
                   variant="secondary"
-                  onClick={closeModal}
+                  onClick={() => {
+                    closeModal();
+                    removeFilters();
+                  }}
                   type="button"
                 >
                   Cancel

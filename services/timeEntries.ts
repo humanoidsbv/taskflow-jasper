@@ -23,9 +23,8 @@ export const getClients = async (): Promise<string[]> => {
         },
       },
     );
-    const result = (await response.json()) as CreatedTimeEntry[];
 
-    return result
+    return ((await response.json()) as CreatedTimeEntry[])
       .map((entry) => entry.client)
       .filter((value, index, array) => array.indexOf(value) === index);
   } catch (error) {

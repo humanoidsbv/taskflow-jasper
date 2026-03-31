@@ -16,14 +16,8 @@ interface CalendarPageProps {
 export default async function CalendarPage({
   searchParams,
 }: CalendarPageProps) {
-  const params = searchParams ?? {};
-  const timeEntries = await getTimeEntries(params);
+  const timeEntries = await getTimeEntries(searchParams);
   const clients = await getClients();
-
-  // if ((await searchParams)?.search)
-  //   if ((await searchParams)?.client)
-  //   if ((await searchParams)?.date)
-  //   if ((await searchParams)?.sort_by)
   const filtersAmountActive = Object.values(await searchParams).length;
 
   const subtitle = `${timeEntries.length} event${
