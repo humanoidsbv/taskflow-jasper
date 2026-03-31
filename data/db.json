@@ -9,14 +9,6 @@
       "stopTimestamp": "2026-03-26T10:00:00.000Z"
     },
     {
-      "id": "9440",
-      "billable": true,
-      "client": "Nieuwe ticket",
-      "department": "design",
-      "startTimestamp": "2026-03-26T10:00:00.000Z",
-      "stopTimestamp": "2026-03-26T12:00:00.000Z"
-    },
-    {
       "id": "d92c",
       "billable": true,
       "client": "Humanoides",
@@ -39,14 +31,6 @@
       "department": "design",
       "startTimestamp": "2026-03-26T12:00:00.000Z",
       "stopTimestamp": "2026-03-26T14:00:00.000Z"
-    },
-    {
-      "id": "cd60",
-      "billable": false,
-      "client": "VrijMiBo",
-      "department": "development",
-      "startTimestamp": "2026-03-27T17:00:00.000Z",
-      "stopTimestamp": "2026-03-27T19:00:00.000Z"
     },
     {
       "id": "63c6",

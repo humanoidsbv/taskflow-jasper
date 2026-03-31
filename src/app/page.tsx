@@ -16,11 +16,11 @@ interface CalendarPageProps {
 export default async function CalendarPage({
   searchParams,
 }: CalendarPageProps) {
-  const timeEntries = await getTimeEntries(searchParams);
-  const clientsVisible = Array.from(
-    new Set(timeEntries.map((entry) => entry.client)),
-  );
+  const params = searchParams ?? {};
+  const timeEntries = await getTimeEntries(params);
   const clients = await getClients();
+  const filtersNumberApplied = params;
+  console.log("filtersNumberApplied: ", filtersNumberApplied);
 
   const subtitle = `${timeEntries.length} event${
     timeEntries.length === 1 ? "" : "s"
