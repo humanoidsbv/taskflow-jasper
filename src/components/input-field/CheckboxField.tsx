@@ -4,47 +4,76 @@ import styles from "./InputField.module.css";
 
 interface CheckboxFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   options?: string[];
+  activeList?: string[];
+  title: string;
   name: string;
   onCheckClient: (value: string, remove: boolean) => void;
 }
 
 export const CheckboxField = ({
+  activeList,
   options,
   name,
+  title,
   onCheckClient,
   ...props
 }: CheckboxFieldProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
+
   return (
-    <fieldset className={styles.dropdown}>
-      <button
-        className={styles.selectBox}
-        onClick={() => dialogRef.current?.show()}
-      >
-        Select client(s)
-      </button>
-      <dialog
-        className={styles.layover}
-        ref={dialogRef}
-        onMouseDown={(e) =>
-          e.target === dialogRef.current && dialogRef.current.close()
-        }
-      >
-        {options &&
-          options.map((option) => (
-            <label key={option}>
-              <input
-                type="checkbox"
-                name="client"
-                value={option}
-                onChange={(e) =>
-                  onCheckClient(option, !e.currentTarget.checked)
-                }
-              />
-              {option}
-            </label>
-          ))}
-      </dialog>
-    </fieldset>
+    <div className={styles.container}>
+      <span className={styles.label}>{title}</span>
+
+      <fieldset className={styles.dropdown}>
+        <div
+          className={styles.input}
+          onClick={() => {
+            activeList
+              ? console.log("activeList", activeList)
+              : console.log("activeList falsey");
+            if (dialogRef.current?.open) {
+              dialogRef.current?.close();
+              console.log("close()");
+            } else {
+              console.log("show()");
+              dialogRef.current?.show();
+              dialogRef.current?.open;
+            }
+          }}
+        >
+          <span>
+            {!activeList || activeList.length === 0
+              ? `Select client(s)`
+              : `${activeList.length} client${activeList.length === 1 ? "" : "s"} selected`}
+          </span>
+        </div>
+        <dialog
+          className={styles.layover}
+          closedby="any"
+          ref={dialogRef}
+          onMouseDown={(e) => {
+            console.log("mouseDown");
+            e.target === dialogRef.current && dialogRef.current.close();
+          }}
+        >
+          <div className={styles.dialogContainer}>
+            {options &&
+              options.map((option) => (
+                <label key={option} className={styles.checkLabel}>
+                  <input
+                    type="checkbox"
+                    name="client"
+                    value={option}
+                    onChange={(e) =>
+                      onCheckClient(option, !e.currentTarget.checked)
+                    }
+                  />
+                  {option}
+                </label>
+              ))}
+          </div>
+        </dialog>
+      </fieldset>
+    </div>
   );
 };

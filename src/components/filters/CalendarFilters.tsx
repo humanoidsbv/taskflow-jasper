@@ -10,6 +10,7 @@ import { sortByOptions } from "@/services/translations";
 
 import styles from "./CalendarFilters.module.css";
 import { CheckboxField } from "../input-field/CheckboxField";
+import { useState } from "react";
 
 interface CalendarFiltersProps {
   clients: string[];
@@ -17,15 +18,14 @@ interface CalendarFiltersProps {
 
 export const CalendarFilters = ({ clients }: CalendarFiltersProps) => {
   const searchParams = useSearchParams();
-
   const router = useRouter();
   const pathName = usePathname();
+  const [activeClients, setActiveClients] = useState<string[]>([]);
 
   const updateClient = (value: string, remove: boolean) => {
-    return updateParams(
-      "client",
-      formatSearchParamList("client", value, remove),
-    );
+    const formattedList = formatSearchParamList("client", value, remove);
+    setActiveClients(formattedList.length > 0 ? formattedList.split(",") : []);
+    return updateParams("client", formattedList);
   };
 
   const formatSearchParamList = (
@@ -80,9 +80,11 @@ export const CalendarFilters = ({ clients }: CalendarFiltersProps) => {
         ))}
       </SelectField>
       <CheckboxField
+        title="Client"
         options={clients}
         name="client"
         onCheckClient={updateClient}
+        activeList={activeClients}
       />
       <InputField
         name="date"
