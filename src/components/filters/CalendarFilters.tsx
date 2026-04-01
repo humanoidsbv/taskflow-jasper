@@ -44,12 +44,9 @@ export const CalendarFilters = ({ clients }: CalendarFiltersProps) => {
     const params = new URLSearchParams(searchParams.toString());
     if (!value) {
       params.delete(name);
-    }
-    if (value && append) {
-      params.append(name, value);
-    }
-    if (value && !append) {
-      params.set(name, value);
+    } else {
+      if (append) params.append(name, value);
+      else params.set(name, value);
     }
 
     const next = params.toString();
