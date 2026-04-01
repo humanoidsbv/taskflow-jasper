@@ -32,6 +32,7 @@ export default async function TeamMembersPage({
       >
         <></>
       </FiltersToolbar>
+      <MemberCards members={members} />
     </>
   );
 }
