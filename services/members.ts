@@ -22,7 +22,7 @@ export const getMembers = async (
   const params = new URLSearchParams();
   const inputParams = await searchParams;
 
-  params.append("_sort", "-startingDate");
+  params.append("_sort", "startingDate");
 
   try {
     const response = await fetch(`${baseURL}?${params.toString()}`, {
