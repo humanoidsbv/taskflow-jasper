@@ -40,18 +40,15 @@ export const CalendarFilters = ({ clients }: CalendarFiltersProps) => {
     return current.length === 0 ? value : [...current, value].join(",");
   };
 
-  const updateParams = (name: string, value: string, append?: boolean) => {
+  const updateParams = (name: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
     if (!value) {
       params.delete(name);
-    } else {
-      if (append) params.append(name, value);
-      else params.set(name, value);
-    }
+    } else params.set(name, value);
 
-    const next = params.toString();
-    if (next === searchParams.toString()) return;
-    router.replace(`${pathName}?${next}`);
+    const nextParams = params.toString();
+    if (nextParams === searchParams.toString()) return;
+    router.replace(`${pathName}?${nextParams}`);
   };
 
   const handleSearch = useDebouncedCallback(updateParams, 300);
