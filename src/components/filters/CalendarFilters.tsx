@@ -1,8 +1,7 @@
 "use client";
 
 import { useDebouncedCallback } from "use-debounce";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { InputField, SelectField, CheckboxField } from "../input-field";
