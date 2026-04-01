@@ -41,5 +41,15 @@
       "stopTimestamp": "2026-04-04T14:50:00.000Z"
     }
   ],
+  "members": [{
+    "id": "bla",
+    "client": "De Overheid",
+    "eMail": "gert-flop@agar.io",
+    "firstName": "Gert",
+    "lastName": "Flop",
+    "info": "Er is weinig te zeggen over deze man. Na de dienstplicht in 'Nam is er niet veel over van zijn mentale gezondheid.",
+    "position": "Full-stack Developer",
+    "startingDate": "2025-03-15T12:00:00.000Z"
+  }],
   "$schema": "./node_modules/json-server/schema.json"
 }

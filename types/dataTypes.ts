@@ -23,3 +23,15 @@ export type ValidatedDataType = {
 };
 
 export type CreatedTimeEntry = TimeEntryData & { id: string };
+
+export type Member = {
+  client: string;
+  eMail: string;
+  firstName: string;
+  info: string;
+  lastName: string;
+  position: string;
+  startingDate: string;
+};
+
+export type CreatedMember = Member & { id: string };
