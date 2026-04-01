@@ -43,3 +43,11 @@
   display: grid;
   grid-template-rows: 1fr 1fr;
 }
+
+@media screen and (min-width: 1160px) {
+  .container {
+    max-width: 256px;
+    width: auto;
+    flex-grow: 1;
+  }
+}
