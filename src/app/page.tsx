@@ -1,5 +1,4 @@
-import { CalendarFilters } from "@/components/filters/CalendarFilters";
-import { FiltersToolbar } from "@/components/filters/FiltersToolbar";
+import { CalendarFilters, FiltersToolbar } from "@/components/filters";
 import { getClients, getTimeEntries } from "@/services/timeEntries";
 import { Subheader } from "@/components/subheader/Subheader";
 import { TimeEntries } from "@/components/time-entries/TimeEntries";
