@@ -1,8 +1,12 @@
+import { MembersFilters } from "@/components/filters";
 import { FiltersToolbar } from "@/components/filters/FiltersToolbar";
 import { MemberCards } from "@/components/member-cards/MemberCards";
 import { Subheader } from "@/components/subheader/Subheader";
-import { getMembers } from "@/services/members";
-import { getClients } from "@/services/timeEntries";
+import {
+  getClientsFromMembers,
+  getMembers,
+  getPositions,
+} from "@/services/members";
 
 interface TeamMembersPageProps {
   searchParams: Promise<{
@@ -18,7 +22,8 @@ export default async function TeamMembersPage({
   searchParams,
 }: TeamMembersPageProps) {
   const members = await getMembers(searchParams);
-  const clients = await getClients();
+  const clients = await getClientsFromMembers();
+  const positions = await getPositions();
   const filtersAmountActive = Object.values(await searchParams).length;
 
   const subtitle = `${members.length} member${members.length === 1 ? "" : "s"}`;
@@ -30,7 +35,7 @@ export default async function TeamMembersPage({
         pageName="Team members"
         filtersAmountActive={filtersAmountActive}
       >
-        <></>
+        <MembersFilters clients={clients} positions={positions} />
       </FiltersToolbar>
       <MemberCards members={members} />
     </>

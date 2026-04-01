@@ -1,0 +1,19 @@
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.search {
+  order: -1;
+}
+
+@media screen and (min-width: 1160px) {
+  .filters {
+    flex-direction: row;
+  }
+  .search {
+    order: 0;
+    margin-left: auto;
+  }
+}

@@ -1,23 +1,33 @@
 "use client";
 
 import { useDebouncedCallback } from "use-debounce";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { InputField, SelectField, CheckboxField } from "../input-field";
-import { calendarSortByOptions } from "@/services/translations";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { CheckboxField, InputField, SelectField } from "../input-field";
+import { membersSortByOptions } from "@/services/translations";
 
-import styles from "./CalendarFilters.module.css";
+import styles from "./MembersFilters.module.css";
 
-interface CalendarFiltersProps {
+interface MembersFiltersProps {
+  positions: string[];
   clients: string[];
 }
 
-export const CalendarFilters = ({ clients }: CalendarFiltersProps) => {
+export const MembersFilters = ({ positions, clients }: MembersFiltersProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathName = usePathname();
   const [activeClients, setActiveClients] = useState<string[]>([]);
+  const [activePositions, setActivePositions] = useState<string[]>([]);
+
+  const updatePosition = (value: string, remove: boolean) => {
+    const formattedList = formatSearchParamList("position", value, remove);
+    setActivePositions(
+      formattedList.length > 0 ? formattedList.split(",") : [],
+    );
+    return updateParams("position", formattedList);
+  };
 
   const updateClient = (value: string, remove: boolean) => {
     const formattedList = formatSearchParamList("client", value, remove);
@@ -60,7 +70,7 @@ export const CalendarFilters = ({ clients }: CalendarFiltersProps) => {
         defaultValue={searchParams.get("sort_by") ?? ""}
         onChange={(e) => updateParams("sort_by", e.currentTarget.value)}
       >
-        {calendarSortByOptions.map((option) => (
+        {membersSortByOptions.map((option) => (
           <option
             key={option.value}
             value={option.value}
@@ -70,6 +80,13 @@ export const CalendarFilters = ({ clients }: CalendarFiltersProps) => {
           </option>
         ))}
       </SelectField>
+      <CheckboxField
+        title="Position"
+        options={positions}
+        name="position"
+        onCheck={updatePosition}
+        activeList={activePositions}
+      />
       <CheckboxField
         title="Client"
         options={clients}

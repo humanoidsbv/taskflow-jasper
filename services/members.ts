@@ -1,6 +1,7 @@
 "use server";
 
 import { CreatedMember } from "@/types/dataTypes";
+import { membersSortByOptions } from "./translations";
 
 class NotFoundError extends Error {
   constructor(message: string) {
@@ -8,6 +9,45 @@ class NotFoundError extends Error {
     this.name = "NotFoundError";
   }
 }
+
+export const getPositions = async (): Promise<string[]> => {
+  try {
+    const response = await fetch(
+      "http://localhost:3004/members?_sort=position",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    return ((await response.json()) as CreatedMember[])
+      .map((entry) => entry.position)
+      .filter((value, index, array) => array.indexOf(value) === index);
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+export const getClientsFromMembers = async (): Promise<string[]> => {
+  try {
+    const response = await fetch("http://localhost:3004/members?_sort=client", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return ((await response.json()) as CreatedMember[])
+      .map((entry) => entry.client)
+      .filter((value, index, array) => array.indexOf(value) === index);
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
 
 export const getMembers = async (
   searchParams?: Promise<{
@@ -21,6 +61,19 @@ export const getMembers = async (
   const baseURL = `http://localhost:3004/members`;
   const params = new URLSearchParams();
   const inputParams = await searchParams;
+
+  if (inputParams?.search)
+    params.append("fullName:contains", inputParams.search);
+  if (inputParams?.client) params.append("client:in", inputParams.client);
+  if (inputParams?.position) params.append("position:in", inputParams.position);
+  if (inputParams?.startingDate)
+    params.set("startingDate:gt", inputParams.startingDate);
+  if (inputParams?.sort_by) {
+    const query = membersSortByOptions.find(
+      (option) => option.value === inputParams.sort_by,
+    )?.query;
+    if (query) params.set("_sort", query);
+  }
 
   params.append("_sort", "startingDate");
 

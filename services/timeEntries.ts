@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
-import { sortByOptions } from "./translations";
+import { calendarSortByOptions } from "./translations";
 
 class NotFoundError extends Error {
   constructor(message: string) {
@@ -12,7 +12,7 @@ class NotFoundError extends Error {
   }
 }
 
-export const getClients = async (): Promise<string[]> => {
+export const getClientsFromTimeEntries = async (): Promise<string[]> => {
   try {
     const response = await fetch(
       "http://localhost:3004/time-entries?_sort=client",
@@ -51,7 +51,7 @@ export const getTimeEntries = async (
   if (inputParams?.client) params.append("client:in", inputParams.client);
   if (inputParams?.date) params.set("startTimestamp:gt", inputParams.date);
   if (inputParams?.sort_by) {
-    const query = sortByOptions.find(
+    const query = calendarSortByOptions.find(
       (option) => option.value === inputParams.sort_by,
     )?.query;
     if (query) params.set("_sort", query);

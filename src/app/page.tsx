@@ -1,5 +1,8 @@
 import { CalendarFilters, FiltersToolbar } from "@/components/filters";
-import { getClients, getTimeEntries } from "@/services/timeEntries";
+import {
+  getClientsFromTimeEntries,
+  getTimeEntries,
+} from "@/services/timeEntries";
 import { Subheader } from "@/components/subheader/Subheader";
 import { TimeEntries } from "@/components/time-entries/TimeEntries";
 
@@ -16,7 +19,7 @@ export default async function CalendarPage({
   searchParams,
 }: CalendarPageProps) {
   const timeEntries = await getTimeEntries(searchParams);
-  const clients = await getClients();
+  const clients = await getClientsFromTimeEntries();
   const filtersAmountActive = Object.values(await searchParams).length;
 
   const subtitle = `${timeEntries.length} event${

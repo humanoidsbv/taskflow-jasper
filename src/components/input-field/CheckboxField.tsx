@@ -37,8 +37,8 @@ export const CheckboxField = ({
         >
           <span>
             {!activeList || activeList.length === 0
-              ? `Select client(s)`
-              : `${activeList.length} client${activeList.length === 1 ? "" : "s"} selected`}
+              ? `Select ${name}(s)`
+              : `${activeList.length} ${name}${activeList.length === 1 ? "" : "s"} selected`}
           </span>
         </div>
         <dialog
@@ -55,7 +55,7 @@ export const CheckboxField = ({
                 <label key={option} className={styles.checkLabel}>
                   <input
                     type="checkbox"
-                    name="client"
+                    name={name}
                     value={option}
                     onChange={(e) => onCheck(option, !e.currentTarget.checked)}
                   />
