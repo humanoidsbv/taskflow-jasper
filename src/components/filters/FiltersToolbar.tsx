@@ -1,26 +1,27 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Modal } from "../modal/Modal";
-import { Button } from "../button/Button";
-import FilterIcon from "@/public/icons/filter.svg";
-import CloseIcon from "@/public/icons/close.svg";
-import TaskflowLogo from "@/public/logos/taskflow-logo.svg";
-
-import styles from "./Filters.module.css";
 import { usePathname, useRouter } from "next/navigation";
 
-interface FiltersProps {
+import { Button } from "../button/Button";
+import { Modal } from "../modal/Modal";
+import CloseIcon from "@/public/icons/close.svg";
+import FilterIcon from "@/public/icons/filter.svg";
+import TaskflowLogo from "@/public/logos/taskflow-logo.svg";
+
+import styles from "./FiltersToolbar.module.css";
+
+interface FiltersToolbarProps {
   pageName: string;
   children: React.ReactNode;
   filtersAmountActive: number;
 }
 
-export const Filters = ({
+export const FiltersToolbar = ({
   pageName,
   children,
   filtersAmountActive,
-}: FiltersProps) => {
+}: FiltersToolbarProps) => {
   const modalRef = useRef<HTMLDialogElement>(null);
   const pathName = usePathname();
   const router = useRouter();
@@ -40,7 +41,7 @@ export const Filters = ({
   return (
     <>
       {isMobile ? (
-        <>
+        <div className={styles.mobile}>
           <Button
             onClick={() => modalRef.current?.showModal()}
             variant="tertiary"
@@ -77,7 +78,7 @@ export const Filters = ({
               </div>
             </div>
           </Modal>
-        </>
+        </div>
       ) : (
         <>{children}</>
       )}

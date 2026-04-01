@@ -1,3 +1,7 @@
+.mobile {
+  display: block;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -35,4 +39,10 @@
   flex-direction: column;
   gap: 12px;
   margin-top: auto;
+}
+
+@media screen and (min-width: 1160px) {
+  .mobile {
+    display: none;
+  }
 }

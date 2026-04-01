@@ -1,4 +1,4 @@
-import { Filters } from "@/components/filters/Filters";
+import { FiltersToolbar } from "@/components/filters/FiltersToolbar";
 import { Subheader } from "@/components/subheader/Subheader";
 import { teamMembers } from "@/services/fixtures";
 
@@ -10,9 +10,9 @@ export default function TeamMembersPage() {
   return (
     <>
       <Subheader subtitle={subtitle} pageName="teamMembers" />
-      <Filters pageName="Team members">
+      <FiltersToolbar pageName="Team members">
         <></>
-      </Filters>
+      </FiltersToolbar>
     </>
   );
 }
