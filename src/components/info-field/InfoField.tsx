@@ -3,11 +3,13 @@ import styles from "./InfoField.module.css";
 interface InfoFieldProps {
   title: string;
   value: string;
+  className?: string;
 }
 
-export const InfoField = ({ title, value }: InfoFieldProps) => {
+export const InfoField = ({ className, title, value }: InfoFieldProps) => {
+  const classNameList = `${styles.container} ${className}`;
   return (
-    <div className={styles.container}>
+    <div className={classNameList}>
       <span className={styles.title}>{title}</span>
       <span className={styles.value}>{value}</span>
     </div>

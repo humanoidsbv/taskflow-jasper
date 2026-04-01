@@ -18,7 +18,7 @@ export const MemberCard = ({ data }: MemberCardProps) => {
     formatMemberData(data);
 
   return (
-    <div className={styles.container}>
+    <li className={styles.container}>
       <div className={styles.info}>
         <Image
           alt="Profile picture of a Humanoid"
@@ -29,7 +29,11 @@ export const MemberCard = ({ data }: MemberCardProps) => {
         <span className={styles.position}>{position}</span>
       </div>
       <div className={styles.details}>
-        <InfoField title="Starting date" value={startingMonth} />
+        <InfoField
+          className={styles.small}
+          title="Starting date"
+          value={startingMonth}
+        />
         <InfoField title="Client" value={client} />
         <InfoField title="Other data" value={info} />
       </div>
@@ -38,6 +42,6 @@ export const MemberCard = ({ data }: MemberCardProps) => {
         <EditIcon />
         Edit member
       </Button>
-    </div>
+    </li>
   );
 };
