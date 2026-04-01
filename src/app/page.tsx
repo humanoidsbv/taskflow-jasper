@@ -1,5 +1,4 @@
-import { CalendarFilters } from "@/components/filters/CalendarFilters";
-import { Filters } from "@/components/filters/Filters";
+import { CalendarFilters, FiltersToolbar } from "@/components/filters";
 import { getClients, getTimeEntries } from "@/services/timeEntries";
 import { Subheader } from "@/components/subheader/Subheader";
 import { TimeEntries } from "@/components/time-entries/TimeEntries";
@@ -27,9 +26,12 @@ export default async function CalendarPage({
   return (
     <>
       <Subheader subtitle={subtitle} pageName="calendar" />
-      <Filters pageName="Calendar" filtersAmountActive={filtersAmountActive}>
+      <FiltersToolbar
+        pageName="Calendar"
+        filtersAmountActive={filtersAmountActive}
+      >
         <CalendarFilters clients={clients} />
-      </Filters>
+      </FiltersToolbar>
       <TimeEntries timeEntries={timeEntries} />
     </>
   );

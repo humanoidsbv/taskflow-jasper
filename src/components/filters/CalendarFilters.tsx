@@ -1,16 +1,13 @@
 "use client";
 
 import { useDebouncedCallback } from "use-debounce";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { useState } from "react";
 
-import { InputField } from "../input-field/InputField";
-import { SelectField } from "../input-field/SelectField";
+import { InputField, SelectField, CheckboxField } from "../input-field";
 import { sortByOptions } from "@/services/translations";
 
 import styles from "./CalendarFilters.module.css";
-import { CheckboxField } from "../input-field/CheckboxField";
-import { useState } from "react";
 
 interface CalendarFiltersProps {
   clients: string[];
@@ -42,21 +39,15 @@ export const CalendarFilters = ({ clients }: CalendarFiltersProps) => {
     return current.length === 0 ? value : [...current, value].join(",");
   };
 
-  const updateParams = (name: string, value: string, append?: boolean) => {
+  const updateParams = (name: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
     if (!value) {
       params.delete(name);
-    }
-    if (value && append) {
-      params.append(name, value);
-    }
-    if (value && !append) {
-      params.set(name, value);
-    }
+    } else params.set(name, value);
 
-    const next = params.toString();
-    if (next === searchParams.toString()) return;
-    router.replace(`${pathName}?${next}`);
+    const nextParams = params.toString();
+    if (nextParams === searchParams.toString()) return;
+    router.replace(`${pathName}?${nextParams}`);
   };
 
   const handleSearch = useDebouncedCallback(updateParams, 300);
@@ -83,7 +74,7 @@ export const CalendarFilters = ({ clients }: CalendarFiltersProps) => {
         title="Client"
         options={clients}
         name="client"
-        onCheckClient={updateClient}
+        onCheck={updateClient}
         activeList={activeClients}
       />
       <InputField

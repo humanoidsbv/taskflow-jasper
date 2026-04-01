@@ -1,4 +1,4 @@
-import { Filters } from "@/components/filters/Filters";
+import { FiltersToolbar } from "@/components/filters/FiltersToolbar";
 import { MemberCards } from "@/components/member-cards/MemberCards";
 import { Subheader } from "@/components/subheader/Subheader";
 import { getMembers } from "@/services/members";
@@ -26,13 +26,12 @@ export default async function TeamMembersPage({
   return (
     <>
       <Subheader subtitle={subtitle} pageName="teamMembers" />
-      <Filters
+      <FiltersToolbar
         pageName="Team members"
         filtersAmountActive={filtersAmountActive}
       >
         <></>
-      </Filters>
-      <MemberCards members={members} />
+      </FiltersToolbar>
     </>
   );
 }

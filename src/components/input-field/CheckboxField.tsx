@@ -3,19 +3,19 @@ import { useRef } from "react";
 import styles from "./InputField.module.css";
 
 interface CheckboxFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  options?: string[];
   activeList?: string[];
-  title: string;
   name: string;
-  onCheckClient: (value: string, remove: boolean) => void;
+  onCheck: (value: string, remove: boolean) => void;
+  options?: string[];
+  title: string;
 }
 
 export const CheckboxField = ({
   activeList,
-  options,
   name,
+  onCheck,
+  options,
   title,
-  onCheckClient,
   ...props
 }: CheckboxFieldProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -57,9 +57,7 @@ export const CheckboxField = ({
                     type="checkbox"
                     name="client"
                     value={option}
-                    onChange={(e) =>
-                      onCheckClient(option, !e.currentTarget.checked)
-                    }
+                    onChange={(e) => onCheck(option, !e.currentTarget.checked)}
                   />
                   {option}
                 </label>
