@@ -4,32 +4,21 @@ import { RefObject } from "react";
 
 import styles from "./InputField.module.css";
 
-interface InputFieldProps {
+interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   defaultValue?: string;
-  disabled?: boolean;
   inputRef?: RefObject<HTMLInputElement | null>;
-  max?: string;
-  min?: string;
   name: string;
-  placeholder?: string;
-  required?: boolean;
   title: string;
-  type: string;
 }
 
 export const InputField = ({
   className,
   defaultValue,
-  disabled,
   inputRef,
-  max,
-  min,
   name,
-  placeholder,
-  required,
   title,
-  type,
+  ...props
 }: InputFieldProps) => {
   const classNameList = `${styles.container} ${className}`;
   return (
@@ -38,14 +27,9 @@ export const InputField = ({
       <input
         className={styles.input}
         defaultValue={defaultValue}
-        disabled={disabled}
-        max={max}
-        min={min}
         name={name}
-        placeholder={placeholder}
-        type={type}
-        required={required}
         ref={inputRef}
+        {...props}
       />
     </label>
   );

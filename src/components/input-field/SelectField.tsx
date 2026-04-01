@@ -2,13 +2,11 @@ import { ReactNode } from "react";
 
 import styles from "@/components/input-field/InputField.module.css";
 
-interface SelectFieldProps {
+interface SelectFieldProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   children: ReactNode;
   className?: string;
   defaultValue?: string;
-  disabled?: boolean;
   name: string;
-  required?: boolean;
   title: string;
 }
 
@@ -16,10 +14,9 @@ export const SelectField = ({
   children,
   className,
   defaultValue,
-  disabled,
   name,
-  required,
   title,
+  ...props
 }: SelectFieldProps) => {
   const classNameList = `${styles.container} ${className}`;
 
@@ -28,11 +25,10 @@ export const SelectField = ({
       <span className={styles.label}>{title}</span>
       <select
         className={styles.input}
-        disabled={disabled}
         name={name}
-        required={required}
         defaultValue={defaultValue}
         key={defaultValue}
+        {...props}
       >
         {children}
       </select>

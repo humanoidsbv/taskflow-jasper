@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
+import { sortByOptions } from "./translations";
 
 class NotFoundError extends Error {
   constructor(message: string) {
@@ -11,10 +12,10 @@ class NotFoundError extends Error {
   }
 }
 
-export async function getTimeEntries(): Promise<CreatedTimeEntry[]> {
+export const getClients = async (): Promise<string[]> => {
   try {
     const response = await fetch(
-      "http://localhost:3004/time-entries?_sort=-startTimestamp",
+      "http://localhost:3004/time-entries?_sort=client",
       {
         method: "GET",
         headers: {
@@ -22,6 +23,47 @@ export async function getTimeEntries(): Promise<CreatedTimeEntry[]> {
         },
       },
     );
+
+    return ((await response.json()) as CreatedTimeEntry[])
+      .map((entry) => entry.client)
+      .filter((value, index, array) => array.indexOf(value) === index);
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+export const getTimeEntries = async (
+  searchParams?: Promise<{
+    sort_by?: string;
+    client?: string;
+    date?: string;
+    search?: string;
+  }>,
+): Promise<CreatedTimeEntry[]> => {
+  const baseURL = `http://localhost:3004/time-entries`;
+  const params = new URLSearchParams();
+  const inputParams = await searchParams;
+
+  params.append("_sort", "-startTimestamp");
+
+  if (inputParams?.search) params.append("client:contains", inputParams.search);
+  if (inputParams?.client) params.append("client:in", inputParams.client);
+  if (inputParams?.date) params.set("startTimestamp:gt", inputParams.date);
+  if (inputParams?.sort_by) {
+    const query = sortByOptions.find(
+      (option) => option.value === inputParams.sort_by,
+    )?.query;
+    if (query) params.set("_sort", query);
+  }
+
+  try {
+    const response = await fetch(`${baseURL}?${params.toString()}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     if (response.status === 404) {
       throw new NotFoundError("Time entry not found!");
     }
@@ -30,7 +72,7 @@ export async function getTimeEntries(): Promise<CreatedTimeEntry[]> {
     console.error(error);
     return [];
   }
-}
+};
 
 export async function deleteTimeEntry(id: string) {
   try {
