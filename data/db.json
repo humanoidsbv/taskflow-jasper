@@ -50,6 +50,33 @@
     "info": "Er is weinig te zeggen over deze man. Na de dienstplicht in 'Nam is er niet veel over van zijn mentale gezondheid.",
     "position": "Full-stack Developer",
     "startingDate": "2025-03-15T12:00:00.000Z"
+  },{
+    "id": "bla2",
+    "client": "De Roverheid",
+    "eMail": "jan.smit@jemoed.er",
+    "firstName": "Gert",
+    "lastName": "Flop",
+    "info": "Er is weinig te zeggen over deze man. Na de dienstplicht in 'Nam is er niet veel over van zijn mentale gezondheid.",
+    "position": "Full-stack Developer",
+    "startingDate": "2025-03-15T12:00:00.000Z"
+  },{
+    "id": "bla3",
+    "client": "De Cadeauverheid",
+    "eMail": "gert-flop@agar.io",
+    "firstName": "Gert",
+    "lastName": "Flop",
+    "info": "Er is weinig te zeggen over deze man. Na de dienstplicht in 'Nam is er niet veel over van zijn mentale gezondheid.",
+    "position": "Full-stack Developer",
+    "startingDate": "2025-03-15T12:00:00.000Z"
+  },{
+    "id": "bla4",
+    "client": "De Gynocoloverheid",
+    "eMail": "gert-flop@agar.io",
+    "firstName": "Gert",
+    "lastName": "Flop",
+    "info": "Er is weinig te zeggen over deze man. Na de dienstplicht in 'Nam is er niet veel over van zijn mentale gezondheid.",
+    "position": "Full-stack Developer",
+    "startingDate": "2025-03-15T12:00:00.000Z"
   }],
   "$schema": "./node_modules/json-server/schema.json"
 }

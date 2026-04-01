@@ -11,7 +11,7 @@ interface MemberCardsProps {
 
 export const MemberCards = ({ members }: MemberCardsProps) => {
   return (
-    <ul>
+    <ul className={styles.list}>
       {members.map((entry) => {
         return <MemberCard key={entry.id} data={entry} />;
       })}
