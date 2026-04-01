@@ -15,6 +15,12 @@ export const formatHours = (hours: number): string => {
   return `${roundedHours.toFixed(0).toString().padStart(2, "0")}:${restMinutes.toFixed(0).toString().padStart(2, "0")}`;
 };
 
+export const monthFormat = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
 export const dateFormat = new Intl.DateTimeFormat("nl-NL", {
   day: "numeric",
   month: "numeric",
