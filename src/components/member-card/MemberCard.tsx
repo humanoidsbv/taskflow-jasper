@@ -29,13 +29,9 @@ export const MemberCard = ({ data }: MemberCardProps) => {
         <span className={styles.position}>{position}</span>
       </div>
       <div className={styles.details}>
-        <InfoField
-          className={styles.small}
-          title="Starting date"
-          value={startingMonth}
-        />
+        <InfoField title="Starting date" value={startingMonth} />
         <InfoField title="Client" value={client} />
-        <InfoField title="Other data" value={info} />
+        <InfoField className={styles.two} title="Other data" value={info} />
       </div>
       <div className={styles.divider}></div>
       <Button variant="secondary">

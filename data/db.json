@@ -91,10 +91,10 @@
     "eMail": "wiebenik123@gmail.com",
     "firstName": "Eric Frederik",
     "fullName": "Eric Frederik Van Moonshaven Steenbruggen",
-    "info": "Levensgenieter, entrepeneur, filosoof",
+    "info": "",
     "lastName": "Van Moonshaven Steenbruggen",
     "position": "Office Manager",
-    "startingDate": "2026-01-11T12:00:00.000Z"
+    "startingDate": "2026-03-11T12:00:00.000Z"
   }],
   "$schema": "./node_modules/json-server/schema.json"
 }
