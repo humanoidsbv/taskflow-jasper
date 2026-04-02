@@ -3,6 +3,7 @@
 import { useRef } from "react";
 
 import { Button } from "@/components/button/Button";
+import { MemberForm } from "@/components/member-form/MemberForm";
 import { Modal } from "@/components/modal/Modal";
 import { TimeEntryForm } from "@/components/time-entry-form/TimeEntryForm";
 import { translations } from "@/services/translations";
@@ -32,17 +33,16 @@ export const Subheader = ({ pageName, subtitle }: SubheaderProps) => {
         <PlusIcon alt={buttonAltText} />
         <span>{buttonText}</span>
       </Button>
-      {pageName === "calendar" && (
-        <Modal modalRef={modalRef}>
-          <button
-            onClick={() => modalRef.current?.close()}
-            className={styles.close}
-          >
-            <CloseIcon alt="Close the modal" />
-          </button>
-          <TimeEntryForm modalRef={modalRef} />
-        </Modal>
-      )}
+      <Modal modalRef={modalRef}>
+        <button
+          onClick={() => modalRef.current?.close()}
+          className={styles.close}
+        >
+          <CloseIcon alt="Close the modal" />
+        </button>
+        {pageName === "calendar" && <TimeEntryForm modalRef={modalRef} />}
+        {pageName === "teamMembers" && <MemberForm modalRef={modalRef} />}
+      </Modal>
     </div>
   );
 };

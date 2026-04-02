@@ -3,7 +3,12 @@
 import { z } from "zod";
 
 import { createTimeEntry } from "./timeEntries";
-import { TimeEntryData, ValidatedDataType } from "@/types/dataTypes";
+import {
+  MemberData,
+  TimeEntryData,
+  ValidatedDataType,
+} from "@/types/dataTypes";
+import { createMember } from "./members";
 
 export interface CreateCalendarEventState {
   errors: Partial<Record<string, string[]>>;
@@ -11,11 +16,17 @@ export interface CreateCalendarEventState {
   values?: Partial<ValidatedDataType>;
 }
 
+export interface CreateMemberState {
+  errors: Partial<Record<string, string[]>>;
+  message: string;
+  values?: Partial<MemberData>;
+}
+
 const minutes = (time: string) => {
   return parseInt(time.split(":")[0]) * 60 + parseInt(time.split(":")[1]);
 };
 
-const schema = z
+const calendarSchema = z
   .object({
     client: z.string().refine((client) => client.length > 0, {
       error: "Client is required",
@@ -48,7 +59,19 @@ const schema = z
     }
   });
 
-const formatData = (validatedData: ValidatedDataType): TimeEntryData => {
+const memberSchema = z.object({
+  client: z.string(),
+  eMail: z.email(),
+  firstName: z.string(),
+  info: z.string(),
+  lastName: z.string(),
+  position: z.string(),
+  startingDate: z.string(),
+});
+
+const formatCalendarData = (
+  validatedData: ValidatedDataType,
+): TimeEntryData => {
   return {
     billable: validatedData.activity.split("-")[1] === "billable",
     client: validatedData.client,
@@ -67,18 +90,50 @@ export const createCalendarEvent = async (
   formData: FormData,
 ): Promise<CreateCalendarEventState> => {
   const data = Object.fromEntries(formData);
-  const validatedData = schema.safeParse(data);
-  const values = Object.fromEntries(formData);
+  const validatedData = calendarSchema.safeParse(data);
 
   if (!validatedData.success) {
     return {
       message: "Error validating data",
       errors: z.flattenError(validatedData.error).fieldErrors,
-      values,
+      values: data,
     };
   }
 
-  const response = await createTimeEntry(formatData(validatedData.data));
+  const response = await createTimeEntry(
+    formatCalendarData(validatedData.data),
+  );
+
+  return { message: response.message, errors: response.errors, values: {} };
+};
+
+export const createMemberEvent = async (
+  _prevState: CreateMemberState,
+  formData: FormData,
+): Promise<CreateMemberState> => {
+  const data = Object.fromEntries(formData);
+  const mockData = {
+    client: "De Testoverheid",
+    eMail: "test@test.com",
+    firstName: "Test",
+    info: "Dit is een test",
+    lastName: "De Tester",
+    position: "Tester",
+  };
+
+  const validatedData = memberSchema.safeParse(data);
+
+  if (!validatedData.success) {
+    console.log("no!");
+    return {
+      message: "Error validating data",
+      errors: z.flattenError(validatedData.error).fieldErrors,
+      values: data,
+    };
+  }
+
+  console.log("yes!");
+  const response = await createMember(validatedData.data);
 
   return { message: response.message, errors: response.errors, values: {} };
 };

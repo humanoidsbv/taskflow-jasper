@@ -1,6 +1,6 @@
 "use server";
 
-import { CreatedMember } from "@/types/dataTypes";
+import { CreatedMember, MemberData } from "@/types/dataTypes";
 import { membersSortByOptions } from "./translations";
 
 class NotFoundError extends Error {
@@ -92,4 +92,14 @@ export const getMembers = async (
     console.error(error);
     return [];
   }
+};
+
+export const createMember = async (
+  member: MemberData,
+): Promise<{ message: string; errors: {} }> => {
+  console.table(member);
+  return {
+    message: "Member added",
+    errors: {},
+  };
 };
