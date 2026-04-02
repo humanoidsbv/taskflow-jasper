@@ -1,5 +1,3 @@
-"use client";
-
 import { CreatedMember } from "@/types/dataTypes";
 import { MemberCard } from "../member-card/MemberCard";
 

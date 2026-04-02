@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { useRef } from "react";
 
-import { Button } from "../button/Button";
-import { Modal } from "../modal/Modal";
+import { Button } from "@/components/button/Button";
+import { Modal } from "@/components/modal/Modal";
 import CloseIcon from "@/public/icons/close.svg";
 import FilterIcon from "@/public/icons/filter.svg";
 import TaskflowLogo from "@/public/logos/taskflow-logo.svg";
@@ -57,12 +57,12 @@ export const FiltersToolbar = ({
               </Button>
               <Button
                 className={styles.cancelButton}
-                variant="secondary"
                 onClick={() => {
                   closeModal();
                   removeFilters();
                 }}
                 type="button"
+                variant="secondary"
               >
                 Cancel
               </Button>

@@ -1,9 +1,9 @@
 import styles from "./InfoField.module.css";
 
 interface InfoFieldProps {
+  className?: string;
   title: string;
   value: string;
-  className?: string;
 }
 
 export const InfoField = ({ className, title, value }: InfoFieldProps) => {
