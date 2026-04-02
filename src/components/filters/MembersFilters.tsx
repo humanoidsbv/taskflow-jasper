@@ -1,20 +1,21 @@
 "use client";
 
-import { calendarSortByOptions } from "@/services/translations";
 import {
   CheckboxField,
   InputField,
   SelectField,
 } from "@/components/input-field";
+import { membersSortByOptions } from "@/services/queries";
+
+import styles from "./MembersFilters.module.css";
 import { useFilterParams } from "./useFilterParams";
 
-import styles from "./CalendarFilters.module.css";
-
-interface CalendarFiltersProps {
+interface MembersFiltersProps {
+  positions: string[];
   clients: string[];
 }
 
-export const CalendarFilters = ({ clients }: CalendarFiltersProps) => {
+export const MembersFilters = ({ positions, clients }: MembersFiltersProps) => {
   const {
     searchParams,
     updateParams,
@@ -22,6 +23,8 @@ export const CalendarFilters = ({ clients }: CalendarFiltersProps) => {
     updateParamsDebounced,
   } = useFilterParams();
   const activeClients = (searchParams.get("client")?.split(",") ?? []).length;
+  const activePositions = (searchParams.get("position")?.split(",") ?? [])
+    .length;
 
   return (
     <div className={styles.filters}>
@@ -36,7 +39,7 @@ export const CalendarFilters = ({ clients }: CalendarFiltersProps) => {
           })
         }
       >
-        {calendarSortByOptions.map((option) => (
+        {membersSortByOptions.map((option) => (
           <option
             key={option.value}
             value={option.value}
@@ -46,6 +49,13 @@ export const CalendarFilters = ({ clients }: CalendarFiltersProps) => {
           </option>
         ))}
       </SelectField>
+      <CheckboxField
+        title="Position"
+        options={positions}
+        name="position"
+        onCheck={updateCheckboxParams}
+        numberChecked={activePositions}
+      />
       <CheckboxField
         title="Client"
         options={clients}
@@ -68,14 +78,14 @@ export const CalendarFilters = ({ clients }: CalendarFiltersProps) => {
       />
       <InputField
         className={styles.search}
-        name="searchClient"
+        name="searchMember"
         type="text"
-        title="Search clients"
+        title="Search members"
         placeholder="search"
-        defaultValue={searchParams.get("searchClient") ?? ""}
+        defaultValue={searchParams.get("searchMember") ?? ""}
         onChange={(e) =>
           updateParamsDebounced({
-            name: "searchClient",
+            name: "searchMember",
             value: e.currentTarget.value,
           })
         }

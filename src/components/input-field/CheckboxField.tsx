@@ -1,22 +1,22 @@
 import { useRef } from "react";
 
 import styles from "./InputField.module.css";
+import { UpdateCheckboxParamsInput } from "../filters/useFilterParams";
 
 interface CheckboxFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  activeList?: string[];
+  numberChecked?: number;
   name: string;
-  onCheck: (value: string, remove: boolean) => void;
+  onCheck: ({ value, remove, name }: UpdateCheckboxParamsInput) => void;
   options?: string[];
   title: string;
 }
 
 export const CheckboxField = ({
-  activeList,
   name,
+  numberChecked = 0,
   onCheck,
   options,
   title,
-  ...props
 }: CheckboxFieldProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -36,9 +36,9 @@ export const CheckboxField = ({
           }}
         >
           <span>
-            {!activeList || activeList.length === 0
-              ? `Select client(s)`
-              : `${activeList.length} client${activeList.length === 1 ? "" : "s"} selected`}
+            {numberChecked === 0
+              ? `Select ${name}(s)`
+              : `${numberChecked} ${name}${numberChecked === 1 ? "" : "s"} selected`}
           </span>
         </div>
         <dialog
@@ -55,9 +55,15 @@ export const CheckboxField = ({
                 <label key={option} className={styles.checkLabel}>
                   <input
                     type="checkbox"
-                    name="client"
+                    name={name}
                     value={option}
-                    onChange={(e) => onCheck(option, !e.currentTarget.checked)}
+                    onChange={(e) =>
+                      onCheck({
+                        name,
+                        remove: !e.currentTarget.checked,
+                        value: option,
+                      })
+                    }
                   />
                   {option}
                 </label>

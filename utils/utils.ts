@@ -1,3 +1,5 @@
+import { filterOptions, membersSortByOptions } from "@/services/queries";
+
 export const getElapsedTime = (startDate: Date, stopDate: Date): number => {
   const totalMinutes = Math.max(
     0,
@@ -15,6 +17,12 @@ export const formatHours = (hours: number): string => {
   return `${roundedHours.toFixed(0).toString().padStart(2, "0")}:${restMinutes.toFixed(0).toString().padStart(2, "0")}`;
 };
 
+export const monthFormat = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
 export const dateFormat = new Intl.DateTimeFormat("nl-NL", {
   day: "numeric",
   month: "numeric",
@@ -30,3 +38,25 @@ export const timeFormat = new Intl.DateTimeFormat("nl-NL", {
 
 export const capitalizeString = (text: string) =>
   `${text.at(0)?.toUpperCase()}${text.slice(1)}`;
+
+export const buildQueryParams = (inputParams?: {
+  [key: string]: string;
+}): string => {
+  const params = new URLSearchParams();
+
+  for (const [param, value] of Object.entries(inputParams ?? {})) {
+    if (param === "sortBy") {
+      const query = membersSortByOptions.find(
+        (option) => option.value === value,
+      )?.query;
+      query && params.set("_sort", query);
+    } else {
+      const query = filterOptions.find((query) => query.value === param)?.query;
+      query && params.append(query, value);
+    }
+  }
+
+  params.append("_sort", "startingDate");
+
+  return params.toString();
+};

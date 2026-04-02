@@ -23,3 +23,19 @@ export type ValidatedDataType = {
 };
 
 export type CreatedTimeEntry = TimeEntryData & { id: string };
+
+export type MemberData = {
+  client: string;
+  eMail: string;
+  firstName: string;
+  info: string;
+  lastName: string;
+  position: string;
+  startingDate: string;
+};
+
+export type FormattedMemberData = Omit<CreatedMember, "startingDate" | "id"> & {
+  startingMonth: string;
+};
+
+export type CreatedMember = MemberData & { id: string; fullName: string };

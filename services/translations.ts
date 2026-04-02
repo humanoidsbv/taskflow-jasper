@@ -16,7 +16,7 @@ export const translations = {
   },
 };
 
-export const sortByOptions = [
+export const calendarSortByOptions = [
   {
     value: "startDateDESC",
     placeholder: "Starting date new-old",

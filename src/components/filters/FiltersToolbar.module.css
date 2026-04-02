@@ -2,6 +2,10 @@
   display: block;
 }
 
+.desktop {
+  display: none;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -44,5 +48,9 @@
 @media screen and (min-width: 1160px) {
   .mobile {
     display: none;
+  }
+
+  .desktop {
+    display: block;
   }
 }
