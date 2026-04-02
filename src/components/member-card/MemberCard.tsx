@@ -14,7 +14,7 @@ interface MemberCardProps {
 }
 
 export const MemberCard = ({ data }: MemberCardProps) => {
-  const { client, firstName, info, lastName, position, startingMonth } =
+  const { client, fullName, info, position, startingMonth } =
     formatMemberData(data);
 
   return (
@@ -25,7 +25,7 @@ export const MemberCard = ({ data }: MemberCardProps) => {
           className={styles.photo}
           src={photo}
         />
-        <span className={styles.name}>{`${firstName} ${lastName}`}</span>
+        <span className={styles.name}>{`${fullName}`}</span>
         <span className={styles.position}>{position}</span>
       </div>
       <div className={styles.details}>

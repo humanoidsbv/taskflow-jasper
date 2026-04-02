@@ -34,7 +34,7 @@ export type MemberData = {
   startingDate: string;
 };
 
-export type FormattedMemberData = Omit<MemberData, "startingDate"> & {
+export type FormattedMemberData = Omit<CreatedMember, "startingDate" | "id"> & {
   startingMonth: string;
 };
 
