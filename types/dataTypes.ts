@@ -28,7 +28,6 @@ export type MemberData = {
   client: string;
   eMail: string;
   firstName: string;
-  fullName: string;
   info: string;
   lastName: string;
   position: string;
@@ -39,4 +38,4 @@ export type FormattedMemberData = Omit<MemberData, "startingDate"> & {
   startingMonth: string;
 };
 
-export type CreatedMember = MemberData & { id: string };
+export type CreatedMember = MemberData & { id: string; fullName: string };

@@ -44,10 +44,21 @@
   grid-template-rows: 1fr 1fr;
 }
 
+.divider {
+  height: 2px;
+  align-self: stretch;
+  border-radius: 1px;
+  background-color: var(--torqoise-1);
+}
+
 @media screen and (min-width: 1160px) {
   .container {
     max-width: 256px;
     width: auto;
     flex-grow: 1;
+  }
+
+  .divider {
+    margin-top: auto;
   }
 }

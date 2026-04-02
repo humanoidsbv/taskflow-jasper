@@ -4,7 +4,11 @@ import { useDebouncedCallback } from "use-debounce";
 import { useState } from "react";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { CheckboxField, InputField, SelectField } from "../input-field";
+import {
+  CheckboxField,
+  InputField,
+  SelectField,
+} from "@/components/input-field";
 import { membersSortByOptions } from "@/services/translations";
 
 import styles from "./MembersFilters.module.css";
