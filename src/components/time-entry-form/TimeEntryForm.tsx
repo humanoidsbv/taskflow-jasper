@@ -91,20 +91,20 @@ export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
     >
       <h2 className={styles.title}>New event</h2>
       <InputField
+        defaultValue={state?.values?.client}
+        disabled={pending}
         name="client"
         placeholder="Client"
         required
         title="Client"
         type="text"
-        defaultValue={state?.values?.client}
-        disabled={pending}
       />
       {state.errors.client && <span>{state.errors.client}</span>}
       <SelectField
-        title="Activity"
-        name="activity"
         defaultValue={state?.values?.activity}
         disabled={pending}
+        name="activity"
+        title="Activity"
       >
         {activityOptions.map((option) => (
           <option key={option.value} value={option.value}>
@@ -116,34 +116,34 @@ export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
       <div className={styles.timeContainer}>
         <InputField
           className={styles.date}
+          defaultValue={state?.values?.date}
+          disabled={pending}
+          max="9999-12-12"
           name="date"
           required
           title="Date"
           type="date"
-          max="9999-12-12"
-          defaultValue={state?.values?.date}
-          disabled={pending}
         />
         {state.errors.date && <span>{state.errors.date}</span>}
         <InputField
           className={styles.timeField}
+          defaultValue={state?.values?.startTime}
+          disabled={pending}
           name="startTime"
           required
           title="From"
           type="time"
-          defaultValue={state?.values?.startTime}
-          disabled={pending}
         />
         {state.errors.startTime && <span>{state.errors.startTime}</span>}
         <InputField
           className={styles.timeField}
+          defaultValue={state?.values?.stopTime}
+          disabled={pending}
+          inputRef={inputRef}
           name="stopTime"
           required
           title="To"
           type="time"
-          inputRef={inputRef}
-          defaultValue={state?.values?.stopTime}
-          disabled={pending}
         />
         {state.errors.stopTime && <span>{state.errors.stopTime}</span>}
         <div className={styles.totalHours}>
@@ -154,9 +154,9 @@ export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
       <div className={styles.buttons}>
         <Button
           className={styles.cancelButton}
-          variant="secondary"
           onClick={closeModal}
           type="button"
+          variant="secondary"
         >
           Cancel
         </Button>
