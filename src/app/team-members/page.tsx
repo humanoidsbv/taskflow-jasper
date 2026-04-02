@@ -1,19 +1,19 @@
-import { MembersFilters } from "@/components/filters";
-import { FiltersToolbar } from "@/components/filters/FiltersToolbar";
-import { MemberCards } from "@/components/member-cards/MemberCards";
-import { Subheader } from "@/components/subheader/Subheader";
 import {
   getClientsFromMembers,
   getMembers,
   getPositions,
 } from "@/services/members";
+import { FiltersToolbar } from "@/components/filters/FiltersToolbar";
+import { MemberCards } from "@/components/member-cards/MemberCards";
+import { MembersFilters } from "@/components/filters";
+import { Subheader } from "@/components/subheader/Subheader";
 
 interface TeamMembersPageProps {
   searchParams: Promise<{
-    sort_by?: string;
-    client?: string;
+    client: string;
     position: string;
-    search: string;
+    searchMember: string;
+    sortBy: string;
     startingDate: string;
   }>;
 }
@@ -32,8 +32,8 @@ export default async function TeamMembersPage({
     <>
       <Subheader subtitle={subtitle} pageName="teamMembers" />
       <FiltersToolbar
-        pageName="Team members"
         filtersAmountActive={filtersAmountActive}
+        pageName="Team members"
       >
         <MembersFilters clients={clients} positions={positions} />
       </FiltersToolbar>

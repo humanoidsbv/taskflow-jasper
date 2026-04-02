@@ -11,7 +11,7 @@ interface CalendarPageProps {
     client?: string;
     date?: string;
     search?: string;
-    sort_by?: string;
+    sortBy?: string;
   }>;
 }
 

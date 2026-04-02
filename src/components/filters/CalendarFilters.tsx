@@ -1,7 +1,11 @@
 "use client";
 
 import { calendarSortByOptions } from "@/services/translations";
-import { InputField, SelectField, CheckboxField } from "../input-field";
+import {
+  CheckboxField,
+  InputField,
+  SelectField,
+} from "@/components/input-field";
 import { useFilterParams } from "./useFilterParams";
 
 import styles from "./CalendarFilters.module.css";
@@ -22,12 +26,12 @@ export const CalendarFilters = ({ clients }: CalendarFiltersProps) => {
   return (
     <div className={styles.filters}>
       <SelectField
-        name="sort_by"
+        name="sortBy"
         title="Sort by"
-        defaultValue={searchParams.get("sort_by") ?? ""}
+        defaultValue={searchParams.get("sortBy") ?? ""}
         onChange={(e) =>
           updateParams({
-            name: "sort_by",
+            name: "sortBy",
             value: e.currentTarget.value,
           })
         }
@@ -50,28 +54,28 @@ export const CalendarFilters = ({ clients }: CalendarFiltersProps) => {
         numberChecked={activeClients}
       />
       <InputField
-        name="date"
+        name="startingDate"
         type="date"
         title="Date"
         placeholder="Select date range"
-        defaultValue={searchParams.get("date") ?? ""}
+        defaultValue={searchParams.get("startingDate") ?? ""}
         onChange={(e) =>
           updateParams({
-            name: "date",
+            name: "startingDate",
             value: e.currentTarget.value,
           })
         }
       />
       <InputField
         className={styles.search}
-        name="search"
+        name="searchClient"
         type="text"
         title="Search clients"
         placeholder="search"
-        defaultValue={searchParams.get("search") ?? ""}
+        defaultValue={searchParams.get("searchClient") ?? ""}
         onChange={(e) =>
           updateParamsDebounced({
-            name: "search",
+            name: "searchClient",
             value: e.currentTarget.value,
           })
         }

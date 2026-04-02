@@ -20,3 +20,22 @@ export const membersSortByOptions = [
     query: "-fullName",
   },
 ];
+
+export const filterOptions = [
+  {
+    value: "client",
+    query: "client:in",
+  },
+  {
+    value: "position",
+    query: "position:in",
+  },
+  {
+    value: "searchMember",
+    query: "fullName:contains",
+  },
+  {
+    value: "startingDate",
+    query: "startingDate:gt",
+  },
+];

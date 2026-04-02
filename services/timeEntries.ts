@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 
 import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
 import { calendarSortByOptions } from "./translations";
+import { buildQueryParams } from "@/utils/utils";
 
 class NotFoundError extends Error {
   constructor(message: string) {
@@ -23,10 +24,9 @@ export const getClientsFromTimeEntries = async (): Promise<string[]> => {
         },
       },
     );
+    const result = (await response.json()) as CreatedTimeEntry[];
 
-    return ((await response.json()) as CreatedTimeEntry[])
-      .map((entry) => entry.client)
-      .filter((value, index, array) => array.indexOf(value) === index);
+    return [...new Set(result.map((entry) => entry.client))];
   } catch (error) {
     console.error(error);
     return [];
@@ -34,31 +34,13 @@ export const getClientsFromTimeEntries = async (): Promise<string[]> => {
 };
 
 export const getTimeEntries = async (
-  searchParams?: Promise<{
-    sort_by?: string;
-    client?: string;
-    date?: string;
-    search?: string;
-  }>,
+  searchParams?: Promise<{ [key: string]: string }>,
 ): Promise<CreatedTimeEntry[]> => {
   const baseURL = `http://localhost:3004/time-entries`;
-  const params = new URLSearchParams();
-  const inputParams = await searchParams;
-
-  params.append("_sort", "-startTimestamp");
-
-  if (inputParams?.search) params.append("client:contains", inputParams.search);
-  if (inputParams?.client) params.append("client:in", inputParams.client);
-  if (inputParams?.date) params.set("startTimestamp:gt", inputParams.date);
-  if (inputParams?.sort_by) {
-    const query = calendarSortByOptions.find(
-      (option) => option.value === inputParams.sort_by,
-    )?.query;
-    if (query) params.set("_sort", query);
-  }
+  const queryParams = buildQueryParams(await searchParams);
 
   try {
-    const response = await fetch(`${baseURL}?${params.toString()}`, {
+    const response = await fetch(`${baseURL}?${queryParams}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -29,12 +29,12 @@ export const MembersFilters = ({ positions, clients }: MembersFiltersProps) => {
   return (
     <div className={styles.filters}>
       <SelectField
-        name="sort_by"
+        name="sortBy"
         title="Sort by"
-        defaultValue={searchParams.get("sort_by") ?? ""}
+        defaultValue={searchParams.get("sortBy") ?? ""}
         onChange={(e) =>
           updateParams({
-            name: "sort_by",
+            name: "sortBy",
             value: e.currentTarget.value,
           })
         }
@@ -64,28 +64,28 @@ export const MembersFilters = ({ positions, clients }: MembersFiltersProps) => {
         numberChecked={activeClients}
       />
       <InputField
-        name="date"
+        name="startingDate"
         type="date"
         title="Date"
         placeholder="Select date range"
-        defaultValue={searchParams.get("date") ?? ""}
+        defaultValue={searchParams.get("startingDate") ?? ""}
         onChange={(e) =>
           updateParams({
-            name: "date",
+            name: "startingDate",
             value: e.currentTarget.value,
           })
         }
       />
       <InputField
         className={styles.search}
-        name="search"
+        name="searchMember"
         type="text"
         title="Search members"
         placeholder="search"
-        defaultValue={searchParams.get("search") ?? ""}
+        defaultValue={searchParams.get("searchMember") ?? ""}
         onChange={(e) =>
           updateParamsDebounced({
-            name: "search",
+            name: "searchMember",
             value: e.currentTarget.value,
           })
         }

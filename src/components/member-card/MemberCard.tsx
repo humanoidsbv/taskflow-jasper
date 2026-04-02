@@ -1,13 +1,13 @@
-import { CreatedMember } from "@/types/dataTypes";
+import Image from "next/image";
 
-import { InfoField } from "../info-field/InfoField";
+import { Button } from "@/components/button/Button";
+import { CreatedMember } from "@/types/dataTypes";
 import { formatMemberData } from "./helpers";
-import { Button } from "../button/Button";
+import { InfoField } from "@/components/info-field/InfoField";
 import EditIcon from "@/public/icons/edit.svg";
 import photo from "@/public/images/Eric.jpeg";
 
 import styles from "./MemberCard.module.css";
-import Image from "next/image";
 
 interface MemberCardProps {
   data: CreatedMember;
