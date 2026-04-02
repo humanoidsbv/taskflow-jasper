@@ -110,7 +110,7 @@ export const MembersFilters = ({ positions, clients }: MembersFiltersProps) => {
         className={styles.search}
         name="search"
         type="text"
-        title="Search clients"
+        title="Search members"
         placeholder="search"
         defaultValue={searchParams.get("search") ?? ""}
         onChange={(e) => handleSearch("search", e.currentTarget.value)}

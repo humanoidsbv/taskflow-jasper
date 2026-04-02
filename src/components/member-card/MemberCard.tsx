@@ -25,7 +25,7 @@ export const MemberCard = ({ data }: MemberCardProps) => {
           className={styles.photo}
           src={photo}
         />
-        <span className={styles.name}>{`${fullName}`}</span>
+        <span className={styles.name}>{fullName}</span>
         <span className={styles.position}>{position}</span>
       </div>
       <div className={styles.details}>
