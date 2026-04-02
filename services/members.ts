@@ -1,7 +1,7 @@
 "use server";
 
 import { CreatedMember } from "@/types/dataTypes";
-import { membersSortByOptions } from "./translations";
+import { membersSortByOptions } from "./queries";
 
 class NotFoundError extends Error {
   constructor(message: string) {

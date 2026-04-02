@@ -1,17 +1,14 @@
 "use client";
 
-import { useDebouncedCallback } from "use-debounce";
-import { useState } from "react";
-
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   CheckboxField,
   InputField,
   SelectField,
 } from "@/components/input-field";
-import { membersSortByOptions } from "@/services/translations";
+import { membersSortByOptions } from "@/services/queries";
 
 import styles from "./MembersFilters.module.css";
+import { useFilterParams } from "./useFilterParams";
 
 interface MembersFiltersProps {
   positions: string[];
@@ -19,52 +16,15 @@ interface MembersFiltersProps {
 }
 
 export const MembersFilters = ({ positions, clients }: MembersFiltersProps) => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathName = usePathname();
-  const [activeClients, setActiveClients] = useState<string[]>([]);
-  const [activePositions, setActivePositions] = useState<string[]>([]);
-
-  const updatePosition = (value: string, remove: boolean) => {
-    const formattedList = formatSearchParamList("position", value, remove);
-    setActivePositions(
-      formattedList.length > 0 ? formattedList.split(",") : [],
-    );
-    return updateParams("position", formattedList);
-  };
-
-  const updateClient = (value: string, remove: boolean) => {
-    const formattedList = formatSearchParamList("client", value, remove);
-    setActiveClients(formattedList.length > 0 ? formattedList.split(",") : []);
-    return updateParams("client", formattedList);
-  };
-
-  const formatSearchParamList = (
-    name: string,
-    value: string,
-    remove?: boolean,
-  ) => {
-    const current = searchParams.get(name)?.split(",") ?? [];
-
-    if (remove) {
-      return current?.filter((entry) => entry !== value).join(",");
-    }
-
-    return current.length === 0 ? value : [...current, value].join(",");
-  };
-
-  const updateParams = (name: string, value: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (!value) {
-      params.delete(name);
-    } else params.set(name, value);
-
-    const nextParams = params.toString();
-    if (nextParams === searchParams.toString()) return;
-    router.replace(`${pathName}?${nextParams}`);
-  };
-
-  const handleSearch = useDebouncedCallback(updateParams, 300);
+  const {
+    searchParams,
+    updateParams,
+    updateCheckboxParams,
+    updateParamsDebounced,
+  } = useFilterParams();
+  const activeClients = (searchParams.get("client")?.split(",") ?? []).length;
+  const activePositions = (searchParams.get("position")?.split(",") ?? [])
+    .length;
 
   return (
     <div className={styles.filters}>
@@ -72,7 +32,12 @@ export const MembersFilters = ({ positions, clients }: MembersFiltersProps) => {
         name="sort_by"
         title="Sort by"
         defaultValue={searchParams.get("sort_by") ?? ""}
-        onChange={(e) => updateParams("sort_by", e.currentTarget.value)}
+        onChange={(e) =>
+          updateParams({
+            name: "sort_by",
+            value: e.currentTarget.value,
+          })
+        }
       >
         {membersSortByOptions.map((option) => (
           <option
@@ -88,15 +53,15 @@ export const MembersFilters = ({ positions, clients }: MembersFiltersProps) => {
         title="Position"
         options={positions}
         name="position"
-        onCheck={updatePosition}
-        activeList={activePositions}
+        onCheck={updateCheckboxParams}
+        numberChecked={activePositions}
       />
       <CheckboxField
         title="Client"
         options={clients}
         name="client"
-        onCheck={updateClient}
-        activeList={activeClients}
+        onCheck={updateCheckboxParams}
+        numberChecked={activeClients}
       />
       <InputField
         name="date"
@@ -104,7 +69,12 @@ export const MembersFilters = ({ positions, clients }: MembersFiltersProps) => {
         title="Date"
         placeholder="Select date range"
         defaultValue={searchParams.get("date") ?? ""}
-        onChange={(e) => updateParams("date", e.currentTarget.value)}
+        onChange={(e) =>
+          updateParams({
+            name: "date",
+            value: e.currentTarget.value,
+          })
+        }
       />
       <InputField
         className={styles.search}
@@ -113,7 +83,12 @@ export const MembersFilters = ({ positions, clients }: MembersFiltersProps) => {
         title="Search members"
         placeholder="search"
         defaultValue={searchParams.get("search") ?? ""}
-        onChange={(e) => handleSearch("search", e.currentTarget.value)}
+        onChange={(e) =>
+          updateParamsDebounced({
+            name: "search",
+            value: e.currentTarget.value,
+          })
+        }
       />
     </div>
   );
