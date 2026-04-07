@@ -1,15 +1,13 @@
 "use client";
 
 import { RefObject, useActionState, useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
 import Form from "next/form";
 
 import { Button } from "@/components/button/Button";
 import { createCalendarEvent } from "@/services/actions";
 import { formatHours, getElapsedTime } from "@/utils/utils";
-import { InputField } from "@/components/input-field/InputField";
-import { SelectField } from "@/components/input-field/SelectField";
-import CloseIcon from "@/public/icons/close.svg";
+import { InputField, SelectField } from "@/components/input-field/";
+import { showCreatedToast } from "./helpers";
 
 import styles from "./TimeEntryForm.module.css";
 
@@ -48,7 +46,6 @@ export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
     initialState,
   );
   const isModalOpen = modalRef.current?.open;
-
   const closeModal = () => modalRef.current?.close();
 
   function handleChange(event: React.SyntheticEvent<HTMLFormElement>) {
@@ -62,23 +59,13 @@ export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
     setTotalHours(elapsedHours);
   }
 
-  function showCreatedToast(className: string) {
-    const toastId = toast("New event added", {
-      duration: 5000,
-      className,
-      cancel: (
-        <CloseIcon alt="Close message" onClick={() => toast.dismiss(toastId)} />
-      ),
-    });
-  }
-
   useEffect(() => {
-    if (!pending && Object.keys(state.errors).length !== 0 && !isModalOpen) {
-      showCreatedToast("toastFailure");
-    }
-    if (!pending && Object.keys(state.errors).length === 0 && isModalOpen) {
+    if (pending || !isModalOpen) return;
+    if (Object.keys(state.errors).length !== 0) {
+      showCreatedToast("toastFailure", state.message);
+    } else {
       closeModal();
-      showCreatedToast("toastSuccess");
+      showCreatedToast("toastSuccess", "New event added");
       setTotalHours("00:00");
     }
   }, [pending]);
@@ -91,20 +78,20 @@ export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
     >
       <h2 className={styles.title}>New event</h2>
       <InputField
+        defaultValue={state?.values?.client}
+        disabled={pending}
         name="client"
         placeholder="Client"
         required
         title="Client"
         type="text"
-        defaultValue={state?.values?.client}
-        disabled={pending}
+        error={state.errors.client}
       />
-      {state.errors.client && <span>{state.errors.client}</span>}
       <SelectField
-        title="Activity"
-        name="activity"
         defaultValue={state?.values?.activity}
         disabled={pending}
+        name="activity"
+        title="Activity"
       >
         {activityOptions.map((option) => (
           <option key={option.value} value={option.value}>
@@ -112,51 +99,59 @@ export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
           </option>
         ))}
       </SelectField>
-      {state.errors.activity && <span>{state.errors.activity}</span>}
+      {state.errors.activity && (
+        <span className={styles.error}>{state.errors.activity}</span>
+      )}
       <div className={styles.timeContainer}>
         <InputField
-          className={styles.date}
+          className={styles.wide}
+          defaultValue={state?.values?.date}
+          disabled={pending}
+          max="9999-12-12"
           name="date"
           required
           title="Date"
           type="date"
-          max="9999-12-12"
-          defaultValue={state?.values?.date}
-          disabled={pending}
         />
-        {state.errors.date && <span>{state.errors.date}</span>}
         <InputField
           className={styles.timeField}
+          defaultValue={state?.values?.startTime}
+          disabled={pending}
           name="startTime"
           required
           title="From"
           type="time"
-          defaultValue={state?.values?.startTime}
-          disabled={pending}
         />
-        {state.errors.startTime && <span>{state.errors.startTime}</span>}
         <InputField
           className={styles.timeField}
+          defaultValue={state?.values?.stopTime}
+          disabled={pending}
+          inputRef={inputRef}
           name="stopTime"
           required
           title="To"
           type="time"
-          inputRef={inputRef}
-          defaultValue={state?.values?.stopTime}
-          disabled={pending}
         />
-        {state.errors.stopTime && <span>{state.errors.stopTime}</span>}
         <div className={styles.totalHours}>
           <span className={`${styles.label} ${styles.total}`}>Total</span>
           <span className={styles.hours}>{totalHours}</span>
         </div>
+        {state.errors.date && (
+          <span className={styles.error}>{state.errors.date}</span>
+        )}
+        {state.errors.startTime && (
+          <span className={styles.error}>{state.errors.startTime}</span>
+        )}
+        {state.errors.stopTime && (
+          <span className={styles.error}>{state.errors.stopTime}</span>
+        )}
       </div>
       <div className={styles.buttons}>
         <Button
           className={styles.cancelButton}
-          variant="secondary"
           onClick={closeModal}
           type="button"
+          variant="secondary"
         >
           Cancel
         </Button>

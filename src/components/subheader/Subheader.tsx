@@ -3,8 +3,8 @@
 import { useRef } from "react";
 
 import { Button } from "@/components/button/Button";
+import { MemberForm, TimeEntryForm } from "@/components/forms";
 import { Modal } from "@/components/modal/Modal";
-import { TimeEntryForm } from "@/components/time-entry-form/TimeEntryForm";
 import { translations } from "@/services/translations";
 import CloseIcon from "@/public/icons/close.svg";
 import PlusIcon from "@/public/icons/plus-icon.svg";
@@ -32,17 +32,16 @@ export const Subheader = ({ pageName, subtitle }: SubheaderProps) => {
         <PlusIcon alt={buttonAltText} />
         <span>{buttonText}</span>
       </Button>
-      {pageName === "calendar" && (
-        <Modal modalRef={modalRef}>
-          <button
-            onClick={() => modalRef.current?.close()}
-            className={styles.close}
-          >
-            <CloseIcon alt="Close the modal" />
-          </button>
-          <TimeEntryForm modalRef={modalRef} />
-        </Modal>
-      )}
+      <Modal modalRef={modalRef}>
+        <button
+          onClick={() => modalRef.current?.close()}
+          className={styles.close}
+        >
+          <CloseIcon alt="Close the modal" />
+        </button>
+        {pageName === "calendar" && <TimeEntryForm modalRef={modalRef} />}
+        {pageName === "teamMembers" && <MemberForm modalRef={modalRef} />}
+      </Modal>
     </div>
   );
 };

@@ -2,8 +2,14 @@
 
 import { z } from "zod";
 
+import {
+  MemberData,
+  TimeEntryData,
+  ValidatedDataType,
+} from "@/types/dataTypes";
+import { createMember } from "./members";
 import { createTimeEntry } from "./timeEntries";
-import { TimeEntryData, ValidatedDataType } from "@/types/dataTypes";
+import { formatFullName } from "@/utils/utils";
 
 export interface CreateCalendarEventState {
   errors: Partial<Record<string, string[]>>;
@@ -11,11 +17,17 @@ export interface CreateCalendarEventState {
   values?: Partial<ValidatedDataType>;
 }
 
+export interface CreateMemberState {
+  errors: Partial<Record<string, string[]>>;
+  message: string;
+  values?: Partial<MemberData>;
+}
+
 const minutes = (time: string) => {
   return parseInt(time.split(":")[0]) * 60 + parseInt(time.split(":")[1]);
 };
 
-const schema = z
+const calendarSchema = z
   .object({
     client: z.string().refine((client) => client.length > 0, {
       error: "Client is required",
@@ -48,7 +60,31 @@ const schema = z
     }
   });
 
-const formatData = (validatedData: ValidatedDataType): TimeEntryData => {
+const memberSchema = z.object({
+  client: z.string().trim(),
+  eMail: z.email(),
+  firstName: z.string().trim().min(1),
+  info: z.string().max(150),
+  lastName: z.string().trim().min(1),
+  position: z.string().trim(),
+  startingDate: z.iso.datetime(),
+});
+
+const fullNameSchema = z
+  .string()
+  .trim()
+  .refine((name) => name.split(" ").length >= 2);
+
+const formatFullNameData = (firstName: string, lastName: string): string => {
+  const fullName = formatFullName(firstName, lastName);
+  return fullNameSchema.safeParse(fullName).success
+    ? fullName
+    : `${firstName} ${lastName}`;
+};
+
+const formatCalendarData = (
+  validatedData: ValidatedDataType,
+): TimeEntryData => {
   return {
     billable: validatedData.activity.split("-")[1] === "billable",
     client: validatedData.client,
@@ -67,18 +103,46 @@ export const createCalendarEvent = async (
   formData: FormData,
 ): Promise<CreateCalendarEventState> => {
   const data = Object.fromEntries(formData);
-  const validatedData = schema.safeParse(data);
-  const values = Object.fromEntries(formData);
+  const validatedData = calendarSchema.safeParse(data);
 
   if (!validatedData.success) {
     return {
       message: "Error validating data",
       errors: z.flattenError(validatedData.error).fieldErrors,
-      values,
+      values: data,
     };
   }
 
-  const response = await createTimeEntry(formatData(validatedData.data));
+  const response = await createTimeEntry(
+    formatCalendarData(validatedData.data),
+  );
+
+  return { message: response.message, errors: response.errors, values: {} };
+};
+
+export const createMemberEvent = async (
+  _prevState: CreateMemberState,
+  formData: FormData,
+): Promise<CreateMemberState> => {
+  const data = Object.fromEntries(formData);
+  const startingDate = new Date().toISOString();
+  data.startingDate = startingDate;
+
+  const validatedData = memberSchema.safeParse(data);
+
+  if (!validatedData.success) {
+    return {
+      message: "Error validating data",
+      errors: z.flattenError(validatedData.error).fieldErrors,
+      values: data,
+    };
+  }
+  const fullName = formatFullNameData(
+    validatedData.data.firstName,
+    validatedData.data.lastName,
+  );
+
+  const response = await createMember({ ...validatedData.data, fullName });
 
   return { message: response.message, errors: response.errors, values: {} };
 };

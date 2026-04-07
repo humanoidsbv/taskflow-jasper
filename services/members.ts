@@ -1,8 +1,9 @@
 "use server";
 
-import { CreatedMember } from "@/types/dataTypes";
-import { filterOptions, membersSortByOptions } from "./queries";
+import { revalidatePath } from "next/cache";
+
 import { buildQueryParams } from "@/utils/utils";
+import { CreatedMember, MemberData } from "@/types/dataTypes";
 
 class NotFoundError extends Error {
   constructor(message: string) {
@@ -68,5 +69,40 @@ export const getMembers = async (
   } catch (error) {
     console.error(error);
     return [];
+  }
+};
+
+export const createMember = async (
+  member: MemberData & { fullName: string },
+): Promise<{ message: string; errors: {} }> => {
+  try {
+    const requestResult = await fetch("http://localhost:3004/members", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(member),
+    });
+    if (!requestResult.ok) {
+      const resultText = await requestResult.text();
+      return {
+        message: "Failed to create member",
+        errors: { server: [resultText || "Unknown server error"] },
+      };
+    }
+
+    revalidatePath("/");
+
+    return {
+      message: "Member added",
+      errors: {},
+    };
+  } catch (error) {
+    return {
+      message: "Network error while creating member",
+      errors: {
+        server: [error instanceof Error ? error.message : "Unknown error"],
+      },
+    };
   }
 };

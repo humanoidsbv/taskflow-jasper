@@ -95,8 +95,6 @@
   }
 }
 
-@media screen and (min-width: 1160px) {
-  .container {
-    width: 200px;
-  }
+.error {
+  color: var(--red-2);
 }

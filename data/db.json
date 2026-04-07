@@ -41,60 +41,106 @@
       "stopTimestamp": "2026-04-04T14:50:00.000Z"
     }
   ],
-  "members": [{
-    "id": "bla",
-    "client": "De Overheid",
-    "eMail": "gert-flop@agar.io",
-    "firstName": "Gert",
-    "fullName": "Gert Flop",
-    "info": "Er is weinig te zeggen over deze man. Na de dienstplicht in 'Nam is er niet veel over van zijn mentale gezondheid.",
-    "lastName": "Flop",
-    "position": "Full-stack Developer",
-    "startingDate": "2025-03-15T12:00:00.000Z"
-  },
-  {
-    "id": "bla2",
-    "client": "De Roverheid",
-    "eMail": "jan.smit@jemoed.er",
-    "firstName": "Jan",
-    "fullName": "Jan Smit",
-    "info": "Singer, songwriter, enjoyer of life",
-    "lastName": "Smit",
-    "position": "Empty-stack Developer",
-    "startingDate": "2025-03-31T12:00:00.000Z"
-  },
-  {
-    "id": "bla3",
-    "client": "De Cadeauverheid",
-    "eMail": "terlouw.jan@hotmail.com",
-    "firstName": "Jan",
-    "fullName": "Jan Terlouw",
-    "info": "Woorden spreken meer dan duizend plaatjes",
-    "lastName": "Terlouw",
-    "position": "Copy Writer",
-    "startingDate": "2025-05-02T12:00:00.000Z"
-  },
-  {
-    "id": "bla4",
-    "client": "De Placeboverheid",
-    "eMail": "knijpfruit@my-web.com",
-    "firstName": "Rick",
-    "fullName": "Rick de Jong",
-    "info": "Levensgenieter, entrepeneur, filosoof",
-    "lastName": "De Jong",
-    "position": "Office Manager",
-    "startingDate": "2026-01-11T12:00:00.000Z"
-  },
-  {
-    "id": "bla5",
-    "client": "De Placeboverheid",
-    "eMail": "wiebenik123@gmail.com",
-    "firstName": "Eric Frederik",
-    "fullName": "Eric Frederik Van Moonshaven Steenbruggen",
-    "info": "",
-    "lastName": "Van Moonshaven Steenbruggen",
-    "position": "Office Manager",
-    "startingDate": "2026-03-11T12:00:00.000Z"
-  }],
+  "members": [
+    {
+      "id": "bla",
+      "client": "De Overheid",
+      "eMail": "gert-flop@agar.io",
+      "firstName": "Gert",
+      "fullName": "Gert Flop",
+      "info": "Er is weinig te zeggen over deze man. Na de dienstplicht in 'Nam is er niet veel over van zijn mentale gezondheid.",
+      "lastName": "Flop",
+      "position": "Full-stack Developer",
+      "startingDate": "2025-03-15T12:00:00.000Z"
+    },
+    {
+      "id": "bla2",
+      "client": "De Roverheid",
+      "eMail": "jan.smit@jemoed.er",
+      "firstName": "Jan",
+      "fullName": "Jan Smit",
+      "info": "Singer, songwriter, enjoyer of life",
+      "lastName": "Smit",
+      "position": "Empty-stack Developer",
+      "startingDate": "2025-03-31T12:00:00.000Z"
+    },
+    {
+      "id": "bla3",
+      "client": "De Cadeauverheid",
+      "eMail": "terlouw.jan@hotmail.com",
+      "firstName": "Jan",
+      "fullName": "Jan Terlouw",
+      "info": "Woorden spreken meer dan duizend plaatjes",
+      "lastName": "Terlouw",
+      "position": "Copy Writer",
+      "startingDate": "2025-05-02T12:00:00.000Z"
+    },
+    {
+      "id": "bla4",
+      "client": "De Placeboverheid",
+      "eMail": "knijpfruit@my-web.com",
+      "firstName": "Rick",
+      "fullName": "Rick de Jong",
+      "info": "Levensgenieter, entrepeneur, filosoof",
+      "lastName": "De Jong",
+      "position": "Office Manager",
+      "startingDate": "2026-01-11T12:00:00.000Z"
+    },
+    {
+      "id": "bla5",
+      "client": "De Placeboverheid",
+      "eMail": "wiebenik123@gmail.com",
+      "firstName": "Eric Frederik",
+      "fullName": "Eric Frederik van Moonshaven Steenbruggen",
+      "info": "",
+      "lastName": "Van Moonshaven Steenbruggen",
+      "position": "Office Manager",
+      "startingDate": "2026-03-11T12:00:00.000Z"
+    },
+    {
+      "id": "e983",
+      "client": "Humanoides",
+      "eMail": "jasper.kooij@humanoids.nl",
+      "firstName": "Jasper",
+      "info": "",
+      "lastName": "Kooij",
+      "position": "Full-stack Developer",
+      "startingDate": "2026-04-07T11:48:33.267Z",
+      "fullName": "Jasper Kooij"
+    },
+    {
+      "id": "f6a0",
+      "client": "Hertog Jan",
+      "eMail": "jasper.kooij@humanoids.nl",
+      "firstName": "Jasper",
+      "info": "",
+      "lastName": "Van Kooij",
+      "position": "Full-stack Developer",
+      "startingDate": "2026-04-07T11:49:03.449Z",
+      "fullName": "Jasper van Kooij"
+    },
+    {
+      "id": "7e2e",
+      "client": "Hertog Jan",
+      "eMail": "jasper.kooij@humanoids.nl",
+      "firstName": "Jasper",
+      "info": "",
+      "lastName": "",
+      "position": "Full-stack Developer",
+      "startingDate": "2026-04-07T11:49:20.799Z",
+      "fullName": "Jasper "
+    },
+    {
+      "id": "ad1c",
+      "client": "Jappie",
+      "eMail": "jasper.kooij@humanoids.nl",
+      "firstName": "J",
+      "info": "",
+      "lastName": "P",
+      "position": "Full-stack Developer",
+      "startingDate": "2026-04-07T11:50:11.463Z",
+      "fullName": "J P"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

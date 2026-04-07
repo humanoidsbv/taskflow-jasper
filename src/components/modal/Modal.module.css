@@ -26,13 +26,12 @@
 @media screen and (min-width: 1160px) {
   .container {
     max-height: calc(100vh - (2 * 80px));
-    overflow: auto;
+    overflow-y: auto;
   }
 
   :modal {
     border-radius: 4px;
     height: fit-content;
-    overflow: hidden;
     width: 560px;
   }
 }
