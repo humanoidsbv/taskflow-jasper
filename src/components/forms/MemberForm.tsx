@@ -11,7 +11,7 @@ import { InputField } from "@/components/input-field";
 import CloseIcon from "@/public/icons/close.svg";
 import photo from "@/public/images/Eric.jpeg";
 
-import styles from "@/components/time-entry-form/TimeEntryForm.module.css";
+import styles from "./MemberForm.module.css";
 
 interface MemberFormProps {
   modalRef: RefObject<HTMLDialogElement | null>;

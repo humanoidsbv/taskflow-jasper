@@ -3,9 +3,8 @@
 import { useRef } from "react";
 
 import { Button } from "@/components/button/Button";
-import { MemberForm } from "@/components/member-form/MemberForm";
+import { MemberForm, TimeEntryForm } from "@/components/forms";
 import { Modal } from "@/components/modal/Modal";
-import { TimeEntryForm } from "@/components/time-entry-form/TimeEntryForm";
 import { translations } from "@/services/translations";
 import CloseIcon from "@/public/icons/close.svg";
 import PlusIcon from "@/public/icons/plus-icon.svg";
