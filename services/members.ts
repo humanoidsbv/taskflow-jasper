@@ -3,6 +3,7 @@
 import { CreatedMember, MemberData } from "@/types/dataTypes";
 import { filterOptions, membersSortByOptions } from "./queries";
 import { buildQueryParams } from "@/utils/utils";
+import { revalidatePath } from "next/cache";
 
 class NotFoundError extends Error {
   constructor(message: string) {
@@ -75,6 +76,8 @@ export const createMember = async (
   member: MemberData,
 ): Promise<{ message: string; errors: {} }> => {
   console.table(member);
+
+  revalidatePath("/");
   return {
     message: "Member added",
     errors: {},

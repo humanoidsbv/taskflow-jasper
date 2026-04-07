@@ -115,7 +115,7 @@ export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
       {state.errors.activity && <span>{state.errors.activity}</span>}
       <div className={styles.timeContainer}>
         <InputField
-          className={styles.date}
+          className={styles.wide}
           defaultValue={state?.values?.date}
           disabled={pending}
           max="9999-12-12"

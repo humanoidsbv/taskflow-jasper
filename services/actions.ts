@@ -121,10 +121,13 @@ export const createMemberEvent = async (
     position: "Tester",
   };
 
+  const startingDate = new Date().toISOString();
+  data.startingDate = startingDate;
+
   const validatedData = memberSchema.safeParse(data);
 
   if (!validatedData.success) {
-    console.log("no!");
+    console.log("no! ", validatedData.error);
     return {
       message: "Error validating data",
       errors: z.flattenError(validatedData.error).fieldErrors,
