@@ -8,6 +8,7 @@ interface MemberCardsProps {
 }
 
 export const MemberCards = ({ members }: MemberCardsProps) => {
+  const editMember = (data: CreatedMember) => {};
   return (
     <ul className={styles.list}>
       {members.map((entry) => {

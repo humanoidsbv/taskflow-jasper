@@ -5,15 +5,17 @@ import Form from "next/form";
 import Image from "next/image";
 
 import { Button } from "@/components/button/Button";
-import { createMemberEvent } from "@/services/actions";
+import { createMemberEvent, editMemberEvent } from "@/services/actions";
 import { InputField } from "@/components/input-field";
 import { showCreatedToast } from "./helpers";
 import photo from "@/public/images/Eric.jpeg";
 
-import styles from "./MemberForm.module.css";
+import styles from "./TimeEntryForm.module.css";
 
 interface MemberFormProps {
   modalRef: RefObject<HTMLDialogElement | null>;
+  edit?: boolean;
+  id?: string;
 }
 
 const initialState = {
@@ -38,9 +40,9 @@ const initialState = {
   >,
 };
 
-export const MemberForm = ({ modalRef }: MemberFormProps) => {
+export const MemberForm = ({ modalRef, edit, id }: MemberFormProps) => {
   const [state, formAction, pending] = useActionState(
-    createMemberEvent,
+    edit ? editMemberEvent : createMemberEvent,
     initialState,
   );
   const isModalOpen = modalRef.current?.open;
@@ -58,6 +60,7 @@ export const MemberForm = ({ modalRef }: MemberFormProps) => {
 
   return (
     <Form action={formAction} className={styles.container}>
+      <input type="hidden" name="id" defaultValue={id} />
       <h2 className={styles.title}>New member</h2>
       <div className={styles.photoArea}>
         <Image src={photo} alt="" className={styles.photo} />

@@ -106,3 +106,12 @@ export const createMember = async (
     };
   }
 };
+
+export const editMember = async (
+  member: CreatedMember,
+): Promise<{ message: string; errors: {} }> => {
+  return {
+    message: "",
+    errors: {},
+  };
+};

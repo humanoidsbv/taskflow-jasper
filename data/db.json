@@ -1,14 +1,6 @@
 {
   "time-entries": [
     {
-      "id": "b81a",
-      "billable": true,
-      "client": "Dagstart met Sam",
-      "department": "design",
-      "startTimestamp": "2026-03-26T09:30:00.000Z",
-      "stopTimestamp": "2026-03-26T10:00:00.000Z"
-    },
-    {
       "id": "d92c",
       "billable": true,
       "client": "Humanoides",
@@ -39,6 +31,14 @@
       "department": "design",
       "startTimestamp": "2026-04-04T12:00:00.000Z",
       "stopTimestamp": "2026-04-04T14:50:00.000Z"
+    },
+    {
+      "id": "b81a",
+      "billable": true,
+      "client": "Dagstart met Sam",
+      "department": "design",
+      "startTimestamp": "2026-03-26T09:30:00.000Z",
+      "stopTimestamp": "2026-03-26T10:00:00.000Z"
     }
   ],
   "members": [

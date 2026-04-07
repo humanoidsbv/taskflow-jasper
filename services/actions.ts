@@ -7,7 +7,7 @@ import {
   TimeEntryData,
   ValidatedDataType,
 } from "@/types/dataTypes";
-import { createMember } from "./members";
+import { createMember, editMember } from "./members";
 import { createTimeEntry } from "./timeEntries";
 import { formatFullName } from "@/utils/utils";
 
@@ -21,6 +21,7 @@ export interface CreateMemberState {
   errors: Partial<Record<string, string[]>>;
   message: string;
   values?: Partial<MemberData>;
+  id?: string;
 }
 
 const minutes = (time: string) => {
@@ -143,6 +144,40 @@ export const createMemberEvent = async (
   );
 
   const response = await createMember({ ...validatedData.data, fullName });
+
+  return { message: response.message, errors: response.errors, values: {} };
+};
+
+export const editMemberEvent = async (
+  _prevState: CreateMemberState,
+  formData: FormData,
+): Promise<CreateMemberState> => {
+  if (!_prevState.id) return { message: "No ID", errors: {} };
+  const data = Object.fromEntries(formData);
+  const startingDate = new Date().toISOString();
+  data.startingDate = startingDate;
+
+  const validatedData = memberSchema.safeParse(data);
+
+  if (!validatedData.success) {
+    return {
+      message: "Error validating data",
+      errors: z.flattenError(validatedData.error).fieldErrors,
+      values: data,
+    };
+  }
+  const fullName = formatFullNameData(
+    validatedData.data.firstName,
+    validatedData.data.lastName,
+  );
+
+  _prevState.id;
+
+  const response = await editMember({
+    ...validatedData.data,
+    fullName,
+    id: _prevState.id,
+  });
 
   return { message: response.message, errors: response.errors, values: {} };
 };
