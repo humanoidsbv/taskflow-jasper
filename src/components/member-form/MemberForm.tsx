@@ -59,10 +59,10 @@ export const MemberForm = ({ modalRef }: MemberFormProps) => {
 
   useEffect(() => {
     if (pending || !isModalOpen) return;
-    closeModal();
     if (Object.keys(state.errors).length !== 0) {
       showCreatedToast("toastFailure", state.message);
     } else {
+      closeModal();
       showCreatedToast("toastSuccess");
     }
   }, [pending]);

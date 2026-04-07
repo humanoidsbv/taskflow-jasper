@@ -39,6 +39,17 @@ export const timeFormat = new Intl.DateTimeFormat("nl-NL", {
 export const capitalizeString = (text: string) =>
   `${text.at(0)?.toUpperCase()}${text.slice(1)}`;
 
+const deCapitalizeString = (text: string) =>
+  `${text.at(0)?.toLowerCase()}${text.slice(1)}`;
+
+const preNames = ["van", "aan", "de", "den", "in", "ten", "uit", "te"];
+
+export const formatFullName = (firstName: string, lastName: string): string => {
+  if (preNames.includes(lastName.split(" ")[0].toLowerCase()))
+    return `${firstName} ${deCapitalizeString(lastName)}`;
+  else return `${firstName} ${lastName}`;
+};
+
 export const buildQueryParams = (inputParams?: {
   [key: string]: string;
 }): string => {

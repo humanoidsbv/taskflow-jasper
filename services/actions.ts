@@ -9,7 +9,7 @@ import {
   ValidatedDataType,
 } from "@/types/dataTypes";
 import { createMember } from "./members";
-import { dateFormat, monthFormat } from "@/utils/utils";
+import { dateFormat, formatFullName, monthFormat } from "@/utils/utils";
 
 export interface CreateCalendarEventState {
   errors: Partial<Record<string, string[]>>;
@@ -64,7 +64,7 @@ const memberSchema = z.object({
   client: z.string().trim(),
   eMail: z.email(),
   firstName: z.string().trim(),
-  info: z.string().max(15),
+  info: z.string().max(150),
   lastName: z.string().trim(),
   position: z.string().trim(),
   startingDate: z.iso.datetime(),
@@ -114,22 +114,23 @@ export const createMemberEvent = async (
 ): Promise<CreateMemberState> => {
   const data = Object.fromEntries(formData);
   const startingDate = new Date().toISOString();
-  console.log("startingDate: ", startingDate);
   data.startingDate = startingDate;
 
   const validatedData = memberSchema.safeParse(data);
 
   if (!validatedData.success) {
-    console.log("no! ", validatedData.error);
     return {
       message: "Error validating data",
       errors: z.flattenError(validatedData.error).fieldErrors,
       values: data,
     };
   }
+  const fullName = formatFullName(
+    validatedData.data.firstName,
+    validatedData.data.lastName,
+  );
 
-  console.log("yes!");
-  const response = await createMember(validatedData.data);
+  const response = await createMember({ ...validatedData.data, fullName });
 
   return { message: response.message, errors: response.errors, values: {} };
 };
