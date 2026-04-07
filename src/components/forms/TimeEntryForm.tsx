@@ -7,8 +7,7 @@ import Form from "next/form";
 import { Button } from "@/components/button/Button";
 import { createCalendarEvent } from "@/services/actions";
 import { formatHours, getElapsedTime } from "@/utils/utils";
-import { InputField } from "@/components/input-field/InputField";
-import { SelectField } from "@/components/input-field/SelectField";
+import { InputField, SelectField } from "@/components/input-field/";
 import CloseIcon from "@/public/icons/close.svg";
 
 import styles from "./TimeEntryForm.module.css";
