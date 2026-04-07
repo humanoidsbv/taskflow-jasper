@@ -1,15 +1,17 @@
 "use client";
 
 import Form from "next/form";
-import { RefObject, useActionState } from "react";
+import { RefObject, useActionState, useEffect } from "react";
 
 import { createMemberEvent } from "@/services/actions";
 import { Button } from "@/components/button/Button";
 import { InputField } from "@/components/input-field";
 import photo from "@/public/images/Eric.jpeg";
+import CloseIcon from "@/public/icons/close.svg";
 
 import styles from "@/components/time-entry-form/TimeEntryForm.module.css";
 import Image from "next/image";
+import { toast } from "sonner";
 
 interface MemberFormProps {
   modalRef: RefObject<HTMLDialogElement | null>;
@@ -42,7 +44,28 @@ export const MemberForm = ({ modalRef }: MemberFormProps) => {
     createMemberEvent,
     initialState,
   );
+  const isModalOpen = modalRef.current?.open;
   const closeModal = () => modalRef.current?.close();
+
+  function showCreatedToast(className: string, text?: string) {
+    const toastId = toast(text ? text : "New member added", {
+      duration: 5000,
+      className,
+      cancel: (
+        <CloseIcon alt="Close message" onClick={() => toast.dismiss(toastId)} />
+      ),
+    });
+  }
+
+  useEffect(() => {
+    if (pending || !isModalOpen) return;
+    closeModal();
+    if (Object.keys(state.errors).length !== 0) {
+      showCreatedToast("toastFailure", state.message);
+    } else {
+      showCreatedToast("toastSuccess");
+    }
+  }, [pending]);
 
   return (
     <Form action={formAction} className={styles.container}>

@@ -78,8 +78,18 @@ export const createMember = async (
   console.table(member);
 
   revalidatePath("/");
-  return {
-    message: "Member added",
-    errors: {},
-  };
+
+  try {
+    return {
+      message: "Member added",
+      errors: {},
+    };
+  } catch (error) {
+    return {
+      message: "Network error while creating member",
+      errors: {
+        server: [error instanceof Error ? error.message : "Unknown error"],
+      },
+    };
+  }
 };
