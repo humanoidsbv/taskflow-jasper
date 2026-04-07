@@ -76,10 +76,6 @@ export async function deleteTimeEntry(id: string) {
 
 export async function createTimeEntry(
   timeEntry: TimeEntryData,
-  options?: {
-    baseUrl?: string;
-    signal?: AbortSignal;
-  },
 ): Promise<{ message: string; errors: {} }> {
   try {
     const requestResult = await fetch("http://localhost:3004/time-entries", {
@@ -88,7 +84,6 @@ export async function createTimeEntry(
         "Content-Type": "application/json",
       },
       body: JSON.stringify(timeEntry),
-      signal: options?.signal,
     });
     if (!requestResult.ok) {
       const resultText = await requestResult.text();

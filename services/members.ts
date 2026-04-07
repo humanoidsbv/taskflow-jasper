@@ -74,10 +74,6 @@ export const getMembers = async (
 
 export const createMember = async (
   member: MemberData & { fullName: string },
-  options?: {
-    baseUrl?: string;
-    signal?: AbortSignal;
-  },
 ): Promise<{ message: string; errors: {} }> => {
   try {
     const requestResult = await fetch("http://localhost:3004/members", {
@@ -86,7 +82,6 @@ export const createMember = async (
         "Content-Type": "application/json",
       },
       body: JSON.stringify(member),
-      signal: options?.signal,
     });
     if (!requestResult.ok) {
       const resultText = await requestResult.text();

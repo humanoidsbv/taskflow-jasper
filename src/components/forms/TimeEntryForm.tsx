@@ -46,7 +46,6 @@ export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
     initialState,
   );
   const isModalOpen = modalRef.current?.open;
-
   const closeModal = () => modalRef.current?.close();
 
   function handleChange(event: React.SyntheticEvent<HTMLFormElement>) {
