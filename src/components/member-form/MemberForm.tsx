@@ -1,17 +1,17 @@
 "use client";
 
-import Form from "next/form";
 import { RefObject, useActionState, useEffect } from "react";
+import { toast } from "sonner";
+import Form from "next/form";
+import Image from "next/image";
 
-import { createMemberEvent } from "@/services/actions";
 import { Button } from "@/components/button/Button";
+import { createMemberEvent } from "@/services/actions";
 import { InputField } from "@/components/input-field";
-import photo from "@/public/images/Eric.jpeg";
 import CloseIcon from "@/public/icons/close.svg";
+import photo from "@/public/images/Eric.jpeg";
 
 import styles from "@/components/time-entry-form/TimeEntryForm.module.css";
-import Image from "next/image";
-import { toast } from "sonner";
 
 interface MemberFormProps {
   modalRef: RefObject<HTMLDialogElement | null>;

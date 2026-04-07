@@ -2,13 +2,13 @@
 
 import { z } from "zod";
 
-import { createTimeEntry } from "./timeEntries";
 import {
   MemberData,
   TimeEntryData,
   ValidatedDataType,
 } from "@/types/dataTypes";
 import { createMember } from "./members";
+import { createTimeEntry } from "./timeEntries";
 import { formatFullName } from "@/utils/utils";
 
 export interface CreateCalendarEventState {
@@ -73,7 +73,7 @@ const memberSchema = z.object({
 const fullNameSchema = z
   .string()
   .trim()
-  .refine((check) => check.split(" ").length >= 2);
+  .refine((name) => name.split(" ").length >= 2);
 
 const formatFullNameData = (firstName: string, lastName: string): string => {
   const fullName = formatFullName(firstName, lastName);

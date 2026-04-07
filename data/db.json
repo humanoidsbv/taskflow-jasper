@@ -96,6 +96,50 @@
       "lastName": "Van Moonshaven Steenbruggen",
       "position": "Office Manager",
       "startingDate": "2026-03-11T12:00:00.000Z"
+    },
+    {
+      "id": "e983",
+      "client": "Humanoides",
+      "eMail": "jasper.kooij@humanoids.nl",
+      "firstName": "Jasper",
+      "info": "",
+      "lastName": "Kooij",
+      "position": "Full-stack Developer",
+      "startingDate": "2026-04-07T11:48:33.267Z",
+      "fullName": "Jasper Kooij"
+    },
+    {
+      "id": "f6a0",
+      "client": "Hertog Jan",
+      "eMail": "jasper.kooij@humanoids.nl",
+      "firstName": "Jasper",
+      "info": "",
+      "lastName": "Van Kooij",
+      "position": "Full-stack Developer",
+      "startingDate": "2026-04-07T11:49:03.449Z",
+      "fullName": "Jasper van Kooij"
+    },
+    {
+      "id": "7e2e",
+      "client": "Hertog Jan",
+      "eMail": "jasper.kooij@humanoids.nl",
+      "firstName": "Jasper",
+      "info": "",
+      "lastName": "",
+      "position": "Full-stack Developer",
+      "startingDate": "2026-04-07T11:49:20.799Z",
+      "fullName": "Jasper "
+    },
+    {
+      "id": "ad1c",
+      "client": "Jappie",
+      "eMail": "jasper.kooij@humanoids.nl",
+      "firstName": "J",
+      "info": "",
+      "lastName": "P",
+      "position": "Full-stack Developer",
+      "startingDate": "2026-04-07T11:50:11.463Z",
+      "fullName": "J P"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

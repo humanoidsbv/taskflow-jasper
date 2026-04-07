@@ -1,10 +1,10 @@
-import { FormattedMemberData, MemberData } from "@/types/dataTypes";
 import { capitalizeString, monthFormat } from "@/utils/utils";
+import { CreatedMember, FormattedMemberData } from "@/types/dataTypes";
 
 export const formatMemberData = ({
   startingDate,
   ...props
-}: MemberData): FormattedMemberData => {
+}: CreatedMember): FormattedMemberData => {
   const startingMonth = capitalizeString(
     monthFormat.format(new Date(startingDate)),
   );

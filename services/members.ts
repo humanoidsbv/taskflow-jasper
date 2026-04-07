@@ -1,8 +1,9 @@
 "use server";
 
-import { CreatedMember, MemberData } from "@/types/dataTypes";
-import { buildQueryParams, formatFullName } from "@/utils/utils";
 import { revalidatePath } from "next/cache";
+
+import { buildQueryParams } from "@/utils/utils";
+import { CreatedMember, MemberData } from "@/types/dataTypes";
 
 class NotFoundError extends Error {
   constructor(message: string) {

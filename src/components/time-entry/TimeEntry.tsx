@@ -1,9 +1,7 @@
-import Link from "next/link";
-
 import { formatTimeEntryData } from "./helpers";
 import DeleteIcon from "@/public/icons/delete.svg";
 import EllipseIcon from "@/public/icons/ellipse.svg";
-import type { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
+import type { CreatedTimeEntry } from "@/types/dataTypes";
 
 import styles from "./TimeEntry.module.css";
 

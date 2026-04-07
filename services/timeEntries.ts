@@ -3,7 +3,6 @@
 import { revalidatePath } from "next/cache";
 
 import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
-import { calendarSortByOptions } from "./translations";
 import { buildQueryParams } from "@/utils/utils";
 
 class NotFoundError extends Error {
