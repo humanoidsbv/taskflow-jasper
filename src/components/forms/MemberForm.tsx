@@ -11,11 +11,11 @@ import { showCreatedToast } from "./helpers";
 import photo from "@/public/images/Eric.jpeg";
 
 import styles from "./TimeEntryForm.module.css";
+import { CreatedMember } from "@/types/dataTypes";
 
 interface MemberFormProps {
   modalRef: RefObject<HTMLDialogElement | null>;
-  edit?: boolean;
-  id?: string;
+  memberData?: CreatedMember;
 }
 
 const initialState = {
@@ -40,9 +40,9 @@ const initialState = {
   >,
 };
 
-export const MemberForm = ({ modalRef, edit, id }: MemberFormProps) => {
+export const MemberForm = ({ modalRef, memberData }: MemberFormProps) => {
   const [state, formAction, pending] = useActionState(
-    edit ? editMemberEvent : createMemberEvent,
+    memberData ? editMemberEvent : createMemberEvent,
     initialState,
   );
   const isModalOpen = modalRef.current?.open;
@@ -60,8 +60,12 @@ export const MemberForm = ({ modalRef, edit, id }: MemberFormProps) => {
 
   return (
     <Form action={formAction} className={styles.container}>
-      <input type="hidden" name="id" defaultValue={id} />
-      <h2 className={styles.title}>New member</h2>
+      {memberData && (
+        <input type="hidden" name="id" defaultValue={memberData.id} />
+      )}
+      <h2 className={styles.title}>
+        {memberData ? "Edit member" : "New member"}
+      </h2>
       <div className={styles.photoArea}>
         <Image src={photo} alt="" className={styles.photo} />
         <span className={styles.photoText}>Edit Avatar</span>
@@ -69,7 +73,7 @@ export const MemberForm = ({ modalRef, edit, id }: MemberFormProps) => {
       <div className={styles.nameContainer}>
         <InputField
           className={styles.wide}
-          defaultValue={state?.values?.firstName}
+          defaultValue={memberData?.firstName}
           disabled={pending}
           error={state.errors.firstName}
           name="firstName"
@@ -80,7 +84,7 @@ export const MemberForm = ({ modalRef, edit, id }: MemberFormProps) => {
         />
         <InputField
           className={styles.wide}
-          defaultValue={state?.values?.lastName}
+          defaultValue={memberData?.lastName}
           disabled={pending}
           error={state.errors.lastName}
           name="lastName"
@@ -91,7 +95,7 @@ export const MemberForm = ({ modalRef, edit, id }: MemberFormProps) => {
         />
       </div>
       <InputField
-        defaultValue={state?.values?.eMail}
+        defaultValue={memberData?.eMail}
         disabled={pending}
         error={state.errors.eMail}
         name="eMail"
@@ -101,7 +105,7 @@ export const MemberForm = ({ modalRef, edit, id }: MemberFormProps) => {
         type="email"
       />
       <InputField
-        defaultValue={state?.values?.position}
+        defaultValue={memberData?.position}
         disabled={pending}
         error={state.errors.position}
         name="position"
@@ -111,7 +115,7 @@ export const MemberForm = ({ modalRef, edit, id }: MemberFormProps) => {
         type="text"
       />
       <InputField
-        defaultValue={state?.values?.info}
+        defaultValue={memberData?.info}
         disabled={pending}
         error={state.errors.info}
         name="info"
@@ -120,7 +124,7 @@ export const MemberForm = ({ modalRef, edit, id }: MemberFormProps) => {
         type="text"
       />
       <InputField
-        defaultValue={state?.values?.client}
+        defaultValue={memberData?.client}
         disabled={pending}
         error={state.errors.client}
         name="client"
@@ -139,7 +143,7 @@ export const MemberForm = ({ modalRef, edit, id }: MemberFormProps) => {
           Cancel
         </Button>
         <Button type="submit" disabled={pending}>
-          Add member
+          {memberData ? "Edit member" : "Add member"}
         </Button>
       </div>
     </Form>
