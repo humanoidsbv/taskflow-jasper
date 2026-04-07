@@ -94,9 +94,3 @@
     border: 1px solid var(--gray-3);
   }
 }
-
-@media screen and (min-width: 1160px) {
-  .container {
-    width: 200px;
-  }
-}
