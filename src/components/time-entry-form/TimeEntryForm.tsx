@@ -99,7 +99,9 @@ export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
         title="Client"
         type="text"
       />
-      {state.errors.client && <span>{state.errors.client}</span>}
+      {state.errors.client && (
+        <span className={styles.error}>{state.errors.client}</span>
+      )}
       <SelectField
         defaultValue={state?.values?.activity}
         disabled={pending}
@@ -112,7 +114,9 @@ export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
           </option>
         ))}
       </SelectField>
-      {state.errors.activity && <span>{state.errors.activity}</span>}
+      {state.errors.activity && (
+        <span className={styles.error}>{state.errors.activity}</span>
+      )}
       <div className={styles.timeContainer}>
         <InputField
           className={styles.wide}
@@ -124,7 +128,6 @@ export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
           title="Date"
           type="date"
         />
-        {state.errors.date && <span>{state.errors.date}</span>}
         <InputField
           className={styles.timeField}
           defaultValue={state?.values?.startTime}
@@ -134,7 +137,6 @@ export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
           title="From"
           type="time"
         />
-        {state.errors.startTime && <span>{state.errors.startTime}</span>}
         <InputField
           className={styles.timeField}
           defaultValue={state?.values?.stopTime}
@@ -145,11 +147,19 @@ export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
           title="To"
           type="time"
         />
-        {state.errors.stopTime && <span>{state.errors.stopTime}</span>}
         <div className={styles.totalHours}>
           <span className={`${styles.label} ${styles.total}`}>Total</span>
           <span className={styles.hours}>{totalHours}</span>
         </div>
+        {state.errors.date && (
+          <span className={styles.error}>{state.errors.date}</span>
+        )}
+        {state.errors.startTime && (
+          <span className={styles.error}>{state.errors.startTime}</span>
+        )}
+        {state.errors.stopTime && (
+          <span className={styles.error}>{state.errors.stopTime}</span>
+        )}
       </div>
       <div className={styles.buttons}>
         <Button

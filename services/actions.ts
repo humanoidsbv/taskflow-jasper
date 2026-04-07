@@ -9,6 +9,7 @@ import {
   ValidatedDataType,
 } from "@/types/dataTypes";
 import { createMember } from "./members";
+import { dateFormat, monthFormat } from "@/utils/utils";
 
 export interface CreateCalendarEventState {
   errors: Partial<Record<string, string[]>>;
@@ -60,13 +61,13 @@ const calendarSchema = z
   });
 
 const memberSchema = z.object({
-  client: z.string(),
+  client: z.string().trim(),
   eMail: z.email(),
-  firstName: z.string(),
-  info: z.string(),
-  lastName: z.string(),
-  position: z.string(),
-  startingDate: z.string(),
+  firstName: z.string().trim(),
+  info: z.string().max(15),
+  lastName: z.string().trim(),
+  position: z.string().trim(),
+  startingDate: z.iso.datetime(),
 });
 
 const formatCalendarData = (
@@ -112,16 +113,8 @@ export const createMemberEvent = async (
   formData: FormData,
 ): Promise<CreateMemberState> => {
   const data = Object.fromEntries(formData);
-  const mockData = {
-    client: "De Testoverheid",
-    eMail: "test@test.com",
-    firstName: "Test",
-    info: "Dit is een test",
-    lastName: "De Tester",
-    position: "Tester",
-  };
-
   const startingDate = new Date().toISOString();
+  console.log("startingDate: ", startingDate);
   data.startingDate = startingDate;
 
   const validatedData = memberSchema.safeParse(data);

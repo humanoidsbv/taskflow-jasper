@@ -69,10 +69,6 @@
   font-size: var(--font-medium);
 }
 
-.error {
-  color: var(--red-2);
-}
-
 .confirm {
   color: var(--green-1);
 }

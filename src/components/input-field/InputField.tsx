@@ -7,6 +7,7 @@ import styles from "./InputField.module.css";
 interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   defaultValue?: string;
+  error?: string[] | undefined;
   inputRef?: RefObject<HTMLInputElement | null>;
   name: string;
   title: string;
@@ -15,6 +16,7 @@ interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
 export const InputField = ({
   className,
   defaultValue,
+  error,
   inputRef,
   name,
   title,
@@ -31,6 +33,7 @@ export const InputField = ({
         ref={inputRef}
         {...props}
       />
+      {error && <span className={styles.error}>{error}</span>}
     </label>
   );
 };

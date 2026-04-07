@@ -53,9 +53,10 @@ export const MemberForm = ({ modalRef }: MemberFormProps) => {
       </div>
       <div className={styles.nameContainer}>
         <InputField
+          className={styles.wide}
           defaultValue={state?.values?.firstName}
           disabled={pending}
-          className={styles.wide}
+          error={state.errors.firstName}
           name="firstName"
           placeholder="Eric"
           required
@@ -63,9 +64,10 @@ export const MemberForm = ({ modalRef }: MemberFormProps) => {
           type="text"
         />
         <InputField
+          className={styles.wide}
           defaultValue={state?.values?.lastName}
           disabled={pending}
-          className={styles.wide}
+          error={state.errors.lastName}
           name="lastName"
           placeholder="Clapton"
           required
@@ -76,6 +78,7 @@ export const MemberForm = ({ modalRef }: MemberFormProps) => {
       <InputField
         defaultValue={state?.values?.eMail}
         disabled={pending}
+        error={state.errors.eMail}
         name="eMail"
         placeholder="eric.clapton@humanoids.nl"
         required
@@ -85,6 +88,7 @@ export const MemberForm = ({ modalRef }: MemberFormProps) => {
       <InputField
         defaultValue={state?.values?.position}
         disabled={pending}
+        error={state.errors.position}
         name="position"
         placeholder="Front-end Developer"
         required
@@ -94,6 +98,7 @@ export const MemberForm = ({ modalRef }: MemberFormProps) => {
       <InputField
         defaultValue={state?.values?.info}
         disabled={pending}
+        error={state.errors.info}
         name="info"
         placeholder="Extra info"
         title="Info"
@@ -102,6 +107,7 @@ export const MemberForm = ({ modalRef }: MemberFormProps) => {
       <InputField
         defaultValue={state?.values?.client}
         disabled={pending}
+        error={state.errors.client}
         name="client"
         placeholder="Humanoids"
         required
