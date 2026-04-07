@@ -1,14 +1,13 @@
 "use client";
 
 import { RefObject, useActionState, useEffect } from "react";
-import { toast } from "sonner";
 import Form from "next/form";
 import Image from "next/image";
 
 import { Button } from "@/components/button/Button";
 import { createMemberEvent } from "@/services/actions";
 import { InputField } from "@/components/input-field";
-import CloseIcon from "@/public/icons/close.svg";
+import { showCreatedToast } from "./helpers";
 import photo from "@/public/images/Eric.jpeg";
 
 import styles from "./MemberForm.module.css";
@@ -46,16 +45,6 @@ export const MemberForm = ({ modalRef }: MemberFormProps) => {
   );
   const isModalOpen = modalRef.current?.open;
   const closeModal = () => modalRef.current?.close();
-
-  function showCreatedToast(className: string, text?: string) {
-    const toastId = toast(text ? text : "New member added", {
-      duration: 5000,
-      className,
-      cancel: (
-        <CloseIcon alt="Close message" onClick={() => toast.dismiss(toastId)} />
-      ),
-    });
-  }
 
   useEffect(() => {
     if (pending || !isModalOpen) return;

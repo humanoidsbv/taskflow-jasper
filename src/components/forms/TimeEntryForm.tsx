@@ -1,14 +1,13 @@
 "use client";
 
 import { RefObject, useActionState, useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
 import Form from "next/form";
 
 import { Button } from "@/components/button/Button";
 import { createCalendarEvent } from "@/services/actions";
 import { formatHours, getElapsedTime } from "@/utils/utils";
 import { InputField, SelectField } from "@/components/input-field/";
-import CloseIcon from "@/public/icons/close.svg";
+import { showCreatedToast } from "./helpers";
 
 import styles from "./TimeEntryForm.module.css";
 
@@ -61,16 +60,6 @@ export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
     setTotalHours(elapsedHours);
   }
 
-  function showCreatedToast(className: string) {
-    const toastId = toast("New event added", {
-      duration: 5000,
-      className,
-      cancel: (
-        <CloseIcon alt="Close message" onClick={() => toast.dismiss(toastId)} />
-      ),
-    });
-  }
-
   useEffect(() => {
     if (!pending && Object.keys(state.errors).length !== 0 && !isModalOpen) {
       showCreatedToast("toastFailure");
@@ -97,10 +86,8 @@ export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
         required
         title="Client"
         type="text"
+        error={state.errors.client}
       />
-      {state.errors.client && (
-        <span className={styles.error}>{state.errors.client}</span>
-      )}
       <SelectField
         defaultValue={state?.values?.activity}
         disabled={pending}
