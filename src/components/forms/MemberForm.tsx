@@ -52,7 +52,7 @@ export const MemberForm = ({ modalRef }: MemberFormProps) => {
       showCreatedToast("toastFailure", state.message);
     } else {
       closeModal();
-      showCreatedToast("toastSuccess");
+      showCreatedToast("toastSuccess", "New member added");
     }
   }, [pending]);
 

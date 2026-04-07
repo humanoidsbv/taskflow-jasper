@@ -61,12 +61,12 @@ export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
   }
 
   useEffect(() => {
-    if (!pending && Object.keys(state.errors).length !== 0 && !isModalOpen) {
-      showCreatedToast("toastFailure");
-    }
-    if (!pending && Object.keys(state.errors).length === 0 && isModalOpen) {
+    if (pending || !isModalOpen) return;
+    if (Object.keys(state.errors).length !== 0) {
+      showCreatedToast("toastFailure", state.message);
+    } else {
       closeModal();
-      showCreatedToast("toastSuccess");
+      showCreatedToast("toastSuccess", "New event added");
       setTotalHours("00:00");
     }
   }, [pending]);
