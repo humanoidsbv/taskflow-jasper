@@ -153,12 +153,8 @@ export const editMemberEvent = async (
   _prevState: CreateMemberState,
   formData: FormData,
 ): Promise<CreateMemberState> => {
-  // if (!_prevState.id) return { message: "No ID", errors: {} };
   const data = Object.fromEntries(formData);
-  console.table(data);
   if (!data.id) return { message: "No ID", errors: {} };
-  const startingDate = new Date().toISOString();
-  data.startingDate = startingDate;
 
   const validatedData = memberSchema.safeParse(data);
 

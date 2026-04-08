@@ -136,10 +136,10 @@
       "firstName": "Jan",
       "id": "ad1c",
       "info": "",
-      "lastName": "Pieter",
+      "lastName": "Pieterszoon",
       "position": "Full-stack Developer",
-      "startingDate": "2026-04-08T07:35:08.493Z",
-      "fullName": "Jan Pieter"
+      "startingDate": "2026-04-08T07:39:40.422Z",
+      "fullName": "Jan Pieterszoon"
     },
     {
       "client": "Heineken",
@@ -147,10 +147,10 @@
       "firstName": "Jasper",
       "id": "7600",
       "info": "",
-      "lastName": "Kooij",
+      "lastName": "Kooijman",
       "position": "Full-stack Developer",
       "startingDate": "2026-04-08T07:34:58.728Z",
-      "fullName": "Jasper Kooij"
+      "fullName": "Jasper Kooijman"
     },
     {
       "id": "f27a",
@@ -169,10 +169,10 @@
       "firstName": "Jasper",
       "id": "9101",
       "info": "Der test",
-      "lastName": "Der Kooij",
+      "lastName": "Van der Kooij",
       "position": "Full-stack Developer",
-      "startingDate": "2026-04-08T07:08:23.214Z",
-      "fullName": "Jasper der Kooij"
+      "startingDate": "2026-04-08T07:39:15.382Z",
+      "fullName": "Jasper van der Kooij"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
