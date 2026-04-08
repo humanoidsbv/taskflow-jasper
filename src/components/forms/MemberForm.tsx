@@ -54,14 +54,24 @@ export const MemberForm = ({ modalRef, memberData }: MemberFormProps) => {
       showCreatedToast("toastFailure", state.message);
     } else {
       closeModal();
-      showCreatedToast("toastSuccess", "New member added");
+      showCreatedToast(
+        "toastSuccess",
+        `${memberData ? "Member edited" : "New member added"}`,
+      );
     }
   }, [pending]);
 
   return (
     <Form action={formAction} className={styles.container}>
       {memberData && (
-        <input type="hidden" name="id" defaultValue={memberData.id} />
+        <>
+          <input type="hidden" name="id" defaultValue={memberData.id} />
+          <input
+            type="hidden"
+            name="startingDate"
+            defaultValue={memberData.startingDate}
+          />
+        </>
       )}
       <h2 className={styles.title}>
         {memberData ? "Edit member" : "New member"}

@@ -42,7 +42,18 @@ export const capitalizeString = (text: string) =>
 const deCapitalizeString = (text: string) =>
   `${text.at(0)?.toLowerCase()}${text.slice(1)}`;
 
-const preNames = ["van", "aan", "de", "den", "in", "ten", "uit", "te"];
+const preNames = [
+  "van",
+  "aan",
+  "de",
+  "der",
+  "den",
+  "in",
+  "ten",
+  "uit",
+  "te",
+  "ter",
+];
 
 export const formatFullName = (firstName: string, lastName: string): string => {
   if (preNames.includes(lastName.split(" ")[0].toLowerCase()))

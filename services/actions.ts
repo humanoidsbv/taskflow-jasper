@@ -65,6 +65,7 @@ const memberSchema = z.object({
   client: z.string().trim(),
   eMail: z.email(),
   firstName: z.string().trim().min(1),
+  id: z.string(),
   info: z.string().max(150),
   lastName: z.string().trim().min(1),
   position: z.string().trim(),
@@ -152,8 +153,10 @@ export const editMemberEvent = async (
   _prevState: CreateMemberState,
   formData: FormData,
 ): Promise<CreateMemberState> => {
-  if (!_prevState.id) return { message: "No ID", errors: {} };
+  // if (!_prevState.id) return { message: "No ID", errors: {} };
   const data = Object.fromEntries(formData);
+  console.table(data);
+  if (!data.id) return { message: "No ID", errors: {} };
   const startingDate = new Date().toISOString();
   data.startingDate = startingDate;
 
@@ -171,12 +174,11 @@ export const editMemberEvent = async (
     validatedData.data.lastName,
   );
 
-  _prevState.id;
+  console.log("Editing member ", validatedData.data.id);
 
   const response = await editMember({
     ...validatedData.data,
     fullName,
-    id: _prevState.id,
   });
 
   return { message: response.message, errors: response.errors, values: {} };
