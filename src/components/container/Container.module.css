@@ -4,6 +4,11 @@
   padding: calc(var(--header-height) + var(--subheader-height) + 20px) 10px 40px;
 }
 
+.content {
+  max-width: 1160px;
+  margin: auto;
+}
+
 @media (min-width: 1160px) {
   .container {
     padding: calc(var(--header-height) + var(--subheader-height) + 40px) 180px

@@ -87,15 +87,15 @@
       "startingDate": "2026-01-11T12:00:00.000Z"
     },
     {
-      "id": "bla5",
       "client": "De Placeboverheid",
       "eMail": "wiebenik123@gmail.com",
-      "firstName": "Eric Frederik",
-      "fullName": "Eric Frederik van Moonshaven Steenbruggen",
+      "firstName": "Eri",
+      "id": "bla5",
       "info": "",
-      "lastName": "Van Moonshaven Steenbruggen",
+      "lastName": "Steenbruggen",
       "position": "Office Manager",
-      "startingDate": "2026-03-11T12:00:00.000Z"
+      "startingDate": "2026-03-11T12:00:00.000Z",
+      "fullName": "Eri Steenbruggen"
     },
     {
       "id": "e983",
