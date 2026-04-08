@@ -11,9 +11,10 @@ import styles from "./MemberCard.module.css";
 
 interface MemberCardProps {
   data: CreatedMember;
+  onEdit: (data: CreatedMember) => void;
 }
 
-export const MemberCard = ({ data }: MemberCardProps) => {
+export const MemberCard = ({ data, onEdit }: MemberCardProps) => {
   const { client, fullName, info, position, startingMonth } =
     formatMemberData(data);
 
@@ -34,7 +35,7 @@ export const MemberCard = ({ data }: MemberCardProps) => {
         <InfoField className={styles.two} title="Other data" value={info} />
       </div>
       <div className={styles.divider}></div>
-      <Button variant="secondary">
+      <Button variant="secondary" onClick={() => onEdit(data)}>
         <EditIcon />
         Edit member
       </Button>

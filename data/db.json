@@ -1,14 +1,6 @@
 {
   "time-entries": [
     {
-      "id": "b81a",
-      "billable": true,
-      "client": "Dagstart met Sam",
-      "department": "design",
-      "startTimestamp": "2026-03-26T09:30:00.000Z",
-      "stopTimestamp": "2026-03-26T10:00:00.000Z"
-    },
-    {
       "id": "d92c",
       "billable": true,
       "client": "Humanoides",
@@ -39,6 +31,14 @@
       "department": "design",
       "startTimestamp": "2026-04-04T12:00:00.000Z",
       "stopTimestamp": "2026-04-04T14:50:00.000Z"
+    },
+    {
+      "id": "b81a",
+      "billable": true,
+      "client": "Dagstart met Sam",
+      "department": "design",
+      "startTimestamp": "2026-03-26T09:30:00.000Z",
+      "stopTimestamp": "2026-03-26T10:00:00.000Z"
     }
   ],
   "members": [
@@ -87,15 +87,15 @@
       "startingDate": "2026-01-11T12:00:00.000Z"
     },
     {
-      "id": "bla5",
       "client": "De Placeboverheid",
       "eMail": "wiebenik123@gmail.com",
-      "firstName": "Eric Frederik",
-      "fullName": "Eric Frederik van Moonshaven Steenbruggen",
+      "firstName": "Eri",
+      "id": "bla5",
       "info": "",
-      "lastName": "Van Moonshaven Steenbruggen",
+      "lastName": "Steenbruggen",
       "position": "Office Manager",
-      "startingDate": "2026-03-11T12:00:00.000Z"
+      "startingDate": "2026-03-11T12:00:00.000Z",
+      "fullName": "Eri Steenbruggen"
     },
     {
       "id": "e983",
@@ -131,15 +131,70 @@
       "fullName": "Jasper "
     },
     {
-      "id": "ad1c",
       "client": "Jappie",
       "eMail": "jasper.kooij@humanoids.nl",
-      "firstName": "J",
+      "firstName": "Jan",
       "info": "",
-      "lastName": "P",
+      "lastName": "Pieterszoon de Tweede",
       "position": "Full-stack Developer",
-      "startingDate": "2026-04-07T11:50:11.463Z",
-      "fullName": "J P"
+      "startingDate": "2026-04-08T07:39:40.422Z",
+      "id": "ad1c",
+      "fullName": "Jan Pieterszoon de Tweede"
+    },
+    {
+      "client": "Heineken",
+      "eMail": "jasper.kooij@humanoids.nl",
+      "firstName": "Jasper",
+      "id": "7600",
+      "info": "",
+      "lastName": "Kooijman",
+      "position": "Full-stack Developer",
+      "startingDate": "2026-04-08T07:34:58.728Z",
+      "fullName": "Jasper Kooijman"
+    },
+    {
+      "id": "f27a",
+      "client": "Heineken",
+      "eMail": "jasper.kooij@humanoids.nl",
+      "firstName": "Jasper",
+      "info": "",
+      "lastName": "Ter Kooij",
+      "position": "Full-stack Developer",
+      "startingDate": "2026-04-08T07:07:13.113Z",
+      "fullName": "Jasper Ter Kooij"
+    },
+    {
+      "client": "Jappier",
+      "eMail": "jasper.kooij@humanoids.nl",
+      "firstName": "Jasper",
+      "info": "Der test",
+      "lastName": "Der Kooij",
+      "position": "Full-stack Developer",
+      "startingDate": "2026-04-08T07:39:15.382Z",
+      "id": "9101",
+      "fullName": "Jasper der Kooij"
+    },
+    {
+      "id": "a975",
+      "client": "Hertog Jan",
+      "eMail": "jasper.kooij@humanoids.nl",
+      "firstName": "Jasper",
+      "info": "",
+      "lastName": "Kooij",
+      "position": "Full-stack Developer",
+      "startingDate": "2026-04-08T08:06:30.704Z",
+      "fullName": "Jasper Kooij"
+    },
+    {
+      "id": "bca7",
+      "client": "Hertog Jan",
+      "eMail": "jasper.kooij@humanoids.nl",
+      "firstName": "Henkie",
+      "info": "Krabbenrugger",
+      "lastName": "Krachelwenk",
+      "position": "Office Manager",
+      "startingDate": "2026-04-08T08:14:04.523Z",
+      "fullName": "Henkie Krachelwenk"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

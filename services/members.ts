@@ -106,3 +106,42 @@ export const createMember = async (
     };
   }
 };
+
+export const editMember = async (
+  member: CreatedMember,
+): Promise<{ message: string; errors: {} }> => {
+  try {
+    const requestResult = await fetch(
+      `http://localhost:3004/members/${member.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(member),
+      },
+    );
+    if (!requestResult.ok) {
+      const resultText = await requestResult.text();
+      return {
+        message: "Failed to edit member",
+        errors: { server: [resultText || "Unknown server error"] },
+      };
+    }
+
+    revalidatePath("/");
+
+    return {
+      message: "Member edited",
+      errors: {},
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      message: "Network error while editing member",
+      errors: {
+        server: [error instanceof Error ? error.message : "Unknown error"],
+      },
+    };
+  }
+};

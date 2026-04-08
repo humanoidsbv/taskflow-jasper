@@ -7,7 +7,7 @@ import {
   TimeEntryData,
   ValidatedDataType,
 } from "@/types/dataTypes";
-import { createMember } from "./members";
+import { createMember, editMember } from "./members";
 import { createTimeEntry } from "./timeEntries";
 import { formatFullName } from "@/utils/utils";
 
@@ -21,6 +21,7 @@ export interface CreateMemberState {
   errors: Partial<Record<string, string[]>>;
   message: string;
   values?: Partial<MemberData>;
+  id?: string;
 }
 
 const minutes = (time: string) => {
@@ -64,6 +65,7 @@ const memberSchema = z.object({
   client: z.string().trim(),
   eMail: z.email(),
   firstName: z.string().trim().min(1),
+  id: z.string().optional(),
   info: z.string().max(150),
   lastName: z.string().trim().min(1),
   position: z.string().trim(),
@@ -143,6 +145,37 @@ export const createMemberEvent = async (
   );
 
   const response = await createMember({ ...validatedData.data, fullName });
+
+  return { message: response.message, errors: response.errors, values: {} };
+};
+
+export const editMemberEvent = async (
+  _prevState: CreateMemberState,
+  formData: FormData,
+): Promise<CreateMemberState> => {
+  const data = Object.fromEntries(formData);
+  const validatedData = memberSchema.safeParse(data);
+
+  if (!validatedData.success) {
+    return {
+      message: "Error validating data",
+      errors: z.flattenError(validatedData.error).fieldErrors,
+      values: data,
+    };
+  }
+  const fullName = formatFullNameData(
+    validatedData.data.firstName,
+    validatedData.data.lastName,
+  );
+
+  const { id, ...memberData } = validatedData.data;
+  if (!id) return { message: "No ID", errors: {} };
+
+  const response = await editMember({
+    ...memberData,
+    id,
+    fullName,
+  });
 
   return { message: response.message, errors: response.errors, values: {} };
 };
