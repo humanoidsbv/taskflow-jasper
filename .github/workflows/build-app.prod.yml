@@ -2,7 +2,7 @@ on: push
 
 jobs:
   build:
-    name: Build application
+    name: Lint and build application
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
