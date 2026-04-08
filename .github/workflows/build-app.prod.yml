@@ -1,8 +1,11 @@
+name: CI
+
 on: push
 
 jobs:
-  build:
-    name: Lint and build application
+  lint:
+    name: Lint
+    needs: install
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -19,6 +22,22 @@ jobs:
 
       - name: 🧹 Run lint
         run: npm run lint
+  build:
+    name: Build application
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: 🧰  Install
+        run: npm ci --production-only
 
       - name: 📦  build
         run: npm run build
