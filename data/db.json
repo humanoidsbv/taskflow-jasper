@@ -39,6 +39,54 @@
       "department": "design",
       "startTimestamp": "2026-03-26T09:30:00.000Z",
       "stopTimestamp": "2026-03-26T10:00:00.000Z"
+    },
+    {
+      "id": "98bd",
+      "billable": true,
+      "client": "Heineken",
+      "department": "design",
+      "startTimestamp": "2026-04-08T12:14:00.000Z",
+      "stopTimestamp": "2026-04-08T15:21:00.000Z"
+    },
+    {
+      "id": "870d",
+      "billable": true,
+      "client": "Heineken",
+      "department": "design",
+      "startTimestamp": "2026-04-08T12:12:00.000Z",
+      "stopTimestamp": "2026-04-08T15:12:00.000Z"
+    },
+    {
+      "id": "5ccc",
+      "billable": true,
+      "client": "Heineken",
+      "department": "design",
+      "startTimestamp": "2026-04-08T12:04:00.000Z",
+      "stopTimestamp": "2026-04-08T12:57:00.000Z"
+    },
+    {
+      "id": "dece",
+      "billable": true,
+      "client": "Heineken",
+      "department": "design",
+      "startTimestamp": "2026-04-08T12:14:00.000Z",
+      "stopTimestamp": "2026-04-08T15:16:00.000Z"
+    },
+    {
+      "id": "61fc",
+      "billable": true,
+      "client": "Heineken",
+      "department": "design",
+      "startTimestamp": "2026-04-08T12:14:00.000Z",
+      "stopTimestamp": "2026-04-08T15:16:00.000Z"
+    },
+    {
+      "id": "9d40",
+      "billable": true,
+      "client": "Heineken",
+      "department": "design",
+      "startTimestamp": "2026-05-09T12:12:00.000Z",
+      "stopTimestamp": "2026-05-09T15:15:00.000Z"
     }
   ],
   "members": [

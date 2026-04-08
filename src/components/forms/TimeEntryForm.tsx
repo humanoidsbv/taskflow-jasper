@@ -45,7 +45,6 @@ export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
     createCalendarEvent,
     initialState,
   );
-  const isModalOpen = modalRef.current?.open;
   const closeModal = () => modalRef.current?.close();
 
   function handleChange(event: React.SyntheticEvent<HTMLFormElement>) {
@@ -60,7 +59,7 @@ export const TimeEntryForm = ({ modalRef }: TimeEntryFormProps) => {
   }
 
   useEffect(() => {
-    if (pending || !isModalOpen) return;
+    if (pending || !modalRef.current?.open) return;
     if (Object.keys(state.errors).length !== 0) {
       showCreatedToast("toastFailure", state.message);
     } else {
