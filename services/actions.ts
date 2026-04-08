@@ -154,8 +154,6 @@ export const editMemberEvent = async (
   formData: FormData,
 ): Promise<CreateMemberState> => {
   const data = Object.fromEntries(formData);
-  if (!data.id) return { message: "No ID", errors: {} };
-
   const validatedData = memberSchema.safeParse(data);
 
   if (!validatedData.success) {
@@ -170,10 +168,12 @@ export const editMemberEvent = async (
     validatedData.data.lastName,
   );
 
-  console.log("Editing member ", validatedData.data.id);
+  const { id, ...memberData } = validatedData.data;
+  if (!id) return { message: "No ID", errors: {} };
 
   const response = await editMember({
-    ...validatedData.data,
+    ...memberData,
+    id,
     fullName,
   });
 
