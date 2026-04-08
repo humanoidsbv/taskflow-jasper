@@ -1,11 +1,18 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
 
 import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
 import { buildQueryParams } from "@/utils/utils";
-import { createClient } from "@/utils/supabase/server";
+
+const REST_URL = `${process.env.SUPABASE_URL}/rest/v1/time-entries`;
+const API_KEY = process.env.SUPABASE_PUBLISHABLE_DEFAULT_KEY!;
+
+const restHeaders = {
+  apikey: API_KEY,
+  Authorization: `Bearer ${API_KEY}`,
+  "Content-Type": "application/json",
+};
 
 class NotFoundError extends Error {
   constructor(message: string) {
@@ -15,35 +22,29 @@ class NotFoundError extends Error {
 }
 
 export const getClientsFromTimeEntries = async (): Promise<string[]> => {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+  try {
+    const response = await fetch(`${REST_URL}?order=client`, {
+      method: "GET",
+      headers: restHeaders,
+    });
+    const result = (await response.json()) as CreatedTimeEntry[];
 
-  const { data, error } = await supabase.from("time-entries").select();
-  if (error) throw error;
-
-  return [...new Set(data.map((entry) => entry.client))];
+    return [...new Set(result.map((entry) => entry.client))];
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
 };
 
 export const getTimeEntries = async (
   searchParams?: Promise<{ [key: string]: string }>,
 ): Promise<CreatedTimeEntry[]> => {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
-
-  const baseURL = `https://my-json-server.typicode.com/MrJasperge/taskflow-db/time-entries`;
   const queryParams = buildQueryParams(await searchParams);
 
-  const { data, error } = await supabase.from("time-entries").select();
-
-  if (error) throw error;
-  return data ?? [];
-
   try {
-    const response = await fetch(`${baseURL}?${queryParams}`, {
+    const response = await fetch(`${REST_URL}?${queryParams}`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: restHeaders,
     });
     if (response.status === 404) {
       throw new NotFoundError("Time entry not found!");

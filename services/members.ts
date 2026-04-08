@@ -12,8 +12,8 @@ class NotFoundError extends Error {
   }
 }
 
-const REST_URL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/members`;
-const API_KEY = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!;
+const REST_URL = `${process.env.SUPABASE_URL}/rest/v1/members`;
+const API_KEY = process.env.SUPABASE_PUBLISHABLE_DEFAULT_KEY!;
 
 const restHeaders = {
   apikey: API_KEY,
@@ -23,7 +23,7 @@ const restHeaders = {
 
 export const getPositions = async (): Promise<string[]> => {
   try {
-    const response = await fetch(`${REST_URL}?order=position`, {
+    const response = await fetch(`${REST_URL}`, {
       method: "GET",
       headers: restHeaders,
     });

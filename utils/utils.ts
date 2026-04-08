@@ -100,8 +100,5 @@ export const buildQueryParams = (inputParams?: {
     }
   }
 
-  if (!Object.keys(inputParams ?? {}).length)
-    params.append("order", "startingDate.desc");
-
   return params.toString();
 };
