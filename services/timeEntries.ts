@@ -1,9 +1,11 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 
 import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
 import { buildQueryParams } from "@/utils/utils";
+import { createClient } from "@/utils/supabase/server";
 
 class NotFoundError extends Error {
   constructor(message: string) {
@@ -13,30 +15,28 @@ class NotFoundError extends Error {
 }
 
 export const getClientsFromTimeEntries = async (): Promise<string[]> => {
-  try {
-    const response = await fetch(
-      "http://localhost:3004/time-entries?_sort=client",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
-    const result = (await response.json()) as CreatedTimeEntry[];
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
 
-    return [...new Set(result.map((entry) => entry.client))];
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
+  const { data, error } = await supabase.from("time-entries").select();
+  if (error) throw error;
+
+  return [...new Set(data.map((entry) => entry.client))];
 };
 
 export const getTimeEntries = async (
   searchParams?: Promise<{ [key: string]: string }>,
 ): Promise<CreatedTimeEntry[]> => {
-  const baseURL = `http://localhost:3004/time-entries`;
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
+
+  const baseURL = `https://my-json-server.typicode.com/MrJasperge/taskflow-db/time-entries`;
   const queryParams = buildQueryParams(await searchParams);
+
+  const { data, error } = await supabase.from("time-entries").select();
+
+  if (error) throw error;
+  return data ?? [];
 
   try {
     const response = await fetch(`${baseURL}?${queryParams}`, {
@@ -57,12 +57,15 @@ export const getTimeEntries = async (
 
 export async function deleteTimeEntry(id: string) {
   try {
-    const response = await fetch(`http://localhost:3004/time-entries/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `https://my-json-server.typicode.com/MrJasperge/taskflow-db/time-entries/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
     if (response.status === 404) {
       throw new NotFoundError("Time entry not found!");
     }
@@ -78,13 +81,16 @@ export async function createTimeEntry(
   timeEntry: TimeEntryData,
 ): Promise<{ message: string; errors: {} }> {
   try {
-    const requestResult = await fetch("http://localhost:3004/time-entries", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const requestResult = await fetch(
+      "https://my-json-server.typicode.com/MrJasperge/taskflow-db/time-entries",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(timeEntry),
       },
-      body: JSON.stringify(timeEntry),
-    });
+    );
     if (!requestResult.ok) {
       const resultText = await requestResult.text();
       return {

@@ -1,4 +1,4 @@
-import { filterOptions, membersSortByOptions } from "@/services/queries";
+import { membersSortByOptions } from "@/services/queries";
 
 export const getElapsedTime = (startDate: Date, stopDate: Date): number => {
   const totalMinutes = Math.max(
@@ -67,18 +67,41 @@ export const buildQueryParams = (inputParams?: {
   const params = new URLSearchParams();
 
   for (const [param, value] of Object.entries(inputParams ?? {})) {
+    if (!value) continue;
     if (param === "sortBy") {
-      const query = membersSortByOptions.find(
-        (option) => option.value === value,
-      )?.query;
-      query && params.set("_sort", query);
-    } else {
-      const query = filterOptions.find((query) => query.value === param)?.query;
-      query && params.append(query, value);
+      const sort = membersSortByOptions.find(
+        (o) => o.value === value,
+      )?.postgRESTQuery;
+      if (sort) params.set("order", sort);
+      continue;
+    }
+    if (param === "client") {
+      const values = value
+        .split(",")
+        .map((v) => v.trim())
+        .filter(Boolean);
+      if (values.length) params.append("client", `in.(${values.join(",")})`);
+      continue;
+    }
+    if (param === "position") {
+      const values = value
+        .split(",")
+        .map((v) => v.trim())
+        .filter(Boolean);
+      if (values.length) params.append("position", `in.(${values.join(",")})`);
+      continue;
+    }
+    if (param === "searchMember") {
+      params.append("fullName", `ilike.*${value}*`);
+      continue;
+    }
+    if (param === "startingDate") {
+      params.append("startingDate", `gte.${encodeURIComponent(value)}`);
     }
   }
 
-  params.append("_sort", "startingDate");
+  if (!Object.keys(inputParams ?? {}).length)
+    params.append("order", "startingDate.desc");
 
   return params.toString();
 };
