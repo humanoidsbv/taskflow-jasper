@@ -65,7 +65,7 @@ const memberSchema = z.object({
   client: z.string().trim(),
   eMail: z.email(),
   firstName: z.string().trim().min(1),
-  id: z.string(),
+  id: z.string().optional(),
   info: z.string().max(150),
   lastName: z.string().trim().min(1),
   position: z.string().trim(),

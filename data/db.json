@@ -173,6 +173,17 @@
       "position": "Full-stack Developer",
       "startingDate": "2026-04-08T07:39:15.382Z",
       "fullName": "Jasper van der Kooij"
+    },
+    {
+      "id": "a975",
+      "client": "Hertog Jan",
+      "eMail": "jasper.kooij@humanoids.nl",
+      "firstName": "Jasper",
+      "info": "",
+      "lastName": "Kooij",
+      "position": "Full-stack Developer",
+      "startingDate": "2026-04-08T08:06:30.704Z",
+      "fullName": "Jasper Kooij"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
