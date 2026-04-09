@@ -23,6 +23,7 @@ const eslintConfig = defineConfig([
       "no-console": ["warn", { allow: ["warn", "error"] }],
       "no-unused-vars": "off", // or "@typescript-eslint/no-unused-vars": "off",
       "unused-imports/no-unused-imports": "error",
+      "react-hooks/set-state-in-effect": ["warn", { allow: ["warn", "error"] }],
       "unused-imports/no-unused-vars": [
         "warn",
         {

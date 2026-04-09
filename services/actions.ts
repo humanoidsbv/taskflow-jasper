@@ -69,7 +69,7 @@ const memberSchema = z.object({
   info: z.string().max(150),
   lastName: z.string().trim().min(1),
   position: z.string().trim(),
-  startingDate: z.iso.datetime(),
+  startingDate: z.iso.datetime({ local: true }),
 });
 
 const fullNameSchema = z

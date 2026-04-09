@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 
-import { buildQueryParams } from "@/utils/utils";
+import { buildMemberQueryParams } from "@/utils/utils";
 import { CreatedMember, MemberData } from "@/types/dataTypes";
 
 class NotFoundError extends Error {
@@ -12,17 +12,21 @@ class NotFoundError extends Error {
   }
 }
 
+const REST_URL = `${process.env.SUPABASE_URL}/rest/v1/members`;
+const API_KEY = process.env.SUPABASE_PUBLISHABLE_DEFAULT_KEY!;
+
+const restHeaders = {
+  apikey: API_KEY,
+  Authorization: `Bearer ${API_KEY}`,
+  "Content-Type": "application/json",
+};
+
 export const getPositions = async (): Promise<string[]> => {
   try {
-    const response = await fetch(
-      "http://localhost:3004/members?_sort=position",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
+    const response = await fetch(`${REST_URL}`, {
+      method: "GET",
+      headers: restHeaders,
+    });
     const result = (await response.json()) as CreatedMember[];
 
     return [...new Set(result.map((entry) => entry.position))];
@@ -34,11 +38,9 @@ export const getPositions = async (): Promise<string[]> => {
 
 export const getClientsFromMembers = async (): Promise<string[]> => {
   try {
-    const response = await fetch("http://localhost:3004/members?_sort=client", {
+    const response = await fetch(`${REST_URL}?order=client`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: restHeaders,
     });
     const result = (await response.json()) as CreatedMember[];
 
@@ -52,15 +54,12 @@ export const getClientsFromMembers = async (): Promise<string[]> => {
 export const getMembers = async (
   searchParams?: Promise<{ [key: string]: string }>,
 ): Promise<CreatedMember[]> => {
-  const baseURL = `http://localhost:3004/members`;
-  const queryParams = buildQueryParams(await searchParams);
+  const queryParams = buildMemberQueryParams(await searchParams);
 
   try {
-    const response = await fetch(`${baseURL}?${queryParams}`, {
+    const response = await fetch(`${REST_URL}?${queryParams}`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: restHeaders,
     });
     if (response.status === 404) {
       throw new NotFoundError("Members not found!");
@@ -76,11 +75,9 @@ export const createMember = async (
   member: MemberData & { fullName: string },
 ): Promise<{ message: string; errors: {} }> => {
   try {
-    const requestResult = await fetch("http://localhost:3004/members", {
+    const requestResult = await fetch(`${REST_URL}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: restHeaders,
       body: JSON.stringify(member),
     });
     if (!requestResult.ok) {
@@ -111,16 +108,11 @@ export const editMember = async (
   member: CreatedMember,
 ): Promise<{ message: string; errors: {} }> => {
   try {
-    const requestResult = await fetch(
-      `http://localhost:3004/members/${member.id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(member),
-      },
-    );
+    const requestResult = await fetch(`${REST_URL}?id=eq.${member.id}`, {
+      method: "PUT",
+      headers: restHeaders,
+      body: JSON.stringify(member),
+    });
     if (!requestResult.ok) {
       const resultText = await requestResult.text();
       return {

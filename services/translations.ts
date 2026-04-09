@@ -15,18 +15,3 @@ export const translations = {
     title: "Default Title",
   },
 };
-
-export const calendarSortByOptions = [
-  {
-    value: "startDateDESC",
-    placeholder: "Starting date new-old",
-    query: "-startTimestamp",
-  },
-  {
-    value: "startDateASC",
-    placeholder: "Starting date old-new",
-    query: "startTimestamp",
-  },
-  { value: "nameASC", placeholder: "Name A-Z", query: "client" },
-  { value: "nameDESC", placeholder: "Name Z-A", query: "-client" },
-];

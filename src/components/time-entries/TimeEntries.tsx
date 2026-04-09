@@ -35,6 +35,7 @@ export const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
       return;
 
     const response = await deleteTimeEntry(data.id);
+    if (!response) return;
 
     toast(`Event deleted: ${response.client}`, {
       duration: 5000,

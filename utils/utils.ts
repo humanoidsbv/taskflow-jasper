@@ -1,4 +1,7 @@
-import { filterOptions, membersSortByOptions } from "@/services/queries";
+import {
+  membersSortByOptions,
+  calendarSortByOptions,
+} from "@/services/queries";
 
 export const getElapsedTime = (startDate: Date, stopDate: Date): number => {
   const totalMinutes = Math.max(
@@ -61,24 +64,82 @@ export const formatFullName = (firstName: string, lastName: string): string => {
   else return `${firstName} ${lastName}`;
 };
 
-export const buildQueryParams = (inputParams?: {
+export const buildTimeEntriesQueryParams = (inputParams?: {
   [key: string]: string;
 }): string => {
   const params = new URLSearchParams();
 
   for (const [param, value] of Object.entries(inputParams ?? {})) {
+    if (!value) continue;
     if (param === "sortBy") {
-      const query = membersSortByOptions.find(
+      const sort = calendarSortByOptions.find(
         (option) => option.value === value,
-      )?.query;
-      query && params.set("_sort", query);
-    } else {
-      const query = filterOptions.find((query) => query.value === param)?.query;
-      query && params.append(query, value);
+      )?.postgRESTQuery;
+      if (sort) {
+        params.set("order", sort);
+      }
+      continue;
+    }
+    if (param === "client") {
+      const values = value
+        .split(",")
+        .map((v) => v.trim())
+        .filter(Boolean);
+      if (values.length) params.append("client", `in.(${values.join(",")})`);
+      continue;
+    }
+    if (param === "searchClient") {
+      params.append("client", `ilike.*${value}*`);
+      continue;
+    }
+    if (param === "startingDate") {
+      params.append("startTimestamp", `gte.${value}`);
     }
   }
+  if (!params.has("order")) params.set("order", "startTimestamp.desc");
 
-  params.append("_sort", "startingDate");
+  return params.toString();
+};
+
+export const buildMemberQueryParams = (inputParams?: {
+  [key: string]: string;
+}): string => {
+  const params = new URLSearchParams();
+
+  for (const [param, value] of Object.entries(inputParams ?? {})) {
+    if (!value) continue;
+    if (param === "sortBy") {
+      const sort = membersSortByOptions.find(
+        (option) => option.value === value,
+      )?.postgRESTQuery;
+      if (sort) params.set("order", sort);
+      continue;
+    }
+    if (param === "client") {
+      const values = value
+        .split(",")
+        .map((v) => v.trim())
+        .filter(Boolean);
+      if (values.length) params.append("client", `in.(${values.join(",")})`);
+      continue;
+    }
+    if (param === "position") {
+      const values = value
+        .split(",")
+        .map((v) => v.trim())
+        .filter(Boolean);
+      if (values.length) params.append("position", `in.(${values.join(",")})`);
+      continue;
+    }
+    if (param === "searchMember") {
+      params.append("fullName", `ilike.*${value}*`);
+      continue;
+    }
+    if (param === "startingDate") {
+      params.append("startingDate", `gte.${value}`);
+    }
+  }
+  if (!params.has("order")) params.set("order", "startingDate.desc");
 
   return params.toString();
 };

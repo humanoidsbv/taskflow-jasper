@@ -45,11 +45,10 @@ export const MemberForm = ({ modalRef, memberData }: MemberFormProps) => {
     memberData ? editMemberEvent : createMemberEvent,
     initialState,
   );
-  const isModalOpen = modalRef.current?.open;
   const closeModal = () => modalRef.current?.close();
 
   useEffect(() => {
-    if (pending || !isModalOpen) return;
+    if (pending || !modalRef.current?.open) return;
     if (Object.keys(state.errors).length !== 0) {
       showCreatedToast("toastFailure", state.message);
     } else {

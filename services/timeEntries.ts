@@ -3,7 +3,16 @@
 import { revalidatePath } from "next/cache";
 
 import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
-import { buildQueryParams } from "@/utils/utils";
+import { buildTimeEntriesQueryParams } from "@/utils/utils";
+
+const REST_URL = `${process.env.SUPABASE_URL}/rest/v1/time-entries`;
+const API_KEY = process.env.SUPABASE_PUBLISHABLE_DEFAULT_KEY!;
+
+const restHeaders = {
+  apikey: API_KEY,
+  Authorization: `Bearer ${API_KEY}`,
+  "Content-Type": "application/json",
+};
 
 class NotFoundError extends Error {
   constructor(message: string) {
@@ -14,15 +23,10 @@ class NotFoundError extends Error {
 
 export const getClientsFromTimeEntries = async (): Promise<string[]> => {
   try {
-    const response = await fetch(
-      "http://localhost:3004/time-entries?_sort=client",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
+    const response = await fetch(`${REST_URL}?order=client`, {
+      method: "GET",
+      headers: restHeaders,
+    });
     const result = (await response.json()) as CreatedTimeEntry[];
 
     return [...new Set(result.map((entry) => entry.client))];
@@ -35,20 +39,18 @@ export const getClientsFromTimeEntries = async (): Promise<string[]> => {
 export const getTimeEntries = async (
   searchParams?: Promise<{ [key: string]: string }>,
 ): Promise<CreatedTimeEntry[]> => {
-  const baseURL = `http://localhost:3004/time-entries`;
-  const queryParams = buildQueryParams(await searchParams);
+  const queryParams = buildTimeEntriesQueryParams(await searchParams);
 
   try {
-    const response = await fetch(`${baseURL}?${queryParams}`, {
+    const response = await fetch(`${REST_URL}?${queryParams}`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: restHeaders,
     });
     if (response.status === 404) {
-      throw new NotFoundError("Time entry not found!");
+      throw new NotFoundError("Time entries not found!");
     }
-    return response.json();
+    const acquiredRows = (await response.json()) as CreatedTimeEntry[];
+    return acquiredRows ?? [];
   } catch (error) {
     console.error(error);
     return [];
@@ -57,20 +59,19 @@ export const getTimeEntries = async (
 
 export async function deleteTimeEntry(id: string) {
   try {
-    const response = await fetch(`http://localhost:3004/time-entries/${id}`, {
+    const response = await fetch(`${REST_URL}?id=eq.${id}`, {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { ...restHeaders, Prefer: "return=representation" },
     });
-    if (response.status === 404) {
-      throw new NotFoundError("Time entry not found!");
+    if (!response.ok) {
+      throw new Error(await response.text());
     }
+    const deletedRows = (await response.json()) as CreatedTimeEntry[];
     revalidatePath("/");
-    return await response.json();
+    return deletedRows[0] ?? null;
   } catch (error) {
     console.error(error);
-    return [];
+    return null;
   }
 }
 
@@ -78,15 +79,13 @@ export async function createTimeEntry(
   timeEntry: TimeEntryData,
 ): Promise<{ message: string; errors: {} }> {
   try {
-    const requestResult = await fetch("http://localhost:3004/time-entries", {
+    const response = await fetch(`${REST_URL}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: restHeaders,
       body: JSON.stringify(timeEntry),
     });
-    if (!requestResult.ok) {
-      const resultText = await requestResult.text();
+    if (!response.ok) {
+      const resultText = await response.text();
       return {
         message: "Failed to create time entry",
         errors: { server: [resultText || "Unknown server error"] },
@@ -100,6 +99,7 @@ export async function createTimeEntry(
       errors: {},
     };
   } catch (error) {
+    console.error(error);
     return {
       message: "Network error while creating time entry",
       errors: {
