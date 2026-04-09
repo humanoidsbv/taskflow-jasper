@@ -49,7 +49,8 @@ export const getTimeEntries = async (
     if (response.status === 404) {
       throw new NotFoundError("Time entries not found!");
     }
-    return response.json();
+    const acquiredRows = (await response.json()) as CreatedTimeEntry[];
+    return acquiredRows ?? [];
   } catch (error) {
     console.error(error);
     return [];
