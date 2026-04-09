@@ -108,11 +108,9 @@ export const editMember = async (
   member: CreatedMember,
 ): Promise<{ message: string; errors: {} }> => {
   try {
-    const requestResult = await fetch(`${REST_URL}/${member.id}`, {
+    const requestResult = await fetch(`${REST_URL}?id=eq.${member.id}`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: restHeaders,
       body: JSON.stringify(member),
     });
     if (!requestResult.ok) {

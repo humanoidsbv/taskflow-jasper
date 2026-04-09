@@ -47,7 +47,7 @@ export const getTimeEntries = async (
       headers: restHeaders,
     });
     if (response.status === 404) {
-      throw new NotFoundError("Time entry not found!");
+      throw new NotFoundError("Time entries not found!");
     }
     return response.json();
   } catch (error) {
@@ -57,16 +57,12 @@ export const getTimeEntries = async (
 };
 
 export async function deleteTimeEntry(id: string) {
+  console.log("delete id: ", id);
   try {
-    const response = await fetch(
-      `https://my-json-server.typicode.com/MrJasperge/taskflow-db/time-entries/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
+    const response = await fetch(`${REST_URL}?id=eq.${id}`, {
+      method: "DELETE",
+      headers: restHeaders,
+    });
     if (response.status === 404) {
       throw new NotFoundError("Time entry not found!");
     }
@@ -82,18 +78,13 @@ export async function createTimeEntry(
   timeEntry: TimeEntryData,
 ): Promise<{ message: string; errors: {} }> {
   try {
-    const requestResult = await fetch(
-      "https://my-json-server.typicode.com/MrJasperge/taskflow-db/time-entries",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(timeEntry),
-      },
-    );
-    if (!requestResult.ok) {
-      const resultText = await requestResult.text();
+    const response = await fetch(`${REST_URL}`, {
+      method: "POST",
+      headers: restHeaders,
+      body: JSON.stringify(timeEntry),
+    });
+    if (!response.ok) {
+      const resultText = await response.text();
       return {
         message: "Failed to create time entry",
         errors: { server: [resultText || "Unknown server error"] },
@@ -107,6 +98,7 @@ export async function createTimeEntry(
       errors: {},
     };
   } catch (error) {
+    console.error(error);
     return {
       message: "Network error while creating time entry",
       errors: {

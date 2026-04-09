@@ -69,7 +69,7 @@ const memberSchema = z.object({
   info: z.string().max(150),
   lastName: z.string().trim().min(1),
   position: z.string().trim(),
-  startingDate: z.iso.datetime(),
+  startingDate: z.iso.datetime({ local: true }),
 });
 
 const fullNameSchema = z
@@ -156,7 +156,10 @@ export const editMemberEvent = async (
   const data = Object.fromEntries(formData);
   const validatedData = memberSchema.safeParse(data);
 
+  console.table(data);
+
   if (!validatedData.success) {
+    console.table(z.flattenError(validatedData.error));
     return {
       message: "Error validating data",
       errors: z.flattenError(validatedData.error).fieldErrors,
