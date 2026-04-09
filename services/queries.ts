@@ -25,6 +25,33 @@ export const membersSortByOptions = [
   },
 ];
 
+export const calendarSortByOptions = [
+  {
+    value: "startDateDESC",
+    placeholder: "Starting date new-old",
+    query: "-startTimestamp",
+    postgRESTQuery: "startTimestamp.desc",
+  },
+  {
+    value: "startDateASC",
+    placeholder: "Starting date old-new",
+    query: "startTimestamp",
+    postgRESTQuery: "startTimestamp.asc",
+  },
+  {
+    value: "nameASC",
+    placeholder: "Name A-Z",
+    query: "client",
+    postgRESTQuery: "client.asc",
+  },
+  {
+    value: "nameDESC",
+    placeholder: "Name Z-A",
+    query: "-client",
+    postgRESTQuery: "client.desc",
+  },
+];
+
 export const filterOptions = [
   {
     value: "client",

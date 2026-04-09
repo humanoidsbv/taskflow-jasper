@@ -156,10 +156,7 @@ export const editMemberEvent = async (
   const data = Object.fromEntries(formData);
   const validatedData = memberSchema.safeParse(data);
 
-  console.table(data);
-
   if (!validatedData.success) {
-    console.table(z.flattenError(validatedData.error));
     return {
       message: "Error validating data",
       errors: z.flattenError(validatedData.error).fieldErrors,

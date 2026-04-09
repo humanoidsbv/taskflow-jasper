@@ -1,4 +1,7 @@
-import { membersSortByOptions } from "@/services/queries";
+import {
+  membersSortByOptions,
+  calendarSortByOptions,
+} from "@/services/queries";
 
 export const getElapsedTime = (startDate: Date, stopDate: Date): number => {
   const totalMinutes = Math.max(
@@ -61,7 +64,44 @@ export const formatFullName = (firstName: string, lastName: string): string => {
   else return `${firstName} ${lastName}`;
 };
 
-export const buildQueryParams = (inputParams?: {
+export const buildTimeEntriesQueryParams = (inputParams?: {
+  [key: string]: string;
+}): string => {
+  const params = new URLSearchParams();
+
+  for (const [param, value] of Object.entries(inputParams ?? {})) {
+    if (!value) continue;
+    if (param === "sortBy") {
+      const sort = calendarSortByOptions.find(
+        (option) => option.value === value,
+      )?.postgRESTQuery;
+      if (sort) {
+        params.set("order", sort);
+      }
+      continue;
+    }
+    if (param === "client") {
+      const values = value
+        .split(",")
+        .map((v) => v.trim())
+        .filter(Boolean);
+      if (values.length) params.append("client", `in.(${values.join(",")})`);
+      continue;
+    }
+    if (param === "searchClient") {
+      params.append("client", `ilike.*${value}*`);
+      continue;
+    }
+    if (param === "startingDate") {
+      params.append("startTimestamp", `gte.${value}`);
+    }
+  }
+  if (!params.has("order")) params.set("order", "startTimestamp.desc");
+
+  return params.toString();
+};
+
+export const buildMemberQueryParams = (inputParams?: {
   [key: string]: string;
 }): string => {
   const params = new URLSearchParams();
@@ -70,7 +110,7 @@ export const buildQueryParams = (inputParams?: {
     if (!value) continue;
     if (param === "sortBy") {
       const sort = membersSortByOptions.find(
-        (o) => o.value === value,
+        (option) => option.value === value,
       )?.postgRESTQuery;
       if (sort) params.set("order", sort);
       continue;
@@ -96,9 +136,10 @@ export const buildQueryParams = (inputParams?: {
       continue;
     }
     if (param === "startingDate") {
-      params.append("startingDate", `gte.${encodeURIComponent(value)}`);
+      params.append("startingDate", `gte.${value}`);
     }
   }
+  if (!params.has("order")) params.set("order", "startingDate.desc");
 
   return params.toString();
 };

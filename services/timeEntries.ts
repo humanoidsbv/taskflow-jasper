@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { CreatedTimeEntry, TimeEntryData } from "@/types/dataTypes";
-import { buildQueryParams } from "@/utils/utils";
+import { buildTimeEntriesQueryParams } from "@/utils/utils";
 
 const REST_URL = `${process.env.SUPABASE_URL}/rest/v1/time-entries`;
 const API_KEY = process.env.SUPABASE_PUBLISHABLE_DEFAULT_KEY!;
@@ -39,7 +39,7 @@ export const getClientsFromTimeEntries = async (): Promise<string[]> => {
 export const getTimeEntries = async (
   searchParams?: Promise<{ [key: string]: string }>,
 ): Promise<CreatedTimeEntry[]> => {
-  const queryParams = buildQueryParams(await searchParams);
+  const queryParams = buildTimeEntriesQueryParams(await searchParams);
 
   try {
     const response = await fetch(`${REST_URL}?${queryParams}`, {
@@ -57,20 +57,20 @@ export const getTimeEntries = async (
 };
 
 export async function deleteTimeEntry(id: string) {
-  console.log("delete id: ", id);
   try {
     const response = await fetch(`${REST_URL}?id=eq.${id}`, {
       method: "DELETE",
-      headers: restHeaders,
+      headers: { ...restHeaders, Prefer: "return=representation" },
     });
-    if (response.status === 404) {
-      throw new NotFoundError("Time entry not found!");
+    if (!response.ok) {
+      throw new Error(await response.text());
     }
+    const deletedRows = (await response.json()) as CreatedTimeEntry[];
     revalidatePath("/");
-    return await response.json();
+    return deletedRows[0] ?? null;
   } catch (error) {
     console.error(error);
-    return [];
+    return null;
   }
 }
 

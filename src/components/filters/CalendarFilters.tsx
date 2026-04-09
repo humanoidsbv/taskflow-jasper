@@ -1,6 +1,6 @@
 "use client";
 
-import { calendarSortByOptions } from "@/services/translations";
+import { calendarSortByOptions } from "@/services/queries";
 import {
   CheckboxField,
   InputField,

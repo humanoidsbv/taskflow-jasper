@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 
-import { buildQueryParams } from "@/utils/utils";
+import { buildMemberQueryParams } from "@/utils/utils";
 import { CreatedMember, MemberData } from "@/types/dataTypes";
 
 class NotFoundError extends Error {
@@ -54,7 +54,7 @@ export const getClientsFromMembers = async (): Promise<string[]> => {
 export const getMembers = async (
   searchParams?: Promise<{ [key: string]: string }>,
 ): Promise<CreatedMember[]> => {
-  const queryParams = buildQueryParams(await searchParams);
+  const queryParams = buildMemberQueryParams(await searchParams);
 
   try {
     const response = await fetch(`${REST_URL}?${queryParams}`, {
